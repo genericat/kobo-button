@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+
+<body class="bg-gradient-to-t from-dark-blue to-light-blue">
+  <!-- Main container -->
+  <div class="relative w-full h-dvh">
+    <!-- Background pattern -->
+    <div class="w-full h-full mask-circle">
+      <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+    </div>
+
+    <div class="hidden">
+      <span>Played Audio Title</span>
+    </div>
+
+    <div class="absolute bottom-[24%] left-1/2 -translate-x-1/2">
+      <button class="hidden w-6 h-6 border-none rounded-full bg-white">&lt;</button>
+
+      <button class="w-32 h-32 border-none rounded-full bg-white text-center">
+        ▶
+      </button>
+
+      <button class="hidden w-6 h-6 border-none rounded-full bg-white">&gt;</button>
+
+      <button class="hidden w-6 h-6 border-none rounded-full bg-white">&olarr;</button>
+    </div>
+
+    <div class="hidden">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div id="playlist-window" class="relative hidden">
+      <span>Playlist</span>
+
+      <div>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
+
+      <div>
+        <ul>
+          <li>
+            <span>Audio Title</span>
+            <p>Language</p>
+
+            <button>Share</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="absolute top-0 right-0">
+        <button>x</button>
+      </div>
+    </div>
+
+    <div id="menu-window" class="relative hidden">
+      <span>Menu</span>
+
+      <div>
+        <span>Content Setting</span>
+        <div>
+          <p>NSFW</p>
+        </div>
+        <div>
+          <p>Song</p>
+          <p>(May have copyright)</p>
+        </div>
+      </div>
+
+      <div>
+        <span>About</span>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+      </div>
+
+      <div>
+        <span>About</span>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <ul>
+          <li>SNS</li>
+        </ul>
+      </div>
+
+      <div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta in illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam suscipit sint!</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/script.js"></script>
+</body>
+
+</html>
