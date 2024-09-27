@@ -552,14 +552,26 @@ video {
 .top-0 {
   top: 0px;
 }
+.bottom-\[24dvh\] {
+  bottom: 24dvh;
+}
+.bottom-\[20dvh\] {
+  bottom: 20dvh;
+}
+.col-start-2 {
+  grid-column-start: 2;
+}
+.grid {
+  display: grid;
+}
 .hidden {
   display: none;
 }
+.h-10 {
+  height: 2.5rem;
+}
 .h-32 {
   height: 8rem;
-}
-.h-6 {
-  height: 1.5rem;
 }
 .h-dvh {
   height: 100dvh;
@@ -567,11 +579,11 @@ video {
 .h-full {
   height: 100%;
 }
+.w-10 {
+  width: 2.5rem;
+}
 .w-32 {
   width: 8rem;
-}
-.w-6 {
-  width: 1.5rem;
 }
 .w-full {
   width: 100%;
@@ -580,15 +592,42 @@ video {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.grid-cols-\[3_auto\] {
+  grid-template-columns: 3 auto;
+}
+.grid-cols-\[repeat\(3\2c auto\)\] {
+  grid-template-columns: repeat(3,auto);
+}
+.grid-rows-\[2_auto\] {
+  grid-template-rows: 2 auto;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.self-center {
+  align-self: center;
+}
+.justify-self-center {
+  justify-self: center;
+}
 .rounded-full {
   border-radius: 9999px;
+}
+.border-2 {
+  border-width: 2px;
 }
 .border-none {
   border-style: none;
 }
+.border-white\/20 {
+  border-color: rgb(255 255 255 / 0.2);
+}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.bg-white\/40 {
+  background-color: rgb(255 255 255 / 0.4);
 }
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
