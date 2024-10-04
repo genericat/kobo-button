@@ -35,8 +35,8 @@
         class="justify-self-center col-start-2 w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&olarr;</button>
     </div>
 
-    <div id="playlist-window" class="relative w-[45%] h-full p-4">
-      <div class="flex flex-col w-full h-full p-4 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
+    <div id="playlist-window" class="absolute w-[45%] h-full p-4 z-10">
+      <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <span class="flex-none block mb-6 text-xl font-bold">Playlist</span>
 
         <div class="flex-none flex gap-x-2 justify-end mb-6">
@@ -49,32 +49,32 @@
           <ul>
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 cursor-pointer">
-                <span>Audio Title</span>
-                <p class="text-sm">Language</p>
+              <span>Audio Title</span>
+              <p class="text-sm">Language</p>
 
-                <div class="row-span-2 flex items-center justify-center">
-                  <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
-                </div>
+              <div class="row-span-2 flex items-center justify-center">
+                <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+              </div>
             </li>
 
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white cursor-pointer">
-                <span>Audio Title</span>
-                <p class="text-sm">Language</p>
+              <span>Audio Title</span>
+              <p class="text-sm">Language</p>
 
-                <div class="row-span-2 flex items-center justify-center">
-                  <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
-                </div>
+              <div class="row-span-2 flex items-center justify-center">
+                <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+              </div>
             </li>
 
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50">
-                <span>Audio Title</span>
-                <p class="text-sm">Language</p>
+              <span>Audio Title</span>
+              <p class="text-sm">Language</p>
 
-                <div class="row-span-2 flex items-center justify-center">
-                  <button class="w-8 h-8 rounded-full">YY</button>
-                </div>
+              <div class="row-span-2 flex items-center justify-center">
+                <button class="w-8 h-8 rounded-full">YY</button>
+              </div>
             </li>
           </ul>
         </div>
@@ -85,37 +85,43 @@
       </div>
     </div>
 
-    <div id="menu-window" class="relative hidden">
-      <span>Menu</span>
+    <div id="menu-window" class="absolute right-0 w-[30%] h-full p-4 z-10">
+      <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
+        <span class="flex-none block mb-6 text-xl font-bold">Menu</span>
 
-      <div>
-        <span>Content Setting</span>
-        <div>
-          <p>NSFW</p>
+        <div class="overflow-x-auto [scrollbar-width:none]">
+          <div class="mb-4">
+            <span class="block font-bold">Content Setting</span>
+            <div>
+              <p>NSFW</p>
+            </div>
+            <div>
+              <p>Song</p>
+              <p class="text-sm">(May have copyright)</p>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <span class="block font-bold">About</span>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+
+          <div class="mb-4">
+            <span class="block font-bold">About</span>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <ul>
+              <li>SNS</li>
+            </ul>
+          </div>
+
+          <div class="mb-4">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta
+              in
+              illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam
+              suscipit
+              sint!</p>
+          </div>
         </div>
-        <div>
-          <p>Song</p>
-          <p>(May have copyright)</p>
-        </div>
-      </div>
-
-      <div>
-        <span>About</span>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-      </div>
-
-      <div>
-        <span>About</span>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <ul>
-          <li>SNS</li>
-        </ul>
-      </div>
-
-      <div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta in
-          illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam suscipit
-          sint!</p>
       </div>
     </div>
   </div>
