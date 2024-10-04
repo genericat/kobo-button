@@ -61,7 +61,7 @@ async function renderCss() {
 
     await fs.writeFile('./assets/style.css', result.css);
 
-    console.log('Rendering ./assets/style.css done');
+    console.log('Processing ./assets/style.css done');
 
     // if (result.map) {
     //     fs.writeFile('./assets/style.css.map', result.map.toString());

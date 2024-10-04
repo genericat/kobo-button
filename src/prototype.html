@@ -13,7 +13,7 @@
   <!-- Main container -->
   <div class="relative w-full h-dvh">
     <!-- Background pattern -->
-    <div class="w-full h-full mask-circle">
+    <div class="absolute w-full h-full mask-circle">
       <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
     </div>
 
@@ -21,8 +21,8 @@
       <span>Played Audio Title</span>
     </div>
 
-    <div class="absolute bottom-[20dvh] left-1/2 -translate-x-1/2
-      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6">
+    <div class="absolute bottom-[18dvh] left-1/2 -translate-x-1/2
+      invisible grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6">
       <button class="self-center w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&lt;</button>
 
       <button class="w-32 h-32 border-none rounded-full bg-white text-center">
@@ -31,31 +31,57 @@
 
       <button class="self-center w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&gt;</button>
 
-      <button class="justify-self-center col-start-2 w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&olarr;</button>
+      <button
+        class="justify-self-center col-start-2 w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&olarr;</button>
     </div>
 
-    <div id="playlist-window" class="relative hidden">
-      <span>Playlist</span>
+    <div id="playlist-window" class="relative w-[45%] h-full p-4">
+      <div class="flex flex-col w-full h-full p-4 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
+        <span class="flex-none block mb-6 text-xl font-bold">Playlist</span>
 
-      <div>
-        <button></button>
-        <button></button>
-        <button></button>
-      </div>
+        <div class="flex-none flex gap-x-2 justify-end mb-6">
+          <button class="w-8 h-8 rounded-full border border-black">A</button>
+          <button class="w-8 h-8 rounded-full border border-black">W</button>
+          <button class="w-8 h-8 rounded-full border border-black">🎶</button>
+        </div>
 
-      <div>
-        <ul>
-          <li>
-            <span>Audio Title</span>
-            <p>Language</p>
+        <div class="overflow-x-auto [scrollbar-width:none]">
+          <ul>
+            <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+              py-2 px-4 mb-2 rounded-lg bg-white/50 cursor-pointer">
+                <span>Audio Title</span>
+                <p class="text-sm">Language</p>
 
-            <button>Share</button>
-          </li>
-        </ul>
-      </div>
+                <div class="row-span-2 flex items-center justify-center">
+                  <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+                </div>
+            </li>
 
-      <div class="absolute top-0 right-0">
-        <button>x</button>
+            <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+              py-2 px-4 mb-2 rounded-lg bg-white cursor-pointer">
+                <span>Audio Title</span>
+                <p class="text-sm">Language</p>
+
+                <div class="row-span-2 flex items-center justify-center">
+                  <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+                </div>
+            </li>
+
+            <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+              py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50">
+                <span>Audio Title</span>
+                <p class="text-sm">Language</p>
+
+                <div class="row-span-2 flex items-center justify-center">
+                  <button class="w-8 h-8 rounded-full">YY</button>
+                </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex-none absolute top-4 right-4">
+          <button>x</button>
+        </div>
       </div>
     </div>
 
@@ -87,7 +113,9 @@
       </div>
 
       <div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta in illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam suscipit sint!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta in
+          illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam suscipit
+          sint!</p>
       </div>
     </div>
   </div>
