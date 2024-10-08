@@ -631,11 +631,11 @@ video {
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-.cursor-pointer {
-  cursor: pointer;
-}
 .cursor-help {
   cursor: help;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .grid-flow-col {
   grid-auto-flow: column;
@@ -765,10 +765,6 @@ video {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
 .font-bold {
   font-weight: 700;
 }
@@ -779,14 +775,8 @@ video {
 .opacity-50 {
   opacity: 0.5;
 }
-.bg-blend-multiply {
-  background-blend-mode: multiply;
-}
-.outline {
-  outline-style: solid;
-}
-.outline-1 {
-  outline-width: 1px;
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .backdrop-blur-\[8px\] {
   --tw-backdrop-blur: blur(8px);
