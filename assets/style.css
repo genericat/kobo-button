@@ -534,6 +534,9 @@ video {
     max-width: 1536px;
   }
 }
+.invisible {
+  visibility: hidden;
+}
 .absolute {
   position: absolute;
 }
@@ -630,6 +633,9 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.cursor-help {
+  cursor: help;
 }
 .grid-flow-col {
   grid-auto-flow: column;
@@ -772,6 +778,9 @@ video {
 }
 .opacity-50 {
   opacity: 0.5;
+}
+.bg-blend-multiply {
+  background-blend-mode: multiply;
 }
 .outline {
   outline-style: solid;
