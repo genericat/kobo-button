@@ -17,12 +17,14 @@
       <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
     </div>
 
-    <div class="hidden">
-      <span>Played Audio Title</span>
+    <div class="absolute top-[25%] left-1/2 -translate-x-1/2">
+      <span class="block mb-4 text-xl text-center font-bold">Played Audio Title</span>
+
+      <audio src="/assets/aud/sample.mp3" controlslist="nodownload"></audio>
     </div>
 
-    <div class="absolute bottom-[18dvh] left-1/2 -translate-x-1/2
-      invisible grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6">
+    <div class="absolute bottom-[18%] left-1/2 -translate-x-1/2
+      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6">
       <button class="self-center w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&lt;</button>
 
       <button class="w-32 h-32 border-none rounded-full bg-white text-center">
@@ -35,7 +37,7 @@
         class="justify-self-center col-start-2 w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&olarr;</button>
     </div>
 
-    <div id="playlist-window" class="absolute w-[45%] h-full p-4 z-10">
+    <div id="playlist-window" class="hidden absolute w-[45%] h-full p-4 z-10">
       <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <span class="flex-none block mb-6 text-xl font-bold">Playlist</span>
 
@@ -85,7 +87,7 @@
       </div>
     </div>
 
-    <div id="menu-window" class="absolute right-0 w-[30%] h-full p-4 z-10">
+    <div id="menu-window" class="hidden absolute right-0 w-[30%] h-full p-4 z-10">
       <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <span class="flex-none block mb-6 text-xl font-bold">Menu</span>
 
