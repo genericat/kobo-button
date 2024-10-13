@@ -7,17 +7,23 @@
   <title>Document</title>
 
   <link rel="stylesheet" href="/assets/style.css">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=abc,close,graphic_eq,info,language,music_note,queue_music,replay,share,skip_next,skip_previous"/> -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-to-t from-dark-blue to-light-blue">
 
-  <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4">
-    <button class="w-6 h-6">i</button>
+  <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 text-white z-10">
+    <button class="w-6 h-6 opacity-80">
+      <span class="material-icons-round align-middle">info</span>
+    </button>
 
-    <button class="w-8 h-8">P</button>
+    <button class="w-8 h-8">
+      <span class="material-icons-round align-middle">queue_music</span>
+    </button>
 
     <button class="h-8">
-      <i class="not-italic">🌐</i>
+      <span class="material-icons-round align-middle">language</span>
       EN
     </button>
 
@@ -26,41 +32,53 @@
 
   <main class="relative w-full h-dvh">
 
-    <div class="w-full h-full mask-circle" aria-hidden="true">
-      <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+    <div class="absolute w-full h-full mask-circle" aria-hidden="true">
+      <div class="w-full h-full bg-cover bg-top"></div>
     </div>
 
     <div class="absolute top-[25%] left-1/2 -translate-x-1/2">
-      <h1 class="block mb-4 text-xl text-center font-bold">Played Audio Title</h1>
+      <h1 class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
 
       <audio src="/assets/aud/sample.mp3"></audio>
     </div>
 
     <section class="absolute bottom-[18%] left-1/2 -translate-x-1/2
-      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6"  aria-label="Control buttons">
-      <button class="self-center w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&lt;</button>
-
-      <button class="w-32 h-32 border-none rounded-full bg-white text-center">
-        ▶
+      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6
+      text-white" aria-label="Control buttons">
+      <button class="self-center w-12 h-12 rounded-full
+        hover:bg-white/25 hover:border-2 hover:border-white/20">
+        <span class="material-icons-round align-middle">skip_previous</span>
       </button>
 
-      <button class="self-center w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&gt;</button>
+      <button class="w-28 h-28 border-none rounded-full bg-white text-center">
+      </button>
 
-      <button
-        class="justify-self-center col-start-2 w-10 h-10 rounded-full bg-white/40 border-2 border-white/20">&olarr;</button>
+      <button class="self-center w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
+        <span class="material-icons-round align-middle">skip_next</span>
+      </button>
+
+      <button class="justify-self-center col-start-2 w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
+        <span class="material-icons-round align-middle">replay</span>
+      </button>
     </section>
 
-    <section id="playlist-window" class="hidden absolute w-[45%] h-full p-4 z-10" aria-labelledby="playlist-header">
+    <section id="playlist-window" class="absolute w-[45%] h-full p-4 z-10" aria-labelledby="playlist-header">
       <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <h2 id="playlist-header" class="flex-none block mb-6 text-xl font-bold">Playlist</h2>
 
-        <section class="flex-none flex gap-x-2 justify-end mb-6" aria-label="Playlist filter">
-          <button class="w-8 h-8 rounded-full border border-black">A</button>
-          <button class="w-8 h-8 rounded-full border border-black">W</button>
-          <button class="w-8 h-8 rounded-full border border-black">🎶</button>
+        <section class="flex-none flex gap-x-2 justify-end mb-6" aria-label="Playlist filter" aria-controls="audio-playlist">
+          <button class="w-8 h-8 rounded-full border border-black">
+            <span class="material-icons-round align-middle">abc</span>
+          </button>
+          <button class="w-8 h-8 rounded-full border border-black">
+            <span class="material-icons-round align-middle">graphic_eq</span>
+          </button>
+          <button class="w-8 h-8 rounded-full border border-black">
+            <span class="material-icons-round align-middle">music_note</span>
+          </button>
         </section>
 
-        <section class="overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
+        <section id="audio-playlist" class="overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
           <ul>
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 cursor-pointer">
@@ -68,7 +86,9 @@
               <p class="text-sm">Language</p>
 
               <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+                <button class="w-8 h-8 rounded-full hover:bg-gray-300">
+                  <span class="material-icons-round align-middle">share</span>
+                </button>
               </div>
             </li>
 
@@ -78,7 +98,9 @@
               <p class="text-sm">Language</p>
 
               <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-full hover:bg-gray-300">YY</button>
+                <button class="w-8 h-8 rounded-full hover:bg-gray-300">
+                  <span class="material-icons-round align-middle">share</span>
+                </button>
               </div>
             </li>
 
@@ -88,19 +110,23 @@
               <p class="text-sm">Language</p>
 
               <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-full">YY</button>
+                <button class="w-8 h-8 rounded-full">
+                  <span class="material-icons-round align-middle">share</span>
+                </button>
               </div>
             </li>
           </ul>
         </section>
 
         <div class="flex-none absolute top-4 right-4">
-          <button>x</button>
+          <button>
+            <span class="material-icons-round align-middle">close</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <section id="menu-window" class="hidden absolute right-0 w-[30%] h-full p-4 z-10" aria-labelledby="menu-header">
+    <section id="menu-window" class="absolute right-0 w-[30%] h-full p-4 z-10" aria-labelledby="menu-header">
       <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <h2 id="menu-header" class="flex-none block mb-6 text-xl font-bold">Menu</h2>
 
