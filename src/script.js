@@ -14,19 +14,25 @@ infoBtn.onclick = () => {
 }
 
 const playlistBtn = document.getElementById('playlist-btn');
+const closePlaylistBtn = document.getElementById('close-playlist-btn');
 
-playlistBtn.onclick = () => {
+const togglePlaylistWindow = () => {
   const playlistEl = document.getElementById('playlist-window');
+  const playlistBtn = document.getElementById('playlist-btn');
+
   const isExpanded = playlistBtn.getAttribute('aria-expanded');
 
   if (isExpanded === 'false') {
-    playlistEl.classList.remove('hidden');
+    playlistEl.classList.remove('-translate-x-full');
     playlistBtn.setAttribute('aria-expanded', 'true');
   } else {
-    playlistEl.classList.add('hidden');
+    playlistEl.classList.add('-translate-x-full');
     playlistBtn.setAttribute('aria-expanded', 'false');
   }
 }
+
+playlistBtn.onclick = togglePlaylistWindow;
+closePlaylistBtn.onclick = togglePlaylistWindow;
 
 document.onclick = (e) => {
   const isExpanded = infoBtn.getAttribute('aria-expanded');
