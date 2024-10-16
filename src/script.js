@@ -13,8 +13,6 @@ infoBtn.onclick = () => {
   }
 }
 
-const playlistBtn = document.getElementById('playlist-btn');
-const closePlaylistBtn = document.getElementById('close-playlist-btn');
 
 const togglePlaylistWindow = () => {
   const playlistEl = document.getElementById('playlist-window');
@@ -31,8 +29,30 @@ const togglePlaylistWindow = () => {
   }
 }
 
+const playlistBtn = document.getElementById('playlist-btn');
+const closePlaylistBtn = document.getElementById('close-playlist-btn');
+
 playlistBtn.onclick = togglePlaylistWindow;
 closePlaylistBtn.onclick = togglePlaylistWindow;
+
+
+const menuBtn = document.getElementById('menu-btn');
+
+menuBtn.onclick = () => {
+  const menuEl = document.getElementById('menu-window');
+  const menuBtn = document.getElementById('menu-btn');
+
+  const isExpanded = menuBtn.getAttribute('aria-expanded');
+
+  if (isExpanded === 'false') {
+    menuEl.classList.remove('translate-x-full');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  } else {
+    menuEl.classList.add('translate-x-full');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+}
+
 
 document.onclick = (e) => {
   const isExpanded = infoBtn.getAttribute('aria-expanded');

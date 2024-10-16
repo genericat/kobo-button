@@ -11,12 +11,12 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-to-t from-dark-blue to-light-blue">
+<body class="bg-gradient-to-t from-dark-blue to-light-blue overflow-hidden">
 
-  <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 text-white z-10">
+  <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10" aria-owns="menu-btn">
     <div class="relative">
       <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
-        <span class="material-icons-round align-middle">info</span>
+        <span class="material-icons-round block">info</span>
       </button>
 
       <div id="notice-info" class="hidden absolute top-8 w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-[8px] text-black">
@@ -27,21 +27,23 @@
     </div>
 
     <button id="playlist-btn" class="w-8 h-8" aria-label="Playlist" aria-controls="playlist-window" aria-expanded="false">
-      <span class="material-icons-round align-middle">queue_music</span>
+      <span class="material-icons-round block">queue_music</span>
     </button>
 
     <button class="h-8">
-      <span class="material-icons-round align-middle">language</span>
-      EN
+      <span class="material-icons-round">language</span>
+      <span class="inline-block">EN</span>
     </button>
-
-    <button class="w-8 h-8">🌂</button>
   </header>
+
+  <button id="menu-btn" class="absolute right-0 m-4 p-2 text-white z-20" aria-label="Menu" aria-controls="menu-window" aria-expanded="false">
+    <span class="material-icons-round block">menu</span>
+  </button>
 
   <main class="relative w-full h-dvh">
 
     <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-      <div class="w-full h-full bg-cover bg-top"></div>
+      <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
     </div>
 
     <div class="absolute top-[25%] left-1/2 -translate-x-1/2">
@@ -51,7 +53,7 @@
     </div>
 
     <section class="absolute bottom-[18%] left-1/2 -translate-x-1/2
-      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2, auto)] gap-6
+      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
       text-white" aria-label="Control buttons">
       <button class="self-center w-12 h-12 rounded-full
         hover:bg-white/25 hover:border-2 hover:border-white/20">
@@ -140,7 +142,7 @@
       </div>
     </section>
 
-    <section id="menu-window" class="hidden absolute right-0 w-[30%] h-full p-4 z-10" aria-labelledby="menu-header">
+    <section id="menu-window" class="absolute right-0 w-[30%] h-full p-4 translate-x-full transition-transform ease-out duration-300 z-10" aria-labelledby="menu-header">
       <div class="flex flex-col w-full h-full py-4 px-6 rounded-xl overflow-hidden bg-white/50 backdrop-blur-[8px]">
         <h2 id="menu-header" class="flex-none block mb-6 text-xl font-bold">Menu</h2>
 
