@@ -13,6 +13,10 @@
 
 <body class="bg-gradient-to-t from-dark-blue to-light-blue overflow-hidden">
 
+  <div class="absolute w-full h-full mask-circle" aria-hidden="true">
+    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+  </div>
+
   <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10" aria-owns="menu-btn">
     <div class="relative">
       <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
@@ -41,10 +45,6 @@
   </button>
 
   <main class="relative w-full h-dvh">
-
-    <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-      <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
-    </div>
 
     <div class="absolute top-[25%] left-1/2 -translate-x-1/2">
       <h1 class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
