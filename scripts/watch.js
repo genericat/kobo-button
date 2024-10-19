@@ -36,6 +36,12 @@ chokidar.watch('./src').on('all', (event, path) => {
   }
 });
 
+chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
+  if (event !== 'add' && event !== 'change') { return; }
+
+  renderCss();
+});
+
 
 async function renderEjs(lang) {
   try {
