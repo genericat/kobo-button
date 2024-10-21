@@ -54,6 +54,22 @@ menuBtn.onclick = () => {
 }
 
 
+let timeoutId = undefined;
+const playBtn = document.getElementById('play-btn');
+
+playBtn.onmousedown = () => {
+  timeoutId = setTimeout(togglePlaylistWindow, 1000);
+}
+
+playBtn.onmouseup = () => {
+  clearTimeout(timeoutId);
+}
+
+const openPlaylistWindow = () => {
+  // TODO: prevent click event of Play Button (maybe using boolean check) and call togglePlaylistWindow
+}
+
+
 document.onclick = (e) => {
   const isExpanded = infoBtn.getAttribute('aria-expanded');
 
