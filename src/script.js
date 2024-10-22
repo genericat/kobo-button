@@ -14,6 +14,22 @@ infoBtn.onclick = () => {
 }
 
 
+const langBtn = document.getElementById('lang-btn');
+
+langBtn.onclick = () => {
+  const langList = document.getElementById('lang-list');
+  const isExpanded = langBtn.getAttribute('aria-expanded');
+
+  if (isExpanded === 'false') {
+    langList.classList.remove('hidden');
+    langBtn.setAttribute('aria-expanded', 'true');
+  } else {
+    langList.classList.add('hidden');
+    langBtn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+
 const togglePlaylistWindow = () => {
   const playlistEl = document.getElementById('playlist-window');
   const playlistBtn = document.getElementById('playlist-btn');

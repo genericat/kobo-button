@@ -731,9 +731,6 @@ video {
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
-.bg-pattern {
-  background-image: url('/assets/img/pattern.svg');
-}
 .from-dark-blue {
   --tw-gradient-from: #07377E var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(7 55 126 / 0) var(--tw-gradient-to-position);
@@ -773,6 +770,10 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .pr-12 {
   padding-right: 3rem;
@@ -886,6 +887,11 @@ video {
 
 .hover\:bg-white\/25:hover {
   background-color: rgb(255 255 255 / 0.25);
+}
+
+.hover\:bg-gray-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover {

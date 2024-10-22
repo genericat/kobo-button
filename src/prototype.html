@@ -14,7 +14,7 @@
 <body class="bg-gradient-to-t from-dark-blue to-light-blue overflow-hidden">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+    <div class="w-full h-full bg-cover bg-top"></div>
   </div>
 
   <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10" aria-owns="menu-btn">
@@ -34,10 +34,18 @@
       <span class="material-icons-round block">queue_music</span>
     </button>
 
-    <button class="h-8">
-      <span class="material-icons-round">language</span>
-      <span class="inline-block">EN</span>
-    </button>
+    <div class="relative">
+      <button id="lang-btn" class="h-8" aria-haspopup="menu" aria-controls="lang-list" aria-expanded="false">
+        <span class="material-icons-round">language</span>
+        <span class="inline-block">EN</span>
+      </button>
+
+      <ul id="lang-list" class="hidden absolute top-8 right-0 py-2 rounded-xl bg-white text-black" aria-label="Language list" role="menu">
+        <li class="py-1 px-4 hover:bg-gray-200" lang="en" aria-checked="false" role="menuitemradio">English</li>
+        <li class="py-1 px-4 hover:bg-gray-200" lang="ja" aria-checked="false" role="menuitemradio">日本語</li>
+        <li class="py-1 px-4 hover:bg-gray-200" lang="id" aria-checked="false" role="menuitemradio">Indonesia</li>
+      </ul>
+    </div>
   </header>
 
   <button id="menu-btn" class="absolute right-0 m-4 p-2 text-white z-20" aria-label="Menu" aria-controls="menu-window" aria-expanded="false">
