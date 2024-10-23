@@ -55,17 +55,24 @@ closePlaylistBtn.onclick = togglePlaylistWindow;
 const menuBtn = document.getElementById('menu-btn');
 
 menuBtn.onclick = () => {
-  const menuEl = document.getElementById('menu-window');
-  const menuBtn = document.getElementById('menu-btn');
+  const menuEl     = document.getElementById('menu-window');
+  const playlistEl = document.getElementById('playlist-window');
+  const menuBtn    = document.getElementById('menu-btn');
 
   const isExpanded = menuBtn.getAttribute('aria-expanded');
 
   if (isExpanded === 'false') {
     menuEl.classList.remove('translate-x-full');
     menuBtn.setAttribute('aria-expanded', 'true');
+
+    playlistEl.classList.remove('md:w-[75%]');
+    playlistEl.classList.add('md:w-[50%]');
   } else {
     menuEl.classList.add('translate-x-full');
     menuBtn.setAttribute('aria-expanded', 'false');
+
+    playlistEl.classList.remove('md:w-[50%]');
+    playlistEl.classList.add('md:w-[75%]');
   }
 }
 
