@@ -1,7 +1,7 @@
 const infoBtn = document.getElementById('info-btn');
 
 infoBtn.onclick = () => {
-  const noticeEl = document.getElementById('notice-info');
+  const noticeEl   = document.getElementById('notice-info');
   const isExpanded = infoBtn.getAttribute('aria-expanded');
 
   if (isExpanded === 'false') {
@@ -17,7 +17,7 @@ infoBtn.onclick = () => {
 const langBtn = document.getElementById('lang-btn');
 
 langBtn.onclick = () => {
-  const langList = document.getElementById('lang-list');
+  const langList   = document.getElementById('lang-list');
   const isExpanded = langBtn.getAttribute('aria-expanded');
 
   if (isExpanded === 'false') {
@@ -29,19 +29,37 @@ langBtn.onclick = () => {
   }
 }
 
+/**
+ * Toggle main UI wrappers to be shown or hidden by toggling CSS class.
+ * Main UIs are control buttons and played audio title.
+ *
+ * @param {boolean} force true = show, false = hide
+ */
+const toggleMainUi = (force) => {
+  const mainUiEl = document.getElementsByClassName('main-ui');
+
+  for (const el of mainUiEl) {
+    el.classList.toggle('hidden', force);
+  }
+}
+
 
 const togglePlaylistWindow = () => {
-  const playlistEl = document.getElementById('playlist-window');
+  const playlistEl  = document.getElementById('playlist-window');
   const playlistBtn = document.getElementById('playlist-btn');
 
   const isExpanded = playlistBtn.getAttribute('aria-expanded');
 
   if (isExpanded === 'false') {
-    playlistEl.classList.remove('-translate-x-full');
+    playlistEl.classList.remove('md:-translate-x-full', 'translate-y-full');
     playlistBtn.setAttribute('aria-expanded', 'true');
+
+    toggleMainUi(true);
   } else {
-    playlistEl.classList.add('-translate-x-full');
+    playlistEl.classList.add('md:-translate-x-full', 'translate-y-full');
     playlistBtn.setAttribute('aria-expanded', 'false');
+
+    toggleMainUi(false);
   }
 }
 
@@ -65,14 +83,18 @@ menuBtn.onclick = () => {
     menuEl.classList.remove('translate-x-full');
     menuBtn.setAttribute('aria-expanded', 'true');
 
-    playlistEl.classList.remove('md:w-[75%]');
-    playlistEl.classList.add('md:w-[50%]');
+    playlistEl.classList.remove('md:w-3/4');
+    playlistEl.classList.add('md:w-1/2');
+
+    toggleMainUi(true);
   } else {
     menuEl.classList.add('translate-x-full');
     menuBtn.setAttribute('aria-expanded', 'false');
 
-    playlistEl.classList.remove('md:w-[50%]');
-    playlistEl.classList.add('md:w-[75%]');
+    playlistEl.classList.remove('md:w-1/2');
+    playlistEl.classList.add('md:w-3/4');
+
+    toggleMainUi(false);
   }
 }
 
