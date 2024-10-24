@@ -2,15 +2,10 @@ const infoBtn = document.getElementById('info-btn');
 
 infoBtn.onclick = () => {
   const noticeEl   = document.getElementById('notice-info');
-  const isExpanded = infoBtn.getAttribute('aria-expanded');
+  const isExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isExpanded === 'false') {
-    noticeEl.classList.remove('hidden');
-    infoBtn.setAttribute('aria-expanded', 'true');
-  } else {
-    noticeEl.classList.add('hidden');
-    infoBtn.setAttribute('aria-expanded', 'false');
-  }
+  noticeEl.classList.toggle('hidden', isExpanded);
+  infoBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
 }
 
 
@@ -18,15 +13,10 @@ const langBtn = document.getElementById('lang-btn');
 
 langBtn.onclick = () => {
   const langList   = document.getElementById('lang-list');
-  const isExpanded = langBtn.getAttribute('aria-expanded');
+  const isExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isExpanded === 'false') {
-    langList.classList.remove('hidden');
-    langBtn.setAttribute('aria-expanded', 'true');
-  } else {
-    langList.classList.add('hidden');
-    langBtn.setAttribute('aria-expanded', 'false');
-  }
+  langList.classList.toggle('hidden', isExpanded);
+  langBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
 }
 
 
@@ -51,27 +41,21 @@ const togglePlaylistWindow = () => {
   const playlistEl  = document.getElementById('playlist-window');
   const playlistBtn = document.getElementById('playlist-btn');
 
-  const isExpanded = playlistBtn.getAttribute('aria-expanded');
+  const isExpanded = playlistBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isExpanded === 'false') {
-    playlistEl.classList.remove('md:-translate-x-full', 'translate-y-full');
-    playlistBtn.setAttribute('aria-expanded', 'true');
+  playlistEl.classList.toggle('md:-translate-x-full', isExpanded);
+  playlistEl.classList.toggle('translate-y-full', isExpanded);
+  playlistBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false' );
 
-    isPlaylistExpanded = true;
-  } else {
-    playlistEl.classList.add('md:-translate-x-full', 'translate-y-full');
-    playlistBtn.setAttribute('aria-expanded', 'false');
-
-    isPlaylistExpanded = false;
-  }
+  isPlaylistExpanded = !isExpanded;
 
   toggleMainUi();
 }
 
-const playlistBtn = document.getElementById('playlist-btn');
+const playlistBtn      = document.getElementById('playlist-btn');
 const closePlaylistBtn = document.getElementById('close-playlist-btn');
 
-playlistBtn.onclick = togglePlaylistWindow;
+playlistBtn.onclick      = togglePlaylistWindow;
 closePlaylistBtn.onclick = togglePlaylistWindow;
 
 
@@ -80,27 +64,16 @@ const menuBtn = document.getElementById('menu-btn');
 menuBtn.onclick = () => {
   const menuEl     = document.getElementById('menu-window');
   const playlistEl = document.getElementById('playlist-window');
-  const menuBtn    = document.getElementById('menu-btn');
 
-  const isExpanded = menuBtn.getAttribute('aria-expanded');
+  const isExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isExpanded === 'false') {
-    menuEl.classList.remove('translate-x-full');
-    menuBtn.setAttribute('aria-expanded', 'true');
+  menuEl.classList.toggle('translate-x-full', isExpanded);
+  menuBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
 
-    playlistEl.classList.remove('md:w-3/4');
-    playlistEl.classList.add('md:w-1/2');
+  playlistEl.classList.toggle('md:w-3/4', isExpanded);
+  playlistEl.classList.toggle('md:w-1/2', !isExpanded);
 
-    isMenuExpanded = true;
-  } else {
-    menuEl.classList.add('translate-x-full');
-    menuBtn.setAttribute('aria-expanded', 'false');
-
-    playlistEl.classList.remove('md:w-1/2');
-    playlistEl.classList.add('md:w-3/4');
-
-    isMenuExpanded = false;
-  }
+  isMenuExpanded = !isExpanded;
 
   toggleMainUi();
 }
@@ -116,6 +89,8 @@ playBtn.onmousedown = () => {
 playBtn.onmouseup = () => {
   clearTimeout(timeoutId);
 }
+
+// TODO: also take care of keydown and touchstart event
 
 const openPlaylistWindow = () => {
   // TODO: prevent click event of Play Button (maybe using boolean check) and call togglePlaylistWindow
