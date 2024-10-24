@@ -29,17 +29,20 @@ langBtn.onclick = () => {
   }
 }
 
+
+let isPlaylistExpanded = false;
+let isMenuExpanded     = false;
+
 /**
- * Toggle main UI wrappers to be shown or hidden by toggling CSS class.
+ * Toggle main UI wrappers to be shown or hidden by toggling CSS classes.
  * Main UIs are control buttons and played audio title.
- *
- * @param {boolean} force true = show, false = hide
  */
-const toggleMainUi = (force) => {
+const toggleMainUi = () => {
   const mainUiEl = document.getElementsByClassName('main-ui');
 
   for (const el of mainUiEl) {
-    el.classList.toggle('hidden', force);
+    el.classList.toggle('opacity-0', isPlaylistExpanded || isMenuExpanded);
+    el.classList.toggle('invisible', isPlaylistExpanded || isMenuExpanded);
   }
 }
 
@@ -54,13 +57,15 @@ const togglePlaylistWindow = () => {
     playlistEl.classList.remove('md:-translate-x-full', 'translate-y-full');
     playlistBtn.setAttribute('aria-expanded', 'true');
 
-    toggleMainUi(true);
+    isPlaylistExpanded = true;
   } else {
     playlistEl.classList.add('md:-translate-x-full', 'translate-y-full');
     playlistBtn.setAttribute('aria-expanded', 'false');
 
-    toggleMainUi(false);
+    isPlaylistExpanded = false;
   }
+
+  toggleMainUi();
 }
 
 const playlistBtn = document.getElementById('playlist-btn');
@@ -86,7 +91,7 @@ menuBtn.onclick = () => {
     playlistEl.classList.remove('md:w-3/4');
     playlistEl.classList.add('md:w-1/2');
 
-    toggleMainUi(true);
+    isMenuExpanded = true;
   } else {
     menuEl.classList.add('translate-x-full');
     menuBtn.setAttribute('aria-expanded', 'false');
@@ -94,8 +99,10 @@ menuBtn.onclick = () => {
     playlistEl.classList.remove('md:w-1/2');
     playlistEl.classList.add('md:w-3/4');
 
-    toggleMainUi(false);
+    isMenuExpanded = false;
   }
+
+  toggleMainUi();
 }
 
 

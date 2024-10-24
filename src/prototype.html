@@ -52,7 +52,7 @@
 
   <main class="relative w-full h-dvh">
 
-    <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2">
+    <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-[opacity,visibility] ease-out duration-300">
       <h1 class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
 
       <audio src="/assets/aud/sample.mp3"></audio>
@@ -60,7 +60,7 @@
 
     <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
       grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
-      text-white" aria-label="Control buttons">
+      text-white transition-[opacity,visibility] ease-out duration-300" aria-label="Control buttons">
       <button class="self-center w-12 h-12 rounded-full
         hover:bg-white/25 hover:border-2 hover:border-white/20">
         <span class="material-icons-round align-middle">skip_previous</span>
