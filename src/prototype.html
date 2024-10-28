@@ -17,18 +17,23 @@
     <div class="w-full h-full bg-cover bg-top"></div>
   </div>
 
-  <header class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10" aria-owns="menu-btn">
+  <header
+    class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10"
+    aria-owns="menu-btn">
     <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
       <span class="material-icons-round block">info</span>
     </button>
 
-    <div id="notice-info" class="hidden absolute top-12 left-4 w-4/5 md:w-1/2 lg:w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-[8px] text-black">
+    <div id="notice-info"
+      class="hidden absolute top-12 left-4 w-4/5 md:w-1/2 lg:w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-[8px] text-black">
       <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae in enim animi quibusdam? Ad quia minus, culpa doloribus dolorum nobis voluptatem natus nisi incidunt dicta dolore neque corrupti eligendi expedita?
+        This is unofficial and fan made website. The audio is taken and presented without any additional context. This
+        website and its contents should not be used to judge any mentioned or related party.
       </p>
     </div>
 
-    <button id="playlist-btn" class="w-8 h-8" aria-label="Playlist" aria-controls="playlist-window" aria-expanded="false">
+    <button id="playlist-btn" class="w-8 h-8" aria-label="Playlist" aria-controls="playlist-window"
+      aria-expanded="false">
       <span class="material-icons-round block">queue_music</span>
     </button>
 
@@ -38,7 +43,8 @@
         <span class="inline-block">EN</span>
       </button>
 
-      <ul id="lang-list" class="hidden absolute top-8 right-0 py-2 rounded-xl bg-white text-black" aria-label="Language list" role="menu">
+      <ul id="lang-list" class="hidden absolute top-8 right-0 py-2 rounded-xl bg-white text-black"
+        aria-label="Language list" role="menu">
         <li class="py-1 px-4 hover:bg-gray-200" lang="en" aria-checked="false" role="menuitemradio">English</li>
         <li class="py-1 px-4 hover:bg-gray-200" lang="ja" aria-checked="false" role="menuitemradio">日本語</li>
         <li class="py-1 px-4 hover:bg-gray-200" lang="id" aria-checked="false" role="menuitemradio">Indonesia</li>
@@ -46,7 +52,8 @@
     </div>
   </header>
 
-  <button id="menu-btn" class="absolute right-0 m-2 md:m-4 p-2 text-white z-20" aria-label="Menu" aria-controls="menu-window" aria-expanded="false">
+  <button id="menu-btn" class="absolute right-0 m-2 md:m-4 p-2 text-white z-20" aria-label="Menu"
+    aria-controls="menu-window" aria-expanded="false">
     <span class="material-icons-round block">menu</span>
   </button>
 
@@ -92,12 +99,14 @@
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block text-xl font-bold">Playlist</h2>
 
-          <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white" aria-controls="playlist-window">
+          <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white"
+            aria-controls="playlist-window">
             <span class="material-icons-round align-middle">close</span>
           </button>
         </header>
 
-        <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter" aria-controls="audio-playlist">
+        <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
+          aria-controls="audio-playlist">
           <button class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
             hover:border-black hover:text-black">
             <span class="material-icons-round align-middle">abc</span>
@@ -130,7 +139,7 @@
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
               hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px]">
-              <span>Audio Title</span>
+              <span>Long Audio Title Placeholder for UI Testing</span>
               <p class="text-sm">Language</p>
 
               <div class="row-span-2 flex items-center justify-center">
@@ -141,10 +150,9 @@
             </li>
 
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
-              py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50"
-              aria-disabled="true">
+              py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50" aria-disabled="true">
               <span>Audio Title</span>
-              <p class="text-sm">Language</p>
+              <p class="text-sm">This audio can be enabled from the menu</p>
 
               <div class="row-span-2 flex items-center justify-center">
                 <button class="w-8 h-8 rounded-full">
@@ -180,25 +188,35 @@
             </div>
           </section>
 
-          <section class="mb-4" aria-labelledby="about1-header">
-            <h3 id="about1-header" class="block font-bold">About</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </section>
+          <hr>
 
-          <section class="mb-4" aria-labelledby="about2-header">
-            <h3 id="about2-header" class="block font-bold">About</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <section class="mb-4" aria-labelledby="about1-header">
+            <h3 id="about1-header" class="block font-bold">About Kobo Kanaeru</h3>
+            <p>Kobo Kanaeru is a VTuber from hololive Indonesia. She loves singing and playing games in her live stream
+              on Youtube.</p>
             <ul>
-              <li>SNS</li>
+              <li><a href="#">Youtube channel</a></li>
+              <li><a href="#">Official web page</a></li>
+              <li><a href="#">X</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Tiktok</a></li>
             </ul>
           </section>
 
-          <section class="mb-4">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia consectetur velit, provident nisi dicta
-              in
-              illo, eveniet libero nihil deserunt consequuntur? Eaque praesentium rerum molestias earum vel numquam
-              suscipit
-              sint!</p>
+          <section class="mb-4" aria-labelledby="about2-header">
+            <h3 id="about2-header" class="block font-bold">About Kobo Button</h3>
+            <p>
+              Kobo Button is unofficial and fan made website to play audio clip of Kobo. The types of audio available are
+              words said by Kobo, sounds such as laughing and sneezing, and song (if enabled via the menu).
+            </p>
+            <p>
+              This website is open sourced in github.com. If you have any complaints about this website or its content you may contact the author.
+              <ul>
+                <li><a href="#">Github repository</a></li>
+                <li><a href="#">Author contact</a></li>
+              </ul>
+            </p>
           </section>
         </div>
       </div>
