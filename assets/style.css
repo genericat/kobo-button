@@ -561,6 +561,10 @@ video {
 .m-2 {
   margin: 0.5rem;
 }
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -581,6 +585,9 @@ video {
 }
 .grid {
   display: grid;
+}
+.contents {
+  display: contents;
 }
 .hidden {
   display: none;
@@ -621,6 +628,9 @@ video {
 .w-full {
   width: 100%;
 }
+.w-\[95\%\] {
+  width: 95%;
+}
 .flex-none {
   flex: none;
 }
@@ -654,6 +664,12 @@ video {
 .grid-cols-\[repeat\(3\2c auto\)\] {
   grid-template-columns: repeat(3,auto);
 }
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-\[repeat\(auto-fit\2c minmax\(8rem\2c 1fr\)\)\] {
+  grid-template-columns: repeat(auto-fit,minmax(8rem,1fr));
+}
 .grid-rows-\[repeat\(2\2c auto\)\] {
   grid-template-rows: repeat(2,auto);
 }
@@ -679,6 +695,9 @@ video {
 .gap-x-3 {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
+}
+.gap-y-1 {
+  row-gap: 0.25rem;
 }
 .self-center {
   align-self: center;
@@ -713,6 +732,12 @@ video {
 .border-2 {
   border-width: 2px;
 }
+.border-0 {
+  border-width: 0px;
+}
+.border-solid {
+  border-style: solid;
+}
 .border-none {
   border-style: none;
 }
@@ -722,6 +747,18 @@ video {
 }
 .border-white\/20 {
   border-color: rgb(255 255 255 / 0.2);
+}
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 .bg-gray-500 {
   --tw-bg-opacity: 1;
@@ -739,6 +776,9 @@ video {
 }
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+.bg-pattern {
+  background-image: url('/assets/img/pattern.svg');
 }
 .from-dark-blue {
   --tw-gradient-from: #07377E var(--tw-gradient-from-position);
@@ -822,6 +862,14 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-dark-blue {
+  --tw-text-opacity: 1;
+  color: rgb(7 55 126 / var(--tw-text-opacity));
+}
+.text-light-blue {
+  --tw-text-opacity: 1;
+  color: rgb(156 231 248 / var(--tw-text-opacity));
 }
 .opacity-0 {
   opacity: 0;
