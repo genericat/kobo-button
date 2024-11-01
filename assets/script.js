@@ -45,6 +45,7 @@ const togglePlaylistWindow = () => {
 
   playlistEl.classList.toggle('md:-translate-x-full', isExpanded);
   playlistEl.classList.toggle('translate-y-full', isExpanded);
+  playlistEl.setAttribute('aria-hidden', isExpanded ? 'true' : 'false' );
   playlistBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false' );
 
   isPlaylistExpanded = !isExpanded;
@@ -68,6 +69,7 @@ menuBtn.onclick = () => {
   const isExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
 
   menuEl.classList.toggle('translate-x-full', isExpanded);
+  menuEl.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
   menuBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
 
   playlistEl.classList.toggle('md:w-3/4', isExpanded);
