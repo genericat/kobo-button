@@ -98,18 +98,24 @@ const openPlaylistWindow = () => {
 
 
 document.onclick = (e) => {
-  const isExpanded = infoBtn.getAttribute('aria-expanded');
+  const isInfoExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
+  const isLangListExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isExpanded === 'false') {
-    return;
+  if (isInfoExpanded) {
+    const noticeEl = document.getElementById('notice-info');
+
+    if (!noticeEl.contains(e.target) && !infoBtn.contains(e.target)) {
+      noticeEl.classList.add('hidden');
+      infoBtn.setAttribute('aria-expanded', 'false');
+    }
   }
 
-  const noticeEl = document.getElementById('notice-info');
+  if (isLangListExpanded) {
+    const langList = document.getElementById('lang-list');
 
-  if (noticeEl.contains(e.target) || infoBtn.contains(e.target)) {
-    return;
+    if (!langList.contains(e.target) && !langBtn.contains(e.target)) {
+      langList.classList.add('hidden');
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
   }
-
-  noticeEl.classList.add('hidden');
-  infoBtn.setAttribute('aria-expanded', 'false');
 }
