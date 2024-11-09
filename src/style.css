@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  input[role="switch"]:checked + div {
+    & > .switch-track {
+      @apply bg-dark-blue border-dark-blue;
+
+      & > .switch-thumb {
+        @apply bg-white translate-x-[calc(18px*var(--dir))];
+      }
+    }
+  }
+}
+
 @layer utilities {
   .mask-circle {
     mask-image: radial-gradient(circle, transparent 30%, black 100%);

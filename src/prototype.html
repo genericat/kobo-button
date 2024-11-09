@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr" style="--dir:1">
 
 <head>
   <meta charset="UTF-8">
@@ -90,7 +90,7 @@
       </button>
     </section>
 
-    <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out duration-300
+    <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out-300
       md:w-3/4 md:p-4 md:-translate-x-full md:translate-y-0 md:z-10
       w-full p-0 z-30 translate-y-full" aria-labelledby="playlist-header" aria-hidden="true">
       <div class="flex flex-col w-full h-full py-4 px-4 overflow-hidden bg-white/50 backdrop-blur-[8px]
@@ -165,7 +165,7 @@
       </div>
     </section>
 
-    <section id="menu-window" class="absolute right-0 lg:w-1/3 h-full translate-x-full transition-transform ease-out duration-300 z-10
+    <section id="menu-window" class="absolute right-0 lg:w-1/3 h-full transition-transform ease-out duration-300 z-10
       md:w-1/2 md:p-4
       w-full" aria-labelledby="menu-header" aria-hidden="true">
       <div class="flex flex-col w-full h-full py-4 px-8 md:px-6 overflow-hidden bg-white/50 backdrop-blur-[8px]
@@ -174,18 +174,44 @@
         <h2 id="menu-header" class="flex-none block mb-6 text-xl font-bold">Menu</h2>
 
         <div class="overflow-x-auto [scrollbar-width:none]">
-          <section class="mb-4" aria-labelledby="settings-header">
+          <section class="mb-4" aria-labelledby="settings-header" role="group">
             <h3 id="settings-header" class="block font-bold">Settings</h3>
-            <div>
-              <abbr title="Not safe for work" class="cursor-help">NSFW</abbr>
-            </div>
-            <div>
-              <p>Song</p>
-              <p class="text-sm">(May have copyright)</p>
-            </div>
-            <div>
-              <p>Audio Control</p>
-            </div>
+
+            <label class="group flex flex-wrap items-center mb-2 cursor-pointer">
+              <span class="flex-none"><abbr title="Not safe for work" class="cursor-help">NSFW</abbr></span>
+
+              <input class="flex-none invisible" type="checkbox" role="switch">
+
+              <div class="flex-auto">
+                <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
+                  <span class="switch-thumb block w-[24px] h-[24px] rounded-full bg-gray-500 transition duration-300 ease-out"></span>
+                </span>
+              </div>
+            </label>
+
+            <label class="group flex flex-wrap items-center mb-2 cursor-pointer">
+              <span class="flex-none">Song <small class="text-sm">(May have copyright)</small></span>
+
+              <input class="flex-none invisible" type="checkbox" role="switch">
+
+              <div class="flex-auto">
+                <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
+                  <span class="switch-thumb block w-[24px] h-[24px] rounded-full bg-gray-500 transition duration-300 ease-out"></span>
+                </span>
+              </div>
+            </label>
+
+            <label class="group flex flex-wrap items-center mb-2 cursor-pointer">
+              <span class="flex-none">Audio Control</span>
+
+              <input class="flex-none invisible" type="checkbox" role="switch">
+
+              <div class="flex-auto">
+                <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
+                  <span class="switch-thumb block w-[24px] h-[24px] rounded-full bg-gray-500 transition duration-300 ease-out"></span>
+                </span>
+              </div>
+            </label>
           </section>
 
           <hr class="w-[95%] mx-auto mb-4 border-gray-200">
