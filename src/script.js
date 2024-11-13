@@ -5,7 +5,7 @@ infoBtn.onclick = () => {
   const isExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
 
   noticeEl.classList.toggle('hidden', isExpanded);
-  infoBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+  infoBtn.setAttribute('aria-expanded', !isExpanded);
 }
 
 
@@ -16,7 +16,7 @@ langBtn.onclick = () => {
   const isExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
   langList.classList.toggle('hidden', isExpanded);
-  langBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+  langBtn.setAttribute('aria-expanded', !isExpanded);
 }
 
 
@@ -25,7 +25,7 @@ let isMenuExpanded     = false;
 
 /**
  * Toggle main UI wrappers to be shown or hidden by toggling CSS classes.
- * Main UIs are control buttons and played audio title.
+ * Main UIs are Kobo Button (+ other control buttons) and played audio title.
  */
 const toggleMainUi = () => {
   const mainUiEl = document.getElementsByClassName('main-ui');
@@ -45,8 +45,9 @@ const togglePlaylistWindow = () => {
 
   playlistEl.classList.toggle('md:-translate-x-full', isExpanded);
   playlistEl.classList.toggle('translate-y-full', isExpanded);
-  playlistEl.setAttribute('aria-hidden', isExpanded ? 'true' : 'false' );
-  playlistBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false' );
+  playlistEl.toggleAttribute('inert', isExpanded);
+  playlistEl.setAttribute('aria-hidden', isExpanded);
+  playlistBtn.setAttribute('aria-expanded', !isExpanded);
 
   isPlaylistExpanded = !isExpanded;
 
@@ -69,8 +70,9 @@ menuBtn.onclick = () => {
   const isExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
 
   menuEl.classList.toggle('translate-x-full', isExpanded);
-  menuEl.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
-  menuBtn.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+  menuEl.toggleAttribute('inert', isExpanded);
+  menuEl.setAttribute('aria-hidden', isExpanded);
+  menuBtn.setAttribute('aria-expanded', !isExpanded);
 
   playlistEl.classList.toggle('md:w-3/4', isExpanded);
   playlistEl.classList.toggle('md:w-1/2', !isExpanded);
@@ -108,7 +110,7 @@ document.onclick = (e) => {
 
     if (!noticeEl.contains(e.target) && !infoBtn.contains(e.target)) {
       noticeEl.classList.add('hidden');
-      infoBtn.setAttribute('aria-expanded', 'false');
+      infoBtn.setAttribute('aria-expanded', false);
     }
   }
 
@@ -117,7 +119,15 @@ document.onclick = (e) => {
 
     if (!langList.contains(e.target) && !langBtn.contains(e.target)) {
       langList.classList.add('hidden');
-      langBtn.setAttribute('aria-expanded', 'false');
+      langBtn.setAttribute('aria-expanded', false);
     }
   }
 }
+
+// document.onkeydown = (e) => {
+//   if (e.key !== 'Escape') {
+//     return;
+//   }
+
+
+// }
