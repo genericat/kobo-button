@@ -1,86 +1,100 @@
-const infoBtn = document.getElementById('info-btn');
+const infoBtn  = document.getElementById('info-btn');
+const noticeEl = document.getElementById('notice-info');
 
 infoBtn.onclick = () => {
-  const noticeEl   = document.getElementById('notice-info');
-  const isExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
+  const ariaExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
 
-  noticeEl.classList.toggle('hidden', isExpanded);
-  infoBtn.setAttribute('aria-expanded', !isExpanded);
+  noticeEl.classList.toggle('hidden', ariaExpanded);
+  infoBtn.setAttribute('aria-expanded', !ariaExpanded);
 }
 
 
-const langBtn = document.getElementById('lang-btn');
+const langBtn  = document.getElementById('lang-btn');
+const langList = document.getElementById('lang-list');
 
 langBtn.onclick = () => {
-  const langList   = document.getElementById('lang-list');
-  const isExpanded = langBtn.ariaExpanded === 'true' ? true : false;
+  const ariaExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
-  langList.classList.toggle('hidden', isExpanded);
-  langBtn.setAttribute('aria-expanded', !isExpanded);
+  langList.classList.toggle('hidden', ariaExpanded);
+  langBtn.setAttribute('aria-expanded', !ariaExpanded);
 }
 
 
 let isPlaylistExpanded = false;
 let isMenuExpanded     = false;
+let lastFocusedEl      = undefined;
 
 /**
- * Toggle main UI wrappers to be shown or hidden by toggling CSS classes.
- * Main UIs are Kobo Button (+ other control buttons) and played audio title.
+ * Toggle main UI wrappers to be shown or hidden.
+ *
+ * Main UIs are Kobo Button (+ other control buttons) and played audio title above it.
  */
 const toggleMainUi = () => {
   const mainUiEl = document.getElementsByClassName('main-ui');
 
   for (const el of mainUiEl) {
+    el.toggleAttribute('inert', isPlaylistExpanded || isMenuExpanded);
+    el.setAttribute('aria-hidden', isPlaylistExpanded || isMenuExpanded);
     el.classList.toggle('opacity-0', isPlaylistExpanded || isMenuExpanded);
-    el.classList.toggle('invisible', isPlaylistExpanded || isMenuExpanded);
   }
 }
 
 
 const togglePlaylistWindow = () => {
-  const playlistEl  = document.getElementById('playlist-window');
-  const playlistBtn = document.getElementById('playlist-btn');
+  const ariaExpanded = playlistBtn.ariaExpanded === 'true' ? true : false;
 
-  const isExpanded = playlistBtn.ariaExpanded === 'true' ? true : false;
+  playlistEl.classList.toggle('md:-translate-x-full', ariaExpanded);
+  playlistEl.classList.toggle('translate-y-full', ariaExpanded);
+  playlistEl.toggleAttribute('inert', ariaExpanded);
+  playlistEl.setAttribute('aria-hidden', ariaExpanded);
+  playlistBtn.setAttribute('aria-expanded', !ariaExpanded);
 
-  playlistEl.classList.toggle('md:-translate-x-full', isExpanded);
-  playlistEl.classList.toggle('translate-y-full', isExpanded);
-  playlistEl.toggleAttribute('inert', isExpanded);
-  playlistEl.setAttribute('aria-hidden', isExpanded);
-  playlistBtn.setAttribute('aria-expanded', !isExpanded);
-
-  isPlaylistExpanded = !isExpanded;
+  isPlaylistExpanded = !ariaExpanded;
 
   toggleMainUi();
+
+  if (isPlaylistExpanded) {
+    lastFocusedEl = document.activeElement;
+
+    document.getElementById('focused-audio').focus();
+  } else {
+    lastFocusedEl.focus();
+    lastFocusedEl = undefined;
+  }
 }
 
-const playlistBtn      = document.getElementById('playlist-btn');
+const playlistEl  = document.getElementById('playlist-window');
+const playlistBtn = document.getElementById('playlist-btn');
 const closePlaylistBtn = document.getElementById('close-playlist-btn');
 
 playlistBtn.onclick      = togglePlaylistWindow;
 closePlaylistBtn.onclick = togglePlaylistWindow;
 
 
-const menuBtn = document.getElementById('menu-btn');
+const toggleMenuWindow = () => {
+  const ariaExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
 
-menuBtn.onclick = () => {
-  const menuEl     = document.getElementById('menu-window');
-  const playlistEl = document.getElementById('playlist-window');
+  menuEl.classList.toggle('translate-x-full', ariaExpanded);
+  menuEl.toggleAttribute('inert', ariaExpanded);
+  menuEl.setAttribute('aria-hidden', ariaExpanded);
+  menuBtn.setAttribute('aria-expanded', !ariaExpanded);
 
-  const isExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
+  playlistEl.classList.toggle('md:w-3/4', ariaExpanded);
+  playlistEl.classList.toggle('md:w-1/2', !ariaExpanded);
 
-  menuEl.classList.toggle('translate-x-full', isExpanded);
-  menuEl.toggleAttribute('inert', isExpanded);
-  menuEl.setAttribute('aria-hidden', isExpanded);
-  menuBtn.setAttribute('aria-expanded', !isExpanded);
+  if (ariaExpanded) {
+    menuBtn.focus();
+  }
 
-  playlistEl.classList.toggle('md:w-3/4', isExpanded);
-  playlistEl.classList.toggle('md:w-1/2', !isExpanded);
-
-  isMenuExpanded = !isExpanded;
+  isMenuExpanded = !ariaExpanded;
 
   toggleMainUi();
 }
+
+const menuBtn = document.getElementById('menu-btn');
+const menuEl  = document.getElementById('menu-window');
+
+menuBtn.onclick = toggleMenuWindow;
 
 
 let timeoutId = undefined;
@@ -101,33 +115,58 @@ const openPlaylistWindow = () => {
 }
 
 
+const collapseEl = (el, btn, clickTarget) => {
+  if (!el.contains(clickTarget) && !btn.contains(clickTarget)) {
+    el.classList.add('hidden');
+    btn.setAttribute('aria-expanded', false);
+  }
+}
+
+
 document.onclick = (e) => {
   const isInfoExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
   const isLangListExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
-  if (isInfoExpanded) {
-    const noticeEl = document.getElementById('notice-info');
-
-    if (!noticeEl.contains(e.target) && !infoBtn.contains(e.target)) {
-      noticeEl.classList.add('hidden');
-      infoBtn.setAttribute('aria-expanded', false);
-    }
+  if (isInfoExpanded && !noticeEl.contains(e.target) && !infoBtn.contains(e.target)) {
+    noticeEl.classList.add('hidden');
+    infoBtn.setAttribute('aria-expanded', false);
   }
 
-  if (isLangListExpanded) {
-    const langList = document.getElementById('lang-list');
+  if (isLangListExpanded && !langList.contains(e.target) && !langBtn.contains(e.target)) {
+    langList.classList.add('hidden');
+    langBtn.setAttribute('aria-expanded', false);
+  }
 
-    if (!langList.contains(e.target) && !langBtn.contains(e.target)) {
-      langList.classList.add('hidden');
-      langBtn.setAttribute('aria-expanded', false);
-    }
+  if (isMenuExpanded && !menuEl.contains(e.target) && !menuBtn.contains(e.target) && !playlistEl.contains(e.target)) {
+    toggleMenuWindow();
   }
 }
 
-// document.onkeydown = (e) => {
-//   if (e.key !== 'Escape') {
-//     return;
-//   }
+
+document.onkeydown = (e) => {
+  if (e.key !== 'Escape') {
+    return;
+  }
+
+  const isInfoExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
+  const isLangListExpanded = langBtn.ariaExpanded === 'true' ? true : false;
 
 
-// }
+  if (isInfoExpanded) {
+    noticeEl.classList.add('hidden');
+    infoBtn.setAttribute('aria-expanded', false);
+  }
+
+  if (isLangListExpanded) {
+    langList.classList.add('hidden');
+    langBtn.setAttribute('aria-expanded', false);
+  }
+
+  if (isPlaylistExpanded) {
+    togglePlaylistWindow();
+  }
+
+  if (isMenuExpanded) {
+    toggleMenuWindow();
+  }
+}
