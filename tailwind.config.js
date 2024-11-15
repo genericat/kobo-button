@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/prototype.html', './src/index.ejs', './src/script.js'],
   theme: {
     extend: {
+      backdropBlur: {
+        'default': '8px'
+      },
       backgroundImage: {
         'pattern': "url('/assets/img/pattern.svg')"
       },
