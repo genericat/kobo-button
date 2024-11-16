@@ -18,14 +18,14 @@
   </div>
 
   <header
-    class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pr-12 text-white z-10"
+    class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pe-12 text-white z-10"
     aria-owns="menu-btn">
     <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
       <span class="material-icons-round block">info</span>
     </button>
 
     <div id="notice-info"
-      class="hidden absolute top-12 left-4 w-4/5 md:w-1/2 lg:w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-default text-black">
+      class="hidden absolute top-12 start-4 w-4/5 md:w-1/2 lg:w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-default text-black">
       <p>
         This is unofficial and fan made website. The audio is taken and presented without any additional context. This
         website and its contents should not be used to judge any mentioned or related party.
@@ -38,12 +38,12 @@
     </button>
 
     <div class="relative">
-      <button id="lang-btn" class="h-8 " aria-haspopup="menu" aria-controls="lang-list" aria-expanded="false">
+      <button id="lang-btn" class="h-8" aria-haspopup="menu" aria-controls="lang-list" aria-expanded="false">
         <span class="material-icons-round">language</span>
         <span class="inline-block align-top">English</span>
       </button>
 
-      <ul id="lang-list" class="hidden absolute top-8 right-0 py-2 rounded-xl bg-white/50 backdrop-blur-default text-black"
+      <ul id="lang-list" class="hidden absolute top-8 end-0 py-2 rounded-xl bg-white/50 backdrop-blur-default text-black"
         aria-label="Language list" role="menu">
         <li class="py-1 px-4 hover:bg-gray-200" lang="en" aria-checked="false" role="menuitemradio">English</li>
         <li class="py-1 px-4 hover:bg-gray-200" lang="ja" aria-checked="false" role="menuitemradio">日本語</li>
@@ -52,7 +52,7 @@
     </div>
   </header>
 
-  <button id="menu-btn" class="absolute right-0 m-2 md:m-4 p-2 text-white z-20" aria-label="Menu"
+  <button id="menu-btn" class="absolute end-0 m-2 md:m-4 p-2 text-white z-20" aria-label="Menu"
     aria-controls="menu-window" aria-expanded="false">
     <span class="material-icons-round block">menu</span>
   </button>
@@ -70,7 +70,7 @@
       text-white transition-[opacity,visibility] ease-out duration-300" aria-label="Control buttons">
       <button class="self-center w-12 h-12 rounded-full
         hover:bg-white/25 hover:border-2 hover:border-white/20">
-        <span class="material-icons-round align-middle">skip_previous</span>
+        <span class="material-icons-round align-middle rtl:rotate-180">skip_previous</span>
       </button>
 
       <!-- Ripple effect decoration -->
@@ -82,7 +82,7 @@
       </button>
 
       <button class="self-center w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
-        <span class="material-icons-round align-middle">skip_next</span>
+        <span class="material-icons-round align-middle rtl:rotate-180">skip_next</span>
       </button>
 
       <button class="justify-self-center col-start-2 w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
@@ -91,13 +91,13 @@
     </section>
 
     <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out-300
-      md:w-3/4 md:p-4 md:-translate-x-full md:translate-y-0 md:z-10
+      md:w-3/4 md:p-4 ltr:md:-translate-x-full rtl:md:translate-x-full md:translate-y-0 md:z-10
       w-full p-0 z-30 translate-y-full" aria-labelledby="playlist-header" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 overflow-hidden bg-white/50 backdrop-blur-default
         md:rounded-xl
         rounded-none">
         <header class="flex-none px-2 mb-6">
-          <h2 id="playlist-header" class="block text-xl font-bold">Playlist</h2>
+          <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold">Playlist</h2>
 
           <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white"
             aria-controls="playlist-window">
@@ -165,7 +165,7 @@
       </div>
     </section>
 
-    <section id="menu-window" class="absolute right-0 lg:w-1/3 h-full translate-x-full transition-transform ease-out duration-300 z-10
+    <section id="menu-window" class="absolute end-0 lg:w-1/3 h-full ltr:translate-x-full rtl:-translate-x-full transition-transform ease-out duration-300 z-10
       md:w-1/2 md:p-4
       w-full" aria-labelledby="menu-header" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-8 md:px-6 overflow-hidden bg-white/50 backdrop-blur-default

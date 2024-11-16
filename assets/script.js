@@ -43,7 +43,8 @@ const toggleMainUi = () => {
 const togglePlaylistWindow = () => {
   const ariaExpanded = playlistBtn.ariaExpanded === 'true' ? true : false;
 
-  playlistEl.classList.toggle('md:-translate-x-full', ariaExpanded);
+  playlistEl.classList.toggle('ltr:md:-translate-x-full', ariaExpanded);
+  playlistEl.classList.toggle('rtl:md:translate-x-full', ariaExpanded);
   playlistEl.classList.toggle('translate-y-full', ariaExpanded);
   playlistEl.toggleAttribute('inert', ariaExpanded);
   playlistEl.setAttribute('aria-hidden', ariaExpanded);
@@ -74,7 +75,8 @@ closePlaylistBtn.onclick = togglePlaylistWindow;
 const toggleMenuWindow = () => {
   const ariaExpanded = menuBtn.ariaExpanded === 'true' ? true : false;
 
-  menuEl.classList.toggle('translate-x-full', ariaExpanded);
+  menuEl.classList.toggle('ltr:translate-x-full', ariaExpanded);
+  menuEl.classList.toggle('rtl:-translate-x-full', ariaExpanded);
   menuEl.toggleAttribute('inert', ariaExpanded);
   menuEl.setAttribute('aria-hidden', ariaExpanded);
   menuBtn.setAttribute('aria-expanded', !ariaExpanded);
