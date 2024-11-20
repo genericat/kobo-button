@@ -121,11 +121,11 @@
           </button>
         </section>
 
-        <section id="audio-playlist" class="p-2 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
+        <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
           <ul>
             <li id="focused-audio" class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
-              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px]" tabindex="0">
+              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="0">
               <span>Audio Title</span>
               <p class="text-sm">Language</p>
 
@@ -138,7 +138,7 @@
 
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
-              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px]" tabindex="-1">
+              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="-1">
               <span>Long Audio Title Placeholder for UI Testing</span>
               <p class="text-sm">Language</p>
 
@@ -150,18 +150,22 @@
             </li>
 
             <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
-              py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50" aria-disabled="true" inert>
+              py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50" aria-disabled="true">
               <span>Audio Title</span>
               <p class="text-sm">This audio can be enabled from the menu</p>
 
               <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-full">
+                <button class="w-8 h-8 rounded-full" tabindex="-1">
                   <span class="material-icons-round align-middle">share</span>
                 </button>
               </div>
             </li>
           </ul>
         </section>
+
+        <div class="hidden">
+          <audio class="mx-auto" controls></audio>
+        </div>
       </div>
     </section>
 
