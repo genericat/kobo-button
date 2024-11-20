@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-to-t from-dark-blue to-light-blue overflow-hidden">
+<body class="bg-gradient-to-t from-dark-blue to-light-blue overflow-clip">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
     <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
@@ -57,7 +57,7 @@
     <span class="material-icons-round block">menu</span>
   </button>
 
-  <main class="relative w-full h-dvh">
+  <main class="relative w-full h-dvh overflow-clip">
 
     <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-[opacity,visibility] ease-out duration-300">
       <h1 class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
@@ -90,7 +90,7 @@
       </button>
     </section>
 
-    <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out-300
+    <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out duration-300
       md:w-3/4 md:p-4 ltr:md:-translate-x-full rtl:md:translate-x-full md:translate-y-0 md:z-10
       w-full p-0 z-30 translate-y-full" aria-labelledby="playlist-header" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 overflow-hidden bg-white/50 backdrop-blur-default
@@ -181,7 +181,7 @@
           <section class="mb-4" aria-labelledby="settings-header" role="group">
             <h3 id="settings-header" class="block font-bold">Settings</h3>
 
-            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer" tabindex="0">
+            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer hover:text-rose-700" tabindex="0">
               <span class="flex-none"><abbr title="Not safe for work" class="cursor-help">NSFW</abbr></span>
 
               <input class="flex-none invisible" type="checkbox" role="switch">
@@ -193,7 +193,7 @@
               </div>
             </label>
 
-            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer" tabindex="0">
+            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer hover:text-rose-700" tabindex="0">
               <span class="flex-none">Song <small class="text-sm">(May have copyright)</small></span>
 
               <input class="flex-none invisible" type="checkbox" role="switch">
@@ -205,7 +205,7 @@
               </div>
             </label>
 
-            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer" tabindex="0">
+            <label class="switch group flex flex-wrap items-center mb-2 cursor-pointer hover:text-rose-700" tabindex="0">
               <span class="flex-none">Audio Control</span>
 
               <input class="flex-none invisible" type="checkbox" role="switch">
@@ -224,12 +224,12 @@
             <h3 id="about1-header" class="block font-bold">About Kobo Kanaeru</h3>
             <p class="mb-2">Kobo Kanaeru is a VTuber from hololive Indonesia. She loves singing and playing games in her live stream on Youtube.</p>
             <ul class="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-x-2 gap-y-1 text-dark-blue">
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Youtube channel</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Official web page</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Youtube channel</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Official web page</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
             </ul>
           </section>
 
@@ -243,14 +243,14 @@
               This website is open sourced in github.com. If you have any complaints about this website or its content you may contact the author.
             </p>
             <ul class="mb-2 text-dark-blue">
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Github repository</a></li>
-              <li><a href="#" target="_blank" rel="noopener noreferrer">Author contact</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Github repository</a></li>
+              <li><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Author contact</a></li>
             </ul>
             <p class="mb-2">
               Thanks to the contributors and thanks to [artist name] for the Kobo art.
             </p>
             <p>
-              <a href="#" class="block text-dark-blue" target="_blank" rel="noopener noreferrer">[Artist page]</a>
+              <a href="#" class="text-dark-blue hover:text-rose-700" target="_blank" rel="noopener noreferrer">[Artist page]</a>
             </p>
           </section>
         </div>
