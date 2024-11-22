@@ -14,7 +14,7 @@
 <body class="bg-gradient-to-t from-dark-blue [@media(color-gamut:p3)]:from-dark-blue-p3 to-light-blue [@media(color-gamut:p3)]:to-light-blue-p3 overflow-clip">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+    <div class="w-full h-full bg-cover bg-top"></div>
   </div>
 
   <header
@@ -52,24 +52,23 @@
     </div>
   </header>
 
-  <button id="menu-btn" class="absolute end-0 m-2 md:m-4 p-2 text-white z-20" aria-label="Menu"
+  <button id="menu-btn" class="absolute end-0 m-2 md:m-4 p-2 z-20" aria-label="Menu"
     aria-controls="menu-window" aria-expanded="false">
     <span class="material-icons-round block">menu</span>
   </button>
 
   <main class="relative w-full h-dvh overflow-clip">
 
-    <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-[opacity,visibility] ease-out duration-300">
+    <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-opacity ease-out duration-300">
       <h1 class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
 
-      <audio src="/assets/aud/sample.mp3"></audio>
+      <audio src="/assets/aud/sample.mp3" aria-hidden="true"></audio>
     </div>
 
     <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
       grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
-      text-white transition-[opacity,visibility] ease-out duration-300" aria-label="Control buttons">
-      <button class="self-center w-12 h-12 rounded-full
-        hover:bg-white/25 hover:border-2 hover:border-white/20">
+      text-white transition-opacity ease-out duration-300" aria-label="Control buttons">
+      <button class="self-center w-12 h-12 rounded-full hover:bg-white/25 hover:border-2 hover:border-white/20">
         <span class="material-icons-round align-middle rtl:rotate-180">skip_previous</span>
       </button>
 
@@ -90,17 +89,14 @@
       </button>
     </section>
 
-    <section id="playlist-window" class="absolute lg:w-[45%] h-full transition-[transform,width] ease-out duration-300
-      md:w-3/4 md:p-4 ltr:md:-translate-x-full rtl:md:translate-x-full md:translate-y-0 md:z-10
-      w-full p-0 z-30 translate-y-full" aria-labelledby="playlist-header" aria-hidden="true" inert>
-      <div class="flex flex-col w-full h-full py-4 px-4 overflow-hidden bg-white/50 backdrop-blur-default
-        md:rounded-xl
-        rounded-none">
+    <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
+      ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
+      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
+      <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold">Playlist</h2>
 
-          <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white"
-            aria-controls="playlist-window">
+          <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white" aria-controls="playlist-window">
             <span class="material-icons-round align-middle">close</span>
           </button>
         </header>
@@ -169,12 +165,10 @@
       </div>
     </section>
 
-    <section id="menu-window" class="absolute end-0 lg:w-1/3 h-full ltr:translate-x-full rtl:-translate-x-full transition-transform ease-out duration-300 z-10
-      md:w-1/2 md:p-4
-      w-full" aria-labelledby="menu-header" aria-hidden="true" inert>
-      <div class="flex flex-col w-full h-full py-4 px-8 md:px-6 overflow-hidden bg-white/50 backdrop-blur-default
-        md:rounded-xl
-        rounded-none">
+    <section id="menu-window" class="absolute end-0 w-full md:w-1/2 lg:w-1/3 h-full md:p-4
+      ltr:translate-x-full rtl:-translate-x-full transition-transform ease-out duration-300 z-10"
+      aria-labelledby="menu-header" aria-hidden="true" inert>
+      <div class="flex flex-col w-full h-full py-4 px-8 md:px-6 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <h2 id="menu-header" class="flex-none block mb-6 text-xl font-bold">Menu</h2>
 
         <div class="overflow-x-auto [scrollbar-width:none]">
