@@ -68,7 +68,7 @@
     <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
       grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
       text-white transition-opacity ease-out duration-300" aria-label="Control buttons">
-      <button class="self-center w-12 h-12 rounded-full hover:bg-white/25 hover:border-2 hover:border-white/20">
+      <button class="self-center invisible w-12 h-12 rounded-full hover:bg-white/25 hover:border-2 hover:border-white/20">
         <span class="material-icons-round align-middle rtl:rotate-180">skip_previous</span>
       </button>
 
@@ -80,12 +80,13 @@
         transition-transform duration-[1.5s] ease-out active:scale-150">
       </button>
 
-      <button class="self-center w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
+      <button class="self-center invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
         <span class="material-icons-round align-middle rtl:rotate-180">skip_next</span>
       </button>
 
-      <button class="justify-self-center col-start-2 w-12 h-12 rounded-full bg-white/25 border-2 border-white/20">
-        <span class="material-icons-round align-middle">replay</span>
+      <button id="replay-btn" class="justify-self-center col-start-2 invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20
+        hover:bg-white/50">
+        <span id="replay-icon" class="material-icons-round align-middle transition-transform ease-out duration-300">replay</span>
       </button>
     </section>
 

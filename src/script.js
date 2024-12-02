@@ -15,6 +15,7 @@ const menuEl = document.getElementById('menu-window');
 const audioEl = document.getElementById('audio-player-1');
 
 const playBtn = document.getElementById('play-btn');
+const replayBtn = document.getElementById('replay-btn');
 
 /**
  * Last focused element
@@ -216,6 +217,23 @@ playBtn.onclick = () => {
         // TODO: refetch?
       }
   })();
+}
+
+playBtn.addEventListener('click', () => {
+  replayBtn.classList.remove('invisible');
+}, {once: true});
+
+
+replayBtn.onclick = () => {
+  audioEl.play();
+
+  replayBtn.children[0].animate([
+    {transform: 'rotate(-360deg)'}
+  ],
+  {
+    duration: 300,
+    iterations: 1
+  });
 }
 
 
