@@ -17,7 +17,7 @@ const audioEl = document.getElementById('audio-player-1');
 const playBtn = document.getElementById('play-btn');
 
 /**
- * Last focused Element
+ * Last focused element
  *
  * Store the last focused element before opening the playlist window/panel
  * @type {?HTMLElement}
@@ -25,14 +25,15 @@ const playBtn = document.getElementById('play-btn');
 let lastFocusedEl = null;
 
 /**
- * `true` if the audio successfully fetched and loaded to `<audio> element
+ * `true` if the audio is being fetched and prosesed
  * @type {boolean}
  */
-let hasAudioLoaded = false;
+let isLoadingAudio = false;
 
 /**
- * Tell if the audio immediately play after being loaded to `<audio>` element
+ * Tell if the audio should immediately play after being loaded to `<audio>` element
  * @type {boolean}
+ * @deprecated
  */
 let isImmediatePlay = false;
 
@@ -41,6 +42,21 @@ let isImmediatePlay = false;
  * @type {?string|number}
  */
 let timeoutId = null;
+
+/**
+ * Fetched random audio in object url form
+ * @type {Promise<string>}
+ */
+let aud;
+
+const audioData = [
+  {
+      "title": "sample",
+  },
+  {
+      "title": "sample2",
+  }
+];
 
 
 infoBtn.onclick = () => {
@@ -95,7 +111,7 @@ const togglePlaylistWindow = () => {
     document.getElementById('focused-audio').focus();
   } else {
     lastFocusedEl.focus();
-    lastFocusedEl = undefined;
+    lastFocusedEl = null;
   }
 }
 
@@ -126,32 +142,32 @@ const openPlaylistWindow = (e) => {
 }
 
 
-const fetchRandomAudio = () => {
-  fetch('/assets/aud/sample.mp3')
-    .then(response => response.blob())
-    .then(blob => {
+const fetchAudio = async (audioTitle) => {
+  try {
+    const response = await fetch(`/assets/aud/${audioTitle}.mp3`);
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
 
-      const audioBlobUrl = URL.createObjectURL(blob);
+    return objectUrl;
 
-      audioEl.src = audioBlobUrl;
+  } catch (error) {
+    console.error('Error fetching the audio file:', error);
 
-      // audioEl.play();
-
-      if (isImmediatePlay) {
-        audioEl.play();
-        isImmediatePlay = false;
-      }
-      else {
-        hasAudioLoaded = true;
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching the audio file:', error);
-    });
+    return ''
+  }
 }
 
-fetchRandomAudio();
+// TODO: Delete later
+const pendingTest = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('sample2');
+    }, 3000);
+  })
+}
 
+
+aud = fetchAudio('sample');
 
 playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
@@ -168,18 +184,39 @@ playBtn.onmouseup = () => {
 
 // TODO: also take care of keydown and touchstart event
 playBtn.onclick = () => {
-  console.log('play random audio');
-  // fetchRandomAudio();
+  if (isLoadingAudio) {
+    return;
+  }
 
-  if (hasAudioLoaded) {
-    audioEl.play();
-  }
-  else {
-    isImmediatePlay = true;
-    console.info('Audio not loaded yet');
-  }
+  Promise.race([aud, 'check']).then((value) => {
+    if (value === 'check') {
+      // TODO: set loading ui
+      isLoadingAudio = true;
+      console.log('Fetching audio...');
+    }
+  });
+
+  (async () => {
+      const objectUrl = await aud;
+
+      if (objectUrl !== '') {
+        // TODO: unset loading ui/display played audio title
+
+        audioEl.src = objectUrl;
+        audioEl.play();
+
+        isLoadingAudio = false;
+        aud = pendingTest().then((audTitle => fetchAudio(audTitle)));
+
+        console.log('Played random audio');
+      }
+      else {
+        console.info('Audio fetch failed');
+
+        // TODO: refetch?
+      }
+  })();
 }
-
 
 
 document.onclick = (e) => {
