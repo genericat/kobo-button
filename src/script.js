@@ -167,7 +167,7 @@ const pendingTest = () => {
 }
 
 
-aud = fetchAudio('sample');
+aud = fetchAudio(audioData[Math.floor(Math.random() * audioData.length)].title);
 
 playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
@@ -206,7 +206,7 @@ playBtn.onclick = () => {
         audioEl.play();
 
         isLoadingAudio = false;
-        aud = pendingTest().then((audTitle => fetchAudio(audTitle)));
+        aud = fetchAudio(audioData[Math.floor(Math.random() * audioData.length)].title);
 
         console.log('Played random audio');
       }
