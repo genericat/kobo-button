@@ -50,14 +50,11 @@ let timeoutId = null;
  */
 let aud;
 
-const audioData = [
-  {
-      "title": "sample",
-  },
-  {
-      "title": "sample2",
-  }
-];
+/**
+ * Audio database
+ *
+ */
+let audioData;
 
 
 infoBtn.onclick = () => {
@@ -143,6 +140,17 @@ const openPlaylistWindow = (e) => {
 }
 
 
+const fetchAudioData = async () => {
+  try {
+    const response = await fetch('/assets/audio.json');
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching the audio file:', error);
+  }
+}
+
+
 const fetchAudio = async (audioTitle) => {
   try {
     const response = await fetch(`/assets/aud/${audioTitle}.mp3`);
@@ -150,12 +158,17 @@ const fetchAudio = async (audioTitle) => {
     const objectUrl = URL.createObjectURL(blob);
 
     return objectUrl;
-
   } catch (error) {
     console.error('Error fetching the audio file:', error);
 
     return ''
   }
+}
+
+const getRandomAudio = async () => {
+  const aD = await audioData;
+
+  return fetchAudio(aD[Math.floor(Math.random() * aD.length)].name);
 }
 
 // TODO: Delete later
@@ -168,7 +181,9 @@ const pendingTest = () => {
 }
 
 
-aud = fetchAudio(audioData[Math.floor(Math.random() * audioData.length)].title);
+
+audioData = fetchAudioData();
+aud = getRandomAudio();
 
 playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
@@ -207,7 +222,7 @@ playBtn.onclick = () => {
         audioEl.play();
 
         isLoadingAudio = false;
-        aud = fetchAudio(audioData[Math.floor(Math.random() * audioData.length)].title);
+        aud = getRandomAudio();
 
         console.log('Played random audio');
       }

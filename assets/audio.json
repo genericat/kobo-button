@@ -1,6 +1,12 @@
-{
-  "sample": {
-    "cat": "a",
-    "lang": "b"
+[
+  {
+    "title": "Sample",
+    "name": "sample",
+    "isNsfw": true
+  },
+  {
+    "title": "Sample 2",
+    "name": "sample2",
+    "isNsfw": false
   }
-}
+]
