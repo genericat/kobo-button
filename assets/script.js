@@ -28,10 +28,10 @@ const nsfwSwitch = document.getElementById('nsfw-switch');
 let lastFocusedEl = null;
 
 /**
- * `true` if the audio is being fetched and prosesed
+ * `true` if the audio is being fetched and processed
  * @type {boolean}
  */
-let isLoadingAudio = false;
+let isWaitingAudio = false;
 
 /**
  * Tell if the audio should immediately play after being loaded to `<audio>` element
@@ -48,12 +48,13 @@ let timeoutId = null;
 
 /**
  * Fetched random audio in object url form
+ * @type Promise<string>
  */
 let aud;
 
 /**
  * Audio database
- *
+ * @type object;
  */
 let audioData;
 
@@ -169,7 +170,13 @@ const fetchAudio = async (audioTitle) => {
 
 
 const getRandomAudio = async () => {
-  return fetchAudio(audioData[Math.floor(Math.random() * audioData.length)].name);
+  let audio = audioData[Math.floor(Math.random() * audioData.length)];
+
+  while (audio.isNsfw === true && nsfwSwitch.checked === false) {
+    audio = audioData[Math.floor(Math.random() * audioData.length)];
+  }
+
+  return fetchAudio(audio.name);
 }
 
 
@@ -195,14 +202,14 @@ playBtn.onmouseup = () => {
 
 // TODO: also take care of keydown and touchstart event
 playBtn.onclick = () => {
-  if (isLoadingAudio) {
+  if (isWaitingAudio) {
     return;
   }
 
   Promise.race([aud, 'check']).then((value) => {
     if (value === 'check') {
       // TODO: set loading ui
-      isLoadingAudio = true;
+      isWaitingAudio = true;
       console.log('Fetching audio...');
     }
   });
@@ -217,7 +224,7 @@ playBtn.onclick = () => {
         audioEl.src = objectUrl;
         audioEl.play();
 
-        isLoadingAudio = false;
+        isWaitingAudio = false;
         aud = getRandomAudio();
 
         console.log('Played random audio');
