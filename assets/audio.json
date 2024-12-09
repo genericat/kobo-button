@@ -2,11 +2,13 @@
   {
     "title": "Sample",
     "name": "sample",
-    "isNsfw": false
+    "isNsfw": false,
+    "isSong": false
   },
   {
     "title": "Sample 2",
     "name": "sample2",
-    "isNsfw": true
+    "isNsfw": false,
+    "isSong": true
   }
 ]

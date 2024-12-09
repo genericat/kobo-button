@@ -18,6 +18,7 @@ const playBtn = document.getElementById('play-btn');
 const replayBtn = document.getElementById('replay-btn');
 
 const nsfwSwitch = document.getElementById('nsfw-switch');
+const songSwitch = document.getElementById('song-switch');
 
 /**
  * Last focused element
@@ -28,7 +29,7 @@ const nsfwSwitch = document.getElementById('nsfw-switch');
 let lastFocusedEl = null;
 
 /**
- * `true` if the audio is being fetched and processed
+ * Did the user already click the Kobo Button?
  * @type {boolean}
  */
 let isWaitingAudio = false;
@@ -47,16 +48,28 @@ let isImmediatePlay = false;
 let timeoutId = null;
 
 /**
+ * Audio database
+ * @type object
+ */
+let audioData;
+
+/**
+ * Song audio data
+ * @type object
+ */
+let songData;
+
+/**
  * Fetched random audio in object url form
  * @type Promise<string>
  */
 let aud;
 
 /**
- * Audio database
- * @type object;
+ * Fetched random audio song in object url form
+ * @type Promise<string>
  */
-let audioData;
+let song;
 
 
 infoBtn.onclick = () => {
@@ -142,6 +155,31 @@ const openPlaylistWindow = (e) => {
 }
 
 
+const playAudio = (objectUrl, isSong) => {
+  if (objectUrl !== '') {
+    // TODO: unset loading ui/display played audio title
+
+    audioEl.src = objectUrl;
+    audioEl.play();
+
+    isWaitingAudio = false;
+
+    if (isSong) {
+      song = getRandomAudio(songData);
+    } else {
+      aud = getRandomAudio(audioData);
+    }
+
+    console.log('Played random audio');
+  }
+  else {
+    console.info('Audio fetch failed');
+
+    // TODO: refetch?
+  }
+}
+
+
 const fetchAudioData = async () => {
   try {
     const response = await fetch('/assets/audio.json');
@@ -169,7 +207,7 @@ const fetchAudio = async (audioTitle) => {
 }
 
 
-const getRandomAudio = async () => {
+const getRandomAudio = (audioData) => {
   let audio = audioData[Math.floor(Math.random() * audioData.length)];
 
   while (audio.isNsfw === true && nsfwSwitch.checked === false) {
@@ -180,16 +218,30 @@ const getRandomAudio = async () => {
 }
 
 
-
 (async () => {
   await fetchAudioData();
-  aud = await getRandomAudio();
+
+  songData = audioData.filter((data) => { return data.isSong });
+  audioData = audioData.filter((data) => { return !data.isSong });
+
+  aud = getRandomAudio(audioData);
+
+  if (songSwitch.checked) {
+    song = getRandomAudio(songData);
+  }
 })();
 
 
 playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
 document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
+
+
+songSwitch.onchange = () => {
+  if (songSwitch.checked && songData !== undefined) {
+    song = getRandomAudio(songData);
+  }
+}
 
 
 playBtn.onmousedown = (e) => {
@@ -206,34 +258,30 @@ playBtn.onclick = () => {
     return;
   }
 
-  Promise.race([aud, 'check']).then((value) => {
-    if (value === 'check') {
-      // TODO: set loading ui
-      isWaitingAudio = true;
-      console.log('Fetching audio...');
-    }
-  });
-
   (async () => {
-      // TODO: error handling
-      const objectUrl = await aud;
+      let nextAud;
 
-      if (objectUrl !== '') {
-        // TODO: unset loading ui/display played audio title
+      if (songSwitch.checked && Math.random() > 0.6) {
+        nextAud = await Promise.race([song, 'songPending']);
 
-        audioEl.src = objectUrl;
-        audioEl.play();
-
-        isWaitingAudio = false;
-        aud = getRandomAudio();
-
-        console.log('Played random audio');
+        if (nextAud !== 'songPending') {
+          playAudio(nextAud, true);
+          return;
+        }
+        // NOTE: If `song` is not settled yet then check `aud` instead of waiting for `song`
       }
-      else {
-        console.info('Audio fetch failed');
 
-        // TODO: refetch?
+      nextAud = await Promise.race([aud, 'audPending']);
+
+      if (nextAud === 'audPending') {
+        isWaitingAudio = true;
+        console.log('Fetching audio...');
+
+        // NOTE: if `aud` is not settled yet then wait for it
+        nextAud = await aud;
       }
+
+      playAudio(nextAud, false);
   })();
 }
 
