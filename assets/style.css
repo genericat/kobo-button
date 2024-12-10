@@ -694,6 +694,9 @@ input[role="switch"]:checked + div {
 .cursor-pointer {
   cursor: pointer;
 }
+.cursor-wait {
+  cursor: wait;
+}
 .grid-flow-col {
   grid-auto-flow: column;
 }

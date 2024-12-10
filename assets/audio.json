@@ -1,13 +1,13 @@
 [
   {
-    "title": "Sample",
     "name": "sample",
+    "title": "Sample",
     "isNsfw": false,
     "isSong": false
   },
   {
-    "title": "Sample 2",
     "name": "sample2",
+    "title": "Sample 2",
     "isNsfw": false,
     "isSong": true
   }

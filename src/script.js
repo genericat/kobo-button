@@ -12,6 +12,7 @@ const playlistBtn = document.getElementById('playlist-btn');
 const menuBtn = document.getElementById('menu-btn');
 const menuEl = document.getElementById('menu-window');
 
+const audioTitleEl = document.getElementById('audio-title');
 const audioEl1 = document.getElementById('audio-player-1');
 const audioEl2 = document.getElementById('audio-player-2');
 
@@ -63,13 +64,13 @@ let songData;
 
 /**
  * Fetched random audio in object url form
- * @type Promise<string>
+ * @type
  */
 let aud;
 
 /**
  * Fetched random audio song in object url form
- * @type Promise<string>
+ * @type
  */
 let song;
 
@@ -145,18 +146,18 @@ const openPlaylistWindow = (e) => {
 const fetchAudioData = async () => {
   try {
     const response = await fetch('/assets/audio.json');
+    const json = await response.json();
 
-    audioData = await response.json();
+    return json;
   } catch (error) {
-    console.error('Error fetching the audio file:', error);
-    audioData = {};
+    throw new Error('Error fetching the audio data');
   }
 }
 
 
-const fetchAudio = async (audioTitle) => {
+const fetchAudio = async (audioName) => {
   try {
-    const response = await fetch(`/assets/aud/${audioTitle}.mp3`);
+    const response = await fetch(`/assets/aud/${audioName}.mp3`);
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
 
@@ -170,19 +171,23 @@ const fetchAudio = async (audioTitle) => {
 
 
 const getRandomAudio = (audioData) => {
-  let audio = audioData[Math.floor(Math.random() * audioData.length)];
+  let randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
 
-  while (audio.isNsfw === true && nsfwSwitch.checked === false) {
-    audio = audioData[Math.floor(Math.random() * audioData.length)];
+  while (randomAudio.isNsfw === true && nsfwSwitch.checked === false) {
+    randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
   }
 
-  return fetchAudio(audio.name);
+  return {
+    "title": randomAudio.title,
+    "objectUrl": fetchAudio(randomAudio.name)
+  }
 }
 
 
-const playAudio = (objectUrl, isSong) => {
+const playAudio = (objectUrl, title, isSong) => {
   if (objectUrl !== '') {
-    // TODO: unset loading ui/display played audio title
+    audioTitleEl.innerText = title;
+    audioTitleEl.classList.remove('cursor-wait');
 
     audioEl1.src = objectUrl;
     audioEl1.play();
@@ -195,10 +200,10 @@ const playAudio = (objectUrl, isSong) => {
       aud = getRandomAudio(audioData);
     }
 
-    console.log('Played random audio');
+    // console.log('Played random audio');
   }
   else {
-    console.info('Audio fetch failed');
+    console.error('Audio fetch failed');
 
     // TODO: refetch?
   }
@@ -206,15 +211,21 @@ const playAudio = (objectUrl, isSong) => {
 
 
 (async () => {
-  await fetchAudioData();
+  try {
+    audioData = await fetchAudioData();
 
-  songData = audioData.filter((data) => { return data.isSong });
-  audioData = audioData.filter((data) => { return !data.isSong });
+    songData = audioData.filter((data) => { return data.isSong });
+    audioData = audioData.filter((data) => { return !data.isSong });
 
-  aud = getRandomAudio(audioData);
+    aud = getRandomAudio(audioData);
 
-  if (songSwitch.checked) {
-    song = getRandomAudio(songData);
+    if (songSwitch.checked) {
+      song = getRandomAudio(songData);
+    }
+  } catch (error) {
+    console.error(error);
+
+    alert('Error');
   }
 })();
 
@@ -267,26 +278,29 @@ playBtn.onclick = () => {
       let nextAud;
 
       if (songSwitch.checked && Math.random() > 0.6) {
-        nextAud = await Promise.race([song, 'songPending']);
+        nextAud = await Promise.race([song.objectUrl, 'songPending']);
 
         if (nextAud !== 'songPending') {
-          playAudio(nextAud, true);
+          playAudio(nextAud, song.title, true);
           return;
         }
         // NOTE: If `song` is not settled yet then check `aud` instead of waiting for `song`
       }
 
-      nextAud = await Promise.race([aud, 'audPending']);
+      nextAud = await Promise.race([aud.objectUrl, 'audPending']);
 
       if (nextAud === 'audPending') {
+        audioTitleEl.innerText = 'Loading...'
+        audioTitleEl.classList.add('cursor-wait');
+
         isWaitingAudio = true;
-        console.log('Fetching audio...');
+        // console.log('Fetching audio...');
 
         // NOTE: if `aud` is not settled yet then wait for it
-        nextAud = await aud;
+        nextAud = await aud.objectUrl;
       }
 
-      playAudio(nextAud, false);
+      playAudio(nextAud, aud.title, false);
   })();
 }
 
