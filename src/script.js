@@ -12,13 +12,15 @@ const playlistBtn = document.getElementById('playlist-btn');
 const menuBtn = document.getElementById('menu-btn');
 const menuEl = document.getElementById('menu-window');
 
-const audioEl = document.getElementById('audio-player-1');
+const audioEl1 = document.getElementById('audio-player-1');
+const audioEl2 = document.getElementById('audio-player-2');
 
 const playBtn = document.getElementById('play-btn');
 const replayBtn = document.getElementById('replay-btn');
 
 const nsfwSwitch = document.getElementById('nsfw-switch');
 const songSwitch = document.getElementById('song-switch');
+const audioControlSwitch = document.getElementById('audio-control-switch');
 
 /**
  * Last focused element
@@ -70,21 +72,6 @@ let aud;
  * @type Promise<string>
  */
 let song;
-
-
-infoBtn.onclick = () => {
-  const ariaExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
-
-  infoEl.classList.toggle('hidden', ariaExpanded);
-  infoBtn.setAttribute('aria-expanded', !ariaExpanded);
-}
-
-langBtn.onclick = () => {
-  const ariaExpanded = langBtn.ariaExpanded === 'true' ? true : false;
-
-  langListEl.classList.toggle('hidden', ariaExpanded);
-  langBtn.setAttribute('aria-expanded', !ariaExpanded);
-}
 
 
 /**
@@ -155,31 +142,6 @@ const openPlaylistWindow = (e) => {
 }
 
 
-const playAudio = (objectUrl, isSong) => {
-  if (objectUrl !== '') {
-    // TODO: unset loading ui/display played audio title
-
-    audioEl.src = objectUrl;
-    audioEl.play();
-
-    isWaitingAudio = false;
-
-    if (isSong) {
-      song = getRandomAudio(songData);
-    } else {
-      aud = getRandomAudio(audioData);
-    }
-
-    console.log('Played random audio');
-  }
-  else {
-    console.info('Audio fetch failed');
-
-    // TODO: refetch?
-  }
-}
-
-
 const fetchAudioData = async () => {
   try {
     const response = await fetch('/assets/audio.json');
@@ -218,6 +180,31 @@ const getRandomAudio = (audioData) => {
 }
 
 
+const playAudio = (objectUrl, isSong) => {
+  if (objectUrl !== '') {
+    // TODO: unset loading ui/display played audio title
+
+    audioEl1.src = objectUrl;
+    audioEl1.play();
+
+    isWaitingAudio = false;
+
+    if (isSong) {
+      song = getRandomAudio(songData);
+    } else {
+      aud = getRandomAudio(audioData);
+    }
+
+    console.log('Played random audio');
+  }
+  else {
+    console.info('Audio fetch failed');
+
+    // TODO: refetch?
+  }
+}
+
+
 (async () => {
   await fetchAudioData();
 
@@ -236,11 +223,29 @@ playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
 document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
 
+infoBtn.onclick = () => {
+  const ariaExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
+
+  infoEl.classList.toggle('hidden', ariaExpanded);
+  infoBtn.setAttribute('aria-expanded', !ariaExpanded);
+}
+
+langBtn.onclick = () => {
+  const ariaExpanded = langBtn.ariaExpanded === 'true' ? true : false;
+
+  langListEl.classList.toggle('hidden', ariaExpanded);
+  langBtn.setAttribute('aria-expanded', !ariaExpanded);
+}
 
 songSwitch.onchange = () => {
   if (songSwitch.checked && songData !== undefined) {
     song = getRandomAudio(songData);
   }
+}
+
+audioControlSwitch.onchange = () => {
+  audioEl1.toggleAttribute('controls', audioControlSwitch.checked);
+  audioEl2.toggleAttribute('controls', audioControlSwitch.checked);
 }
 
 
@@ -291,7 +296,7 @@ playBtn.addEventListener('click', () => {
 
 
 replayBtn.onclick = () => {
-  audioEl.play();
+  audioEl1.play();
 
   replayBtn.children[0].animate([
     {transform: 'rotate(-360deg)'}

@@ -14,7 +14,7 @@
 <body class="bg-gradient-to-t from-dark-blue [@media(color-gamut:p3)]:from-dark-blue-p3 to-light-blue [@media(color-gamut:p3)]:to-light-blue-p3 overflow-clip">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-    <div class="w-full h-full bg-cover bg-top"></div>
+    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
   </div>
 
   <header
@@ -160,8 +160,8 @@
           </ul>
         </section>
 
-        <div class="hidden">
-          <audio class="mx-auto" controls></audio>
+        <div>
+          <audio id="audio-player-2" class="mx-auto" controls></audio>
         </div>
       </div>
     </section>
@@ -206,7 +206,7 @@
             <label class="switch group flex items-center mb-2 cursor-pointer hover:text-rose-700" tabindex="0">
               <span class="flex-auto">Display Audio Control</span>
 
-              <input class="flex-none invisible" type="checkbox" role="switch">
+              <input id="audio-control-switch" class="flex-none invisible" type="checkbox" role="switch">
 
               <div class="flex-none">
                 <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
