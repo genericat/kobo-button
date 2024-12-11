@@ -120,45 +120,27 @@
 
         <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
           <ul>
-            <li id="focused-audio" class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+            <li id="focused-audio" class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
               hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="0"
               data-category="words">
               <span>Audio Title</span>
               <p class="text-sm">Language</p>
-
-              <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-lg text-gray-500 hover:bg-gray-200">
-                  <span class="material-icons-round align-middle">share</span>
-                </button>
-              </div>
             </li>
 
-            <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+            <li class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
               hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="-1"
               data-category="sound">
               <span>Long Audio Title Placeholder for UI Testing</span>
               <p class="text-sm">Language</p>
-
-              <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-lg text-gray-500 hover:bg-gray-200" tabindex="-1">
-                  <span class="material-icons-round align-middle">share</span>
-                </button>
-              </div>
             </li>
 
-            <li class="grid grid-cols-[1fr_auto] grid-rows-[repeat(2,auto)] grid-flow-col
+            <li class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50" aria-disabled="true"
               data-category="song">
               <span>Audio Title</span>
               <p class="text-sm">This audio can be enabled from the menu</p>
-
-              <div class="row-span-2 flex items-center justify-center">
-                <button class="w-8 h-8 rounded-full" tabindex="-1">
-                  <span class="material-icons-round align-middle">share</span>
-                </button>
-              </div>
             </li>
           </ul>
         </section>
