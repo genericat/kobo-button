@@ -402,3 +402,9 @@ document.onkeydown = (e) => {
     toggleMenuWindow();
   }
 }
+
+
+window.onblur = () => {
+  audioEl1.pause();
+  audioEl2.pause();
+}
