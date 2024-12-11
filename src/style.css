@@ -12,6 +12,22 @@
       }
     }
   }
+
+  .words-list li, .sound-list li, .song-list li {
+    display: none;
+  }
+
+  .words-list [data-category="words"] {
+    display: grid;
+  }
+
+  .sound-list [data-category="sound"] {
+    display: grid;
+  }
+
+  .song-list [data-category="song"] {
+    display: grid;
+  }
 }
 
 @layer utilities {

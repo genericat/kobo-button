@@ -16,12 +16,19 @@ const audioTitleEl = document.getElementById('audio-title');
 const audioEl1 = document.getElementById('audio-player-1');
 const audioEl2 = document.getElementById('audio-player-2');
 
-const playBtn = document.getElementById('play-btn');
-const replayBtn = document.getElementById('replay-btn');
-
 const nsfwSwitch = document.getElementById('nsfw-switch');
 const songSwitch = document.getElementById('song-switch');
 const audioControlSwitch = document.getElementById('audio-control-switch');
+
+const audioPlaylist = document.getElementById('audio-playlist');
+
+const wordsFilterBtn = document.getElementById('words-filter-btn');
+const soundFilterBtn = document.getElementById('sound-filter-btn');
+const songFilterBtn = document.getElementById('song-filter-btn');
+
+const playBtn = document.getElementById('play-btn');
+const replayBtn = document.getElementById('replay-btn');
+
 
 /**
  * Last focused element
@@ -32,7 +39,7 @@ const audioControlSwitch = document.getElementById('audio-control-switch');
 let lastFocusedEl = null;
 
 /**
- * Did the user already click the Kobo Button?
+ * Did the user already click the Kobo Button and waiting any audio to be played?
  * @type {boolean}
  */
 let isWaitingAudio = false;
@@ -64,13 +71,13 @@ let songData;
 
 /**
  * Fetched random audio in object url form
- * @type
+ * @type object
  */
 let aud;
 
 /**
  * Fetched random audio song in object url form
- * @type
+ * @type object
  */
 let song;
 
@@ -140,6 +147,16 @@ const toggleMenuWindow = () => {
 const openPlaylistWindow = (e) => {
   e.preventDefault();
   togglePlaylistWindow();
+}
+
+
+const filterPlaylist = (el, list) => {
+  const isChecked = el.ariaChecked === 'true' ? true : false;
+
+  audioPlaylist.classList.toggle(list, !isChecked);
+  el.classList.toggle('border-gray-500', isChecked);
+  el.classList.toggle('bg-white', !isChecked);
+  el.setAttribute('aria-checked', !isChecked);
 }
 
 
@@ -230,9 +247,6 @@ const playAudio = (objectUrl, title, isSong) => {
 })();
 
 
-playlistBtn.onclick = togglePlaylistWindow;
-menuBtn.onclick = toggleMenuWindow;
-document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
 
 infoBtn.onclick = () => {
   const ariaExpanded = infoBtn.ariaExpanded === 'true' ? true : false;
@@ -248,6 +262,10 @@ langBtn.onclick = () => {
   langBtn.setAttribute('aria-expanded', !ariaExpanded);
 }
 
+playlistBtn.onclick = togglePlaylistWindow;
+menuBtn.onclick = toggleMenuWindow;
+document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
+
 songSwitch.onchange = () => {
   if (songSwitch.checked && songData !== undefined) {
     song = getRandomAudio(songData);
@@ -257,6 +275,18 @@ songSwitch.onchange = () => {
 audioControlSwitch.onchange = () => {
   audioEl1.toggleAttribute('controls', audioControlSwitch.checked);
   audioEl2.toggleAttribute('controls', audioControlSwitch.checked);
+}
+
+wordsFilterBtn.onclick = () => {
+  filterPlaylist(wordsFilterBtn, 'words-list');
+};
+
+soundFilterBtn.onclick = () => {
+  filterPlaylist(soundFilterBtn, 'sound-list');
+}
+
+songFilterBtn.onclick = () => {
+  filterPlaylist(songFilterBtn, 'song-list');
 }
 
 

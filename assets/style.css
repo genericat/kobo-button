@@ -523,6 +523,18 @@ input[role="switch"]:checked + div {
     }
     }
   }
+.words-list li, .sound-list li, .song-list li {
+    display: none;
+  }
+.words-list [data-category="words"] {
+    display: grid;
+  }
+.sound-list [data-category="sound"] {
+    display: grid;
+  }
+.song-list [data-category="song"] {
+    display: grid;
+  }
 .invisible {
   visibility: hidden;
 }
@@ -782,6 +794,10 @@ input[role="switch"]:checked + div {
 }
 .border-none {
   border-style: none;
+}
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 .border-gray-200 {
   --tw-border-opacity: 1;
