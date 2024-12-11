@@ -60,7 +60,7 @@
   <main class="relative w-full h-dvh overflow-clip">
 
     <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-opacity ease-out duration-300">
-      <h1 id="audio-title" class="block mb-4 text-xl text-center text-white font-bold">Played Audio Title</h1>
+      <h1 id="audio-title" class="block mb-4 text-xl text-center text-white font-bold">Kobo Button</h1>
 
       <audio id="audio-player-1" src="/assets/aud/sample.mp3"></audio>
     </div>
@@ -109,11 +109,11 @@
             <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
           </button>
           <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Sound filter" aria-controls="audio-playlist">
+            hover:border-black hover:text-black" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
           </button>
           <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Song filter" aria-controls="audio-playlist">
+            hover:border-black hover:text-black" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
           </button>
         </section>

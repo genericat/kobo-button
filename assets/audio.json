@@ -63,7 +63,8 @@
     "title": "La Vaguelette (cont.)",
     "category": "song",
     "lang": "french",
-    "isNsfw": false
+    "isNsfw": false,
+    "next": "la_vaguelette2"
   },
   {
     "name": "la_vaguelette2",

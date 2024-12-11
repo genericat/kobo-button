@@ -267,9 +267,23 @@ menuBtn.onclick = toggleMenuWindow;
 document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
 
 songSwitch.onchange = () => {
-  if (songSwitch.checked && songData !== undefined) {
+  const isChecked = songSwitch.checked;
+
+  if (isChecked && songData !== undefined) {
     song = getRandomAudio(songData);
   }
+
+  const songList = document.querySelectorAll('[data-category="song"]');
+
+  songList.forEach((el) => {
+    el.classList.toggle('opacity-50', !isChecked);
+    el.classList.toggle('hover:bg-white', isChecked);
+    el.classList.toggle('hover:-translate-x-[2px]', isChecked);
+    el.classList.toggle('hover:-translate-y-[2px]', isChecked);
+    el.classList.toggle('focus:bg-white', isChecked);
+    el.classList.toggle('cursor-pointer', isChecked);
+    el.setAttribute('aria-disabled', !isChecked);
+  });
 }
 
 audioControlSwitch.onchange = () => {
