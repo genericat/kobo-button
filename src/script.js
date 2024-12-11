@@ -231,8 +231,8 @@ const playAudio = (objectUrl, title, isSong) => {
   try {
     audioData = await fetchAudioData();
 
-    songData = audioData.filter((data) => { return data.isSong });
-    audioData = audioData.filter((data) => { return !data.isSong });
+    songData = audioData.filter((data) => { return data.category === 'song' });
+    audioData = audioData.filter((data) => { return data.category !== 'song' });
 
     aud = getRandomAudio(audioData);
 
