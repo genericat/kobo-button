@@ -227,7 +227,7 @@ const playAudio = (objectUrl, title, isSong) => {
 }
 
 
-(async () => {
+(async function init() {
   try {
     audioData = await fetchAudioData();
 
@@ -266,6 +266,27 @@ playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
 document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
 
+document.getElementById('menu-overflow-container').onkeydown = (e) => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    // Prevent scrolling for this overflow container element
+    e.preventDefault();
+  }
+}
+
+menuEl.querySelectorAll('.switch').forEach(el => {
+  el.onkeydown = (e) => {
+    if (e.key !== ' ' && e.key !== 'Enter') {
+      return;
+    }
+
+    const switchSelected = e.target.children[1];
+    const changeEvent = new Event('change');
+
+    switchSelected.checked = !switchSelected.checked;
+    switchSelected.dispatchEvent(changeEvent);
+  }
+});
+
 songSwitch.onchange = () => {
   const isChecked = songSwitch.checked;
 
@@ -273,7 +294,7 @@ songSwitch.onchange = () => {
     song = getRandomAudio(songData);
   }
 
-  const songList = document.querySelectorAll('[data-category="song"]');
+  const songList = audioPlaylist.querySelectorAll('[data-category="song"]');
 
   songList.forEach((el) => {
     el.classList.toggle('opacity-50', !isChecked);
@@ -289,6 +310,30 @@ songSwitch.onchange = () => {
 audioControlSwitch.onchange = () => {
   audioEl1.toggleAttribute('controls', audioControlSwitch.checked);
   audioEl2.toggleAttribute('controls', audioControlSwitch.checked);
+}
+
+audioPlaylist.onkeydown = (e) => {
+  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') {
+    return;
+  }
+
+  const listFocused = e.target;
+  let nextListFocused = e.key === 'ArrowDown' ? listFocused.nextElementSibling : listFocused.previousElementSibling;
+
+  while (nextListFocused?.ariaDisabled === 'true') {
+    nextListFocused = e.key === 'ArrowDown' ? nextListFocused.nextElementSibling : nextListFocused.previousElementSibling;
+  }
+
+  if (nextListFocused === null) {
+    return;
+  }
+
+  listFocused.removeAttribute('id');
+  listFocused.setAttribute('tabindex', '-1');
+
+  nextListFocused.setAttribute('id', 'focused-audio');
+  nextListFocused.setAttribute('tabindex', '0');
+  nextListFocused.focus();
 }
 
 wordsFilterBtn.onclick = () => {
