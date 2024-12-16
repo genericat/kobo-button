@@ -81,6 +81,18 @@ let aud;
  */
 let song;
 
+/**
+ * Previous audio played from playlist
+ * @type string
+ */
+let prevAudPlaylist;
+
+/**
+ * Controller to abort fetch promise
+ * @type {AbortController}
+ */
+let controller;
+
 
 /**
  * Toggle main UI wrappers to be shown or hidden.
@@ -172,15 +184,20 @@ const fetchAudioData = async () => {
 }
 
 
-const fetchAudio = async (audioName) => {
+const fetchAudio = async (audioName, signal = null) => {
   try {
-    const response = await fetch(`/assets/aud/${audioName}.mp3`);
+    const response = await fetch(`/assets/aud/${audioName}.mp3`, { signal });
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
 
     return objectUrl;
   } catch (error) {
-    console.error('Error fetching the audio file:', error);
+    if (error.name === 'AbortError') {
+      console.log(`Fetching ${audioName} aborted`);
+      return '';
+    }
+
+    console.error(error);
 
     return '';
   }
@@ -201,7 +218,7 @@ const getRandomAudio = (audioData) => {
 }
 
 
-const playAudio = (objectUrl, title, isSong) => {
+const playRandomAudio = (objectUrl, title, isSong) => {
   if (objectUrl !== '') {
     audioTitleEl.innerText = title;
     audioTitleEl.classList.remove('cursor-wait');
@@ -226,6 +243,33 @@ const playAudio = (objectUrl, title, isSong) => {
   }
 }
 
+const playAudio = async (audioName) => {
+  if (audioName === prevAudPlaylist) {
+    audioEl2.play();
+    return;
+  }
+
+  if (controller) {
+    controller.abort();
+  }
+
+  prevAudPlaylist = audioName;
+  controller = new AbortController();
+
+  try {
+    const audio = await fetchAudio(audioName, controller.signal);
+
+    audioEl2.src = audio;
+    audioEl2.play();
+
+    controller = null;
+  } catch (error) {
+    console.error('Fetching audio from playlist error', error);
+
+    alert('Error');
+  }
+}
+
 
 (async function init() {
   try {
@@ -240,7 +284,7 @@ const playAudio = (objectUrl, title, isSong) => {
       song = getRandomAudio(songData);
     }
   } catch (error) {
-    console.error(error);
+    console.error('Initialization error', error);
 
     alert('Error');
   }
@@ -313,27 +357,62 @@ audioControlSwitch.onchange = () => {
 }
 
 audioPlaylist.onkeydown = (e) => {
-  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    const listFocused = e.target;
+    let nextListFocused = e.key === 'ArrowDown' ? listFocused.nextElementSibling : listFocused.previousElementSibling;
+
+    while (nextListFocused?.ariaDisabled === 'true') {
+      nextListFocused = e.key === 'ArrowDown' ? nextListFocused.nextElementSibling : nextListFocused.previousElementSibling;
+    }
+
+    if (nextListFocused === null) {
+      return;
+    }
+
+    listFocused.removeAttribute('id');
+    listFocused.setAttribute('tabindex', '-1');
+
+    nextListFocused.setAttribute('id', 'focused-audio');
+    nextListFocused.setAttribute('tabindex', '0');
+    nextListFocused.focus();
+  }
+
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+
+    playAudio(e.target.getAttribute('data-name'));
+  }
+}
+
+audioPlaylist.onclick = (e) => {
+  let listSelected;
+  const targetEl = e.target;
+
+  if (targetEl.hasAttribute('data-name')) {
+    listSelected = targetEl;
+  }
+  else if (targetEl.parentElement.hasAttribute('data-name')) {
+    listSelected = targetEl.parentElement;
+  }
+  else {
     return;
   }
 
-  const listFocused = e.target;
-  let nextListFocused = e.key === 'ArrowDown' ? listFocused.nextElementSibling : listFocused.previousElementSibling;
 
-  while (nextListFocused?.ariaDisabled === 'true') {
-    nextListFocused = e.key === 'ArrowDown' ? nextListFocused.nextElementSibling : nextListFocused.previousElementSibling;
-  }
-
-  if (nextListFocused === null) {
+  if (listSelected.ariaDisabled === 'true') {
     return;
   }
 
-  listFocused.removeAttribute('id');
-  listFocused.setAttribute('tabindex', '-1');
+  if (!listSelected.hasAttribute('id')) {
+    const prevListSelected = document.getElementById('focused-audio');
+    prevListSelected.removeAttribute('id');
+    prevListSelected.setAttribute('tabindex', '-1');
 
-  nextListFocused.setAttribute('id', 'focused-audio');
-  nextListFocused.setAttribute('tabindex', '0');
-  nextListFocused.focus();
+    listSelected.setAttribute('id', 'focused-audio');
+    listSelected.setAttribute('tabindex', '0');
+  }
+
+  playAudio(listSelected.getAttribute('data-name'));
 }
 
 wordsFilterBtn.onclick = () => {
@@ -370,7 +449,7 @@ playBtn.onclick = () => {
         nextAud = await Promise.race([song.objectUrl, 'songPending']);
 
         if (nextAud !== 'songPending') {
-          playAudio(nextAud, song.title, true);
+          playRandomAudio(nextAud, song.title, true);
           return;
         }
         // NOTE: If `song` is not settled yet then check `aud` instead of waiting for `song`
@@ -389,7 +468,7 @@ playBtn.onclick = () => {
         nextAud = await aud.objectUrl;
       }
 
-      playAudio(nextAud, aud.title, false);
+      playRandomAudio(nextAud, aud.title, false);
   })();
 }
 

@@ -62,7 +62,7 @@
     <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-opacity ease-out duration-300">
       <h1 id="audio-title" class="block mb-4 text-xl text-center text-white font-bold">Kobo Button</h1>
 
-      <audio id="audio-player-1" src="/assets/aud/sample.mp3"></audio>
+      <audio id="audio-player-1"></audio>
     </div>
 
     <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
@@ -122,33 +122,25 @@
           <ul>
             <li id="focused-audio" class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
-              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="0"
-              data-category="words">
+              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px]" tabindex="0"
+              data-name="first_opening" data-category="words">
               <span>Audio Title</span>
               <p class="text-sm">Language</p>
             </li>
 
             <li class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
-              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="-1"
-              data-category="sound">
+              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px]" tabindex="-1"
+              data-name="first_ehe" data-category="sound">
               <span>Long Audio Title Placeholder for UI Testing</span>
               <p class="text-sm">Language</p>
             </li>
 
             <li class="grid grid-rows-[repeat(2,auto)]
               py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50" aria-disabled="true"
-              data-category="song">
+              data-name="mantra_hujan" data-category="song">
               <span>Audio Title</span>
               <p class="text-sm">This audio can be enabled from the menu</p>
-            </li>
-
-            <li class="grid grid-rows-[repeat(2,auto)]
-              py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer
-              hover:bg-white hover:-translate-x-[2px] hover:-translate-y-[2px] focus:bg-white" tabindex="-1"
-              data-category="sound">
-              <span>Long Audio Title Placeholder for UI Testing</span>
-              <p class="text-sm">Language</p>
             </li>
           </ul>
         </section>
