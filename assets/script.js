@@ -16,7 +16,6 @@ const audioTitleEl = document.getElementById('audio-title');
 const audioEl1 = document.getElementById('audio-player-1');
 const audioEl2 = document.getElementById('audio-player-2');
 
-const nsfwSwitch = document.getElementById('nsfw-switch');
 const songSwitch = document.getElementById('song-switch');
 const audioControlSwitch = document.getElementById('audio-control-switch');
 
@@ -45,13 +44,6 @@ let lastFocusedEl = null;
 let isWaitingAudio = false;
 
 /**
- * Tell if the audio should immediately play after being loaded to `<audio>` element
- * @type {boolean}
- * @deprecated
- */
-let isImmediatePlay = false;
-
-/**
  * Timeout ID of `setTimeout()` for `togglePlaylistWindow()`
  * @type {?string|number}
  */
@@ -70,13 +62,13 @@ let audioData;
 let songData;
 
 /**
- * Fetched random audio in object url form
+ * Fetched random audio
  * @type object
  */
 let aud;
 
 /**
- * Fetched random audio song in object url form
+ * Fetched random audio song
  * @type object
  */
 let song;
@@ -207,7 +199,7 @@ const fetchAudio = async (audioName, signal = null) => {
 const getRandomAudio = (audioData) => {
   let randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
 
-  while (randomAudio.isNsfw === true && nsfwSwitch.checked === false) {
+  while (!randomAudio.isSeiso) {
     randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
   }
 
@@ -334,7 +326,7 @@ menuEl.querySelectorAll('.switch').forEach(el => {
 songSwitch.onchange = () => {
   const isChecked = songSwitch.checked;
 
-  if (isChecked && songData !== undefined) {
+  if (isChecked && songData !== undefined && song === undefined) {
     song = getRandomAudio(songData);
   }
 

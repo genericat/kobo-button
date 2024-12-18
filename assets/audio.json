@@ -3,67 +3,54 @@
     "name": "first_ehe",
     "title": "First Ehe!",
     "category": "sound",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "first_opening",
     "title": "First Opening",
     "category": "word",
     "lang": "english",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "mantra_hujan",
     "title": "Mantra Hujan",
     "category": "song",
     "lang": "indonesia",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "fuwa_fuwa_time",
     "title": "Fuwa Fuwa Time",
     "category": "song",
     "lang": "japanese",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
-    "name": "ara_ara",
-    "title": "Ara-ara~",
+    "name": "teneneneng",
+    "title": "Teneneng Teneneng~",
     "category": "sound",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "transformer_noise",
     "title": "Transformer Noise",
     "category": "sound",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "underwater",
     "title": "I am Under the Water",
     "category": "word",
     "lang": "english",
-    "isNsfw": false
-  },
-  {
-    "name": "teneneneng",
-    "title": "Teneneng Teneneng~",
-    "category": "sound",
-    "isNsfw": false
-  },
-  {
-    "name": "graphic_design",
-    "title": "Graphic Design is My Passion",
-    "category": "word",
-    "lang": "english",
-    "isNsfw": false
+    "isSeiso": true
   },
   {
     "name": "la_vaguelette",
     "title": "La Vaguelette (cont.)",
     "category": "song",
     "lang": "french",
-    "isNsfw": false,
+    "isSeiso": true,
     "next": "la_vaguelette2"
   },
   {
@@ -71,6 +58,19 @@
     "title": "La Vaguelette",
     "category": "song",
     "lang": "french",
-    "isNsfw": false
+    "isSeiso": true
+  },
+  {
+    "name": "graphic_design",
+    "title": "Graphic Design is My Passion",
+    "category": "word",
+    "lang": "english",
+    "isSeiso": true
+  },
+  {
+    "name": "ara_ara",
+    "title": "Ara-ara~",
+    "category": "sound",
+    "isSeiso": true
   }
 ]
