@@ -11,6 +11,7 @@ const playlistBtn = document.getElementById('playlist-btn');
 
 const menuBtn = document.getElementById('menu-btn');
 const menuEl = document.getElementById('menu-window');
+const menuIcon = document.getElementById('menu-icon');
 
 const audioTitleEl = document.getElementById('audio-title');
 const audioEl1 = document.getElementById('audio-player-1');
@@ -135,6 +136,9 @@ const toggleMenuWindow = () => {
   menuEl.classList.toggle('rtl:-translate-x-full', ariaExpanded);
   menuEl.toggleAttribute('inert', ariaExpanded);
   menuEl.setAttribute('aria-hidden', ariaExpanded);
+  menuIcon.innerText = ariaExpanded ? '🌂' : '☂️';
+  menuIcon.classList.toggle('md:-translate-x-[8px]', !ariaExpanded);
+  menuIcon.classList.toggle('md:translate-y-[8px]', !ariaExpanded);
   menuBtn.setAttribute('aria-expanded', !ariaExpanded);
 
   playlistEl.classList.toggle('md:w-3/4', ariaExpanded);
