@@ -9,21 +9,21 @@
     "name": "first_opening",
     "title": "First Opening",
     "category": "word",
-    "lang": "english",
+    "lang": "English",
     "isSeiso": true
   },
   {
     "name": "mantra_hujan",
     "title": "Mantra Hujan",
     "category": "song",
-    "lang": "indonesia",
+    "lang": "Indonesia",
     "isSeiso": true
   },
   {
     "name": "fuwa_fuwa_time",
     "title": "Fuwa Fuwa Time",
     "category": "song",
-    "lang": "japanese",
+    "lang": "Japanese",
     "isSeiso": true
   },
   {
@@ -42,14 +42,14 @@
     "name": "underwater",
     "title": "I am Under the Water",
     "category": "word",
-    "lang": "english",
+    "lang": "English",
     "isSeiso": true
   },
   {
     "name": "la_vaguelette",
     "title": "La Vaguelette (cont.)",
     "category": "song",
-    "lang": "french",
+    "lang": "French",
     "isSeiso": true,
     "next": "la_vaguelette2"
   },
@@ -57,14 +57,14 @@
     "name": "la_vaguelette2",
     "title": "La Vaguelette",
     "category": "song",
-    "lang": "french",
+    "lang": "French",
     "isSeiso": true
   },
   {
     "name": "graphic_design",
     "title": "Graphic Design is My Passion",
     "category": "word",
-    "lang": "english",
+    "lang": "English",
     "isSeiso": true
   },
   {

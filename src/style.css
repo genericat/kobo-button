@@ -28,6 +28,26 @@
   .song-list [data-category="song"] {
     display: grid;
   }
+
+  /* #audio-playlist li[aria-disabled="true"] {
+    & .song-lang {
+      display: none;
+    }
+
+    & .song-notice {
+      display: initial;
+    }
+  }
+
+  #audio-playlist li[aria-disabled="false"] {
+    & .song-lang {
+      display: initial;
+    }
+
+    & .song-notice {
+      display: none;
+    }
+  } */
 }
 
 @layer utilities {

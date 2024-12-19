@@ -568,6 +568,25 @@ input[role="switch"]:checked + div {
 .song-list [data-category="song"] {
     display: grid;
   }
+/* #audio-playlist li[aria-disabled="true"] {
+    & .song-lang {
+      display: none;
+    }
+
+    & .song-notice {
+      display: initial;
+    }
+  }
+
+  #audio-playlist li[aria-disabled="false"] {
+    & .song-lang {
+      display: initial;
+    }
+
+    & .song-notice {
+      display: none;
+    }
+  } */
 .invisible {
   visibility: hidden;
 }
@@ -624,9 +643,6 @@ input[role="switch"]:checked + div {
 }
 .row-end-2 {
   grid-row-end: 2;
-}
-.m-2 {
-  margin: 0.5rem;
 }
 .m-1 {
   margin: 0.25rem;
@@ -915,6 +931,9 @@ input[role="switch"]:checked + div {
 .align-middle {
   vertical-align: middle;
 }
+.text-\[24px\] {
+  font-size: 24px;
+}
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -922,12 +941,6 @@ input[role="switch"]:checked + div {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-.text-\[32px\] {
-  font-size: 32px;
-}
-.text-\[24px\] {
-  font-size: 24px;
 }
 .font-bold {
   font-weight: 700;
@@ -1086,18 +1099,18 @@ input[role="switch"]:checked + div {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.group[aria-disabled="true"] .group-aria-disabled\:block {
+  display: block;
+}
+
+.group[aria-disabled="true"] .group-aria-disabled\:hidden {
+  display: none;
+}
+
 @media (min-width: 768px) {
 
   .md\:z-10 {
     z-index: 10;
-  }
-
-  .md\:m-4 {
-    margin: 1rem;
-  }
-
-  .md\:m-2 {
-    margin: 0.5rem;
   }
 
   .md\:w-1\/2 {
@@ -1108,13 +1121,13 @@ input[role="switch"]:checked + div {
     width: 75%;
   }
 
-  .md\:translate-y-0 {
-    --tw-translate-y: 0px;
+  .md\:-translate-x-\[8px\] {
+    --tw-translate-x: -8px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
-  .md\:-translate-x-\[8px\] {
-    --tw-translate-x: -8px;
+  .md\:translate-y-0 {
+    --tw-translate-y: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
