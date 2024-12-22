@@ -28,6 +28,7 @@ const songFilterBtn = document.getElementById('song-filter-btn');
 
 const playBtn = document.getElementById('play-btn');
 const replayBtn = document.getElementById('replay-btn');
+const prevBtn = document.getElementById('prev-btn');
 
 
 /**
@@ -75,14 +76,20 @@ let aud;
 let song;
 
 /**
- * Previous audio played from playlist
- * @type string
+ * Previous random audio played
+ * @type object
  */
-let prevAudPlaylist;
+let prevAud;
+
+/**
+ * Previous audio played from playlist
+ * @type object
+ */
+let prevAudPlaylist = {"name": "", "objectUrl": ""};
 
 /**
  * Controller to abort fetch promise
- * @type {AbortController}
+ * @type {?AbortController}
  */
 let controller;
 
@@ -136,9 +143,11 @@ const toggleMenuWindow = () => {
   menuEl.classList.toggle('rtl:-translate-x-full', ariaExpanded);
   menuEl.toggleAttribute('inert', ariaExpanded);
   menuEl.setAttribute('aria-hidden', ariaExpanded);
+
   menuIcon.innerText = ariaExpanded ? '🌂' : '☂️';
   menuIcon.classList.toggle('md:-translate-x-[8px]', !ariaExpanded);
   menuIcon.classList.toggle('md:translate-y-[8px]', !ariaExpanded);
+
   menuBtn.setAttribute('aria-expanded', !ariaExpanded);
 
   playlistEl.classList.toggle('md:w-3/4', ariaExpanded);
@@ -225,8 +234,18 @@ const playRandomAudio = (objectUrl, title, isSong) => {
     isWaitingAudio = false;
 
     if (isSong) {
+      song.objectUrl.then(ou => {
+        audioEl1.src = '';
+        URL.revokeObjectURL(ou);
+      });
+
       song = getRandomAudio(songData);
     } else {
+      aud.objectUrl.then(ou => {
+        audioEl1.src = '';
+        URL.revokeObjectURL(ou);
+      });
+
       aud = getRandomAudio(audioData);
     }
 
@@ -240,16 +259,22 @@ const playRandomAudio = (objectUrl, title, isSong) => {
 }
 
 const playAudio = async (audioName) => {
-  if (audioName === prevAudPlaylist) {
+  if (audioName === prevAudPlaylist.name) {
     audioEl2.play();
     return;
   }
 
+  // If the controller not null (audio is not done fetched)
+  // then abort the current fetch promise, preparing for new fetch promise
   if (controller) {
     controller.abort();
   }
 
-  prevAudPlaylist = audioName;
+  if (!prevAudPlaylist.objectUrl) {
+    audioEl2.src = '';
+    URL.revokeObjectURL(await prevAudPlaylist.objectUrl);
+  }
+  prevAudPlaylist.name = audioName;
   controller = new AbortController();
 
   try {
@@ -259,6 +284,7 @@ const playAudio = async (audioName) => {
     audioEl2.play();
 
     controller = null;
+    prevAudPlaylist.objectUrl = audio;
   } catch (error) {
     console.error('Fetching audio from playlist error', error);
 
@@ -424,6 +450,7 @@ songFilterBtn.onclick = () => {
 }
 
 
+// TODO: also take care of keydown and touchstart event
 playBtn.onmousedown = (e) => {
   timeoutId = setTimeout(openPlaylistWindow, 1000, e);
 }
@@ -432,7 +459,6 @@ playBtn.onmouseup = () => {
   clearTimeout(timeoutId);
 }
 
-// TODO: also take care of keydown and touchstart event
 playBtn.onclick = () => {
   if (isWaitingAudio) {
     return;
