@@ -53,31 +53,31 @@ let timeoutId = null;
 
 /**
  * Audio database
- * @type object
+ * @type ?object
  */
 let audioData;
 
 /**
  * Song audio data
- * @type object
+ * @type ?object
  */
 let songData;
 
 /**
  * Fetched random audio
- * @type object
+ * @type ?object
  */
 let aud;
 
 /**
- * Fetched random audio song
- * @type object
+ * Fetched random song audio
+ * @type ?object
  */
 let song;
 
 /**
- * Previous random audio played
- * @type object
+ * Previous audio played from Kobo Button or Next Button
+ * @type ?object
  */
 let prevAud;
 
@@ -85,7 +85,7 @@ let prevAud;
  * Previous audio played from playlist
  * @type object
  */
-let prevAudPlaylist = {"name": "", "objectUrl": ""};
+let prevAudPlaylist = {};
 
 /**
  * Controller to abort fetch promise
@@ -223,33 +223,55 @@ const getRandomAudio = (audioData) => {
 }
 
 
+const setPrevAud = () => {
+  if (!audioEl1.hasAttribute('src')) {
+    return;
+  }
+
+  const isSong = audioEl1.getAttribute('data-song') === 'true' ? true : false;
+
+  if (!songSwitch.checked && isSong) {
+    return;
+  }
+
+  prevBtn.classList.remove('invisible');
+
+  if (prevAud) {
+    URL.revokeObjectURL(prevAud.objectUrl);
+  }
+
+  prevAud = {
+    "title": audioTitleEl.innerText,
+    "isSong": isSong,
+    "objectUrl": audioEl1.src
+  }
+
+  prevBtn.title = audioTitleEl.innerText;
+}
+
+
 const playRandomAudio = (objectUrl, title, isSong) => {
   if (objectUrl !== '') {
+    setPrevAud();
+
     audioTitleEl.innerText = title;
     audioTitleEl.classList.remove('cursor-wait');
 
     audioEl1.src = objectUrl;
+    audioEl1.setAttribute('data-song', isSong);
     audioEl1.play();
 
     isWaitingAudio = false;
 
     if (isSong) {
-      song.objectUrl.then(ou => {
-        audioEl1.src = '';
-        URL.revokeObjectURL(ou);
-      });
+      // song.objectUrl.then(ou => URL.revokeObjectURL(ou));
 
       song = getRandomAudio(songData);
     } else {
-      aud.objectUrl.then(ou => {
-        audioEl1.src = '';
-        URL.revokeObjectURL(ou);
-      });
+      // aud.objectUrl.then(ou => URL.revokeObjectURL(ou));
 
       aud = getRandomAudio(audioData);
     }
-
-    // console.log('Played random audio');
   }
   else {
     console.error('Audio fetch failed');
@@ -264,7 +286,7 @@ const playAudio = async (audioName) => {
     return;
   }
 
-  // If the controller not null (audio is not done fetched)
+  // If the `controller` not null (audio is not done fetched)
   // then abort the current fetch promise, preparing for new fetch promise
   if (controller) {
     controller.abort();
@@ -358,6 +380,10 @@ songSwitch.onchange = () => {
 
   if (isChecked && songData !== undefined && song === undefined) {
     song = getRandomAudio(songData);
+  }
+
+  if (prevAud) {
+    prevBtn.classList.toggle('invisible', prevAud.isSong && !isChecked);
   }
 
   const songList = audioPlaylist.querySelectorAll('[data-category="song"]');
@@ -484,7 +510,6 @@ playBtn.onclick = () => {
         audioTitleEl.classList.add('cursor-wait');
 
         isWaitingAudio = true;
-        // console.log('Fetching audio...');
 
         // NOTE: if `aud` is not settled yet then wait for it
         nextAud = await aud.objectUrl;
@@ -509,6 +534,23 @@ replayBtn.onclick = () => {
     duration: 300,
     iterations: 1
   });
+}
+
+
+prevBtn.onclick = () => {
+  const temp = {
+    "title": audioTitleEl.innerText,
+    "objectUrl": audioEl1.src
+  }
+
+  prevBtn.setAttribute('title', audioTitleEl.innerText);
+
+  audioTitleEl.innerText = prevAud.title;
+
+  audioEl1.src = prevAud.objectUrl;
+  audioEl1.play();
+
+  prevAud = temp;
 }
 
 

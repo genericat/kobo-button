@@ -866,9 +866,6 @@ input[role="switch"]:checked + div {
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
-.bg-pattern {
-  background-image: url('/assets/img/pattern.svg');
-}
 .from-dark-blue {
   --tw-gradient-from: #07377E var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(7 55 126 / 0) var(--tw-gradient-to-position);
