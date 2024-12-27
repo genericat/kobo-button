@@ -287,7 +287,7 @@ const playAudio = async (audioName) => {
     controller.abort();
   }
 
-  if (!prevAudPlaylist.objectUrl) {
+  if (prevAudPlaylist.objectUrl) {
     audioEl2.src = '';
     URL.revokeObjectURL(await prevAudPlaylist.objectUrl);
   }
