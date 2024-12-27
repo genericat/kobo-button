@@ -52,16 +52,16 @@ let isWaitingAudio = false;
 let timeoutId = null;
 
 /**
- * Audio database
+ * Audio database for other than song category
  * @type ?object
  */
-let audioData;
+let audiosData;
 
 /**
- * Song audio data
+ * Audio database for song category
  * @type ?object
  */
-let songData;
+let songsData;
 
 /**
  * Fetched random audio
@@ -184,7 +184,8 @@ const fetchAudioData = async () => {
 
     return json;
   } catch (error) {
-    throw new Error('Error fetching the audio data');
+    console.error(error);
+    // throw error;
   }
 }
 
@@ -198,28 +199,28 @@ const fetchAudio = async (audioName, signal = null) => {
     return objectUrl;
   } catch (error) {
     if (error.name === 'AbortError') {
-      console.log(`Fetching ${audioName} aborted`);
-      return '';
+      console.log(`Fetching ${audioName} file aborted`);
     }
-
-    console.error(error);
+    else {
+      console.error(error);
+    }
 
     return '';
   }
 }
 
 
-const getRandomAudio = (audioData) => {
-  let randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
+const getRandomAudio = (audiosData) => {
+  let randomAudio = audiosData[Math.floor(Math.random() * audiosData.length)];
 
   while (!randomAudio.isSeiso) {
-    randomAudio = audioData[Math.floor(Math.random() * audioData.length)];
+    randomAudio = audiosData[Math.floor(Math.random() * audiosData.length)];
   }
 
-  return {
-    "title": randomAudio.title,
-    "objectUrl": fetchAudio(randomAudio.name)
-  }
+  const result = {...randomAudio};
+  result.objectUrl = fetchAudio(randomAudio.name);
+
+  return result;
 }
 
 
@@ -250,33 +251,27 @@ const setPrevAud = () => {
 }
 
 
-const playRandomAudio = (objectUrl, title, isSong) => {
-  if (objectUrl !== '') {
-    setPrevAud();
-
-    audioTitleEl.innerText = title;
-    audioTitleEl.classList.remove('cursor-wait');
-
-    audioEl1.src = objectUrl;
-    audioEl1.setAttribute('data-song', isSong);
-    audioEl1.play();
-
-    isWaitingAudio = false;
-
-    if (isSong) {
-      // song.objectUrl.then(ou => URL.revokeObjectURL(ou));
-
-      song = getRandomAudio(songData);
-    } else {
-      // aud.objectUrl.then(ou => URL.revokeObjectURL(ou));
-
-      aud = getRandomAudio(audioData);
-    }
+const playRandomAudio = (objectUrl, audioData) => {
+  if (objectUrl === '') {
+    alert('Error');
+    return;
   }
-  else {
-    console.error('Audio fetch failed');
 
-    // TODO: refetch?
+  setPrevAud();
+
+  audioTitleEl.innerText = audioData.title;
+  audioTitleEl.classList.remove('cursor-wait');
+
+  audioEl1.src = objectUrl;
+  audioEl1.setAttribute('data-song', audioData.category === 'song' ? true : false);
+  audioEl1.play();
+
+  isWaitingAudio = false;
+
+  if (audioData.category === 'song') {
+    song = getRandomAudio(songsData);
+  } else {
+    aud = getRandomAudio(audiosData);
   }
 }
 
@@ -296,6 +291,7 @@ const playAudio = async (audioName) => {
     audioEl2.src = '';
     URL.revokeObjectURL(await prevAudPlaylist.objectUrl);
   }
+
   prevAudPlaylist.name = audioName;
   controller = new AbortController();
 
@@ -308,8 +304,6 @@ const playAudio = async (audioName) => {
     controller = null;
     prevAudPlaylist.objectUrl = audio;
   } catch (error) {
-    console.error('Fetching audio from playlist error', error);
-
     alert('Error');
   }
 }
@@ -317,19 +311,18 @@ const playAudio = async (audioName) => {
 
 (async function init() {
   try {
-    audioData = await fetchAudioData();
+    audiosData = await fetchAudioData();
 
-    songData = audioData.filter((data) => { return data.category === 'song' });
-    audioData = audioData.filter((data) => { return data.category !== 'song' });
+    songsData = audiosData.filter((data) => { return data.category === 'song' });
+    audiosData = audiosData.filter((data) => { return data.category !== 'song' });
 
-    aud = getRandomAudio(audioData);
+    aud = getRandomAudio(audiosData);
 
     if (songSwitch.checked) {
-      song = getRandomAudio(songData);
+      song = getRandomAudio(songsData);
     }
   } catch (error) {
-    console.error('Initialization error', error);
-
+    // console.error('Initialization failed -', error);
     alert('Error');
   }
 })();
@@ -378,8 +371,8 @@ menuEl.querySelectorAll('.switch').forEach(el => {
 songSwitch.onchange = () => {
   const isChecked = songSwitch.checked;
 
-  if (isChecked && songData !== undefined && song === undefined) {
-    song = getRandomAudio(songData);
+  if (isChecked && songsData !== undefined && song === undefined) {
+    song = getRandomAudio(songsData);
   }
 
   if (prevAud) {
@@ -491,31 +484,31 @@ playBtn.onclick = () => {
   }
 
   (async () => {
-      let nextAud;
+      let objectUrl;
 
       if (songSwitch.checked && Math.random() > 0.6) {
-        nextAud = await Promise.race([song.objectUrl, 'songPending']);
+        objectUrl = await Promise.race([song.objectUrl, 'songPending']);
 
-        if (nextAud !== 'songPending') {
-          playRandomAudio(nextAud, song.title, true);
+        if (objectUrl !== 'songPending') {
+          playRandomAudio(objectUrl, song);
           return;
         }
         // NOTE: If `song` is not settled yet then check `aud` instead of waiting for `song`
       }
 
-      nextAud = await Promise.race([aud.objectUrl, 'audPending']);
+      objectUrl = await Promise.race([aud.objectUrl, 'audPending']);
 
-      if (nextAud === 'audPending') {
+      if (objectUrl === 'audPending') {
         audioTitleEl.innerText = 'Loading...'
         audioTitleEl.classList.add('cursor-wait');
 
         isWaitingAudio = true;
 
         // NOTE: if `aud` is not settled yet then wait for it
-        nextAud = await aud.objectUrl;
+        objectUrl = await aud.objectUrl;
       }
 
-      playRandomAudio(nextAud, aud.title, false);
+      playRandomAudio(objectUrl, aud);
   })();
 }
 
