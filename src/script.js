@@ -145,7 +145,8 @@ const toggleMenuWindow = () => {
   menuEl.setAttribute('aria-hidden', ariaExpanded);
 
   menuIcon.innerText = ariaExpanded ? '🌂' : '☂️';
-  menuIcon.classList.toggle('md:-translate-x-[8px]', !ariaExpanded);
+  menuIcon.classList.toggle('ltr:md:-translate-x-[8px]', !ariaExpanded);
+  menuIcon.classList.toggle('rtl:md:translate-x-[8px]', !ariaExpanded);
   menuIcon.classList.toggle('md:translate-y-[8px]', !ariaExpanded);
 
   menuBtn.setAttribute('aria-expanded', !ariaExpanded);
