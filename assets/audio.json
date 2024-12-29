@@ -3,7 +3,8 @@
     "name": "first_ehe",
     "title": "First Ehe!",
     "category": "sound",
-    "isSeiso": true
+    "isSeiso": true,
+    "next": "mantra_hujan"
   },
   {
     "name": "first_opening",

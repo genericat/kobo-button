@@ -29,6 +29,7 @@ const songFilterBtn = document.getElementById('song-filter-btn');
 const playBtn = document.getElementById('play-btn');
 const replayBtn = document.getElementById('replay-btn');
 const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
 
 
 /**
@@ -76,10 +77,22 @@ let aud;
 let song;
 
 /**
+ * Currently played audio from Kobo Button
+ * @type ?object
+ */
+let currentAud;
+
+/**
  * Previous audio played from Kobo Button or Next Button
  * @type ?object
  */
 let prevAud;
+
+/**
+ * Next chained audio
+ * @type ?object
+ */
+let nextAud;
 
 /**
  * Previous audio played from playlist
@@ -225,6 +238,19 @@ const getRandomAudio = (audiosData) => {
 }
 
 
+const getNextAudio = (audioName) => {
+  let audioData = audiosData.filter(ad => {return ad.name === audioName});
+
+  if (audioData) {
+    audioData = songsData.filter(ad => {return ad.name === audioName});
+  }
+
+  audioData[0].objectUrl = fetchAudio(audioName);
+
+  return audioData[0];
+}
+
+
 const setPrevAud = () => {
   if (!audioEl1.hasAttribute('src')) {
     return;
@@ -238,9 +264,9 @@ const setPrevAud = () => {
 
   prevBtn.classList.remove('invisible');
 
-  if (prevAud) {
-    URL.revokeObjectURL(prevAud.objectUrl);
-  }
+  // if (prevAud) {
+    URL.revokeObjectURL(prevAud?.objectUrl);
+  // }
 
   prevAud = {
     "title": audioTitleEl.innerText,
@@ -252,13 +278,43 @@ const setPrevAud = () => {
 }
 
 
+const setNextAud = (audioNext) => {
+  if (!audioNext) {
+    nextAud = {}
+
+    nextBtn.classList.add('invisible');
+    nextBtn.removeAttribute('title');
+
+    return;
+  }
+
+  let nextAudioData = audiosData.filter(ad => {return ad.name === audioNext});
+
+  if (nextAudioData.length == 0 && songSwitch.checked) {
+    nextAudioData = songsData.filter(ad => {return ad.name === audioNext});
+  } else {
+    return;
+  }
+
+  nextAud = nextAudioData[0];
+  nextAud.objectUrl = fetchAudio(audioNext);
+
+
+  nextBtn.classList.remove('invisible');
+  nextBtn.setAttribute('title', nextAud.title);
+}
+
+
 const playRandomAudio = (objectUrl, audioData) => {
   if (objectUrl === '') {
     alert('Error');
     return;
   }
 
+  currentAud = audioData;
+
   setPrevAud();
+
 
   audioTitleEl.innerText = audioData.title;
   audioTitleEl.classList.remove('cursor-wait');
@@ -267,7 +323,15 @@ const playRandomAudio = (objectUrl, audioData) => {
   audioEl1.setAttribute('data-song', audioData.category === 'song' ? true : false);
   audioEl1.play();
 
+
   isWaitingAudio = false;
+
+  // if (audioData.name !== nextAud?.name) {
+  //   nextAud?.objectUrl?.then(ou => URL.revokeObjectURL(ou));
+  // }
+
+
+  setNextAud(audioData.next);
 
   if (audioData.category === 'song') {
     song = getRandomAudio(songsData);
@@ -376,8 +440,16 @@ songSwitch.onchange = () => {
     song = getRandomAudio(songsData);
   }
 
+  if (audioEl1.getAttribute('data-song') === 'true') {
+    replayBtn.classList.toggle('invisible', true && !isChecked);
+  }
+
   if (prevAud) {
     prevBtn.classList.toggle('invisible', prevAud.isSong && !isChecked);
+  }
+
+  if (nextAud) {
+    nextBtn.classList.toggle('invisible', nextAud.category === 'song' && !isChecked);
   }
 
   const songList = audioPlaylist.querySelectorAll('[data-category="song"]');
@@ -485,6 +557,8 @@ playBtn.onclick = () => {
   }
 
   (async () => {
+      nextAud?.objectUrl?.then(ou => URL.revokeObjectURL(ou));
+
       let objectUrl;
 
       if (songSwitch.checked && Math.random() > 0.6) {
@@ -545,6 +619,21 @@ prevBtn.onclick = () => {
   audioEl1.play();
 
   prevAud = temp;
+}
+
+nextBtn.onclick = async () => {
+  let objectUrl = await Promise.race([nextAud.objectUrl, 'pending']);
+
+  if (objectUrl === 'pending') {
+    audioTitleEl.innerText = 'Loading...'
+    audioTitleEl.classList.add('cursor-wait');
+
+    isWaitingAudio = true;
+
+    objectUrl = await nextAud.objectUrl;
+  }
+
+  playRandomAudio(objectUrl, nextAud);
 }
 
 
