@@ -252,35 +252,43 @@ const getNextAudio = (audioName) => {
 
 
 const setPrevAud = () => {
-  if (!audioEl1.hasAttribute('src')) {
+  if (!currentAud) {
     return;
   }
 
-  const isSong = audioEl1.getAttribute('data-song') === 'true' ? true : false;
-
-  if (!songSwitch.checked && isSong) {
+  if (!songSwitch.checked && currentAud.category === 'song') {
     return;
   }
 
+  URL.revokeObjectURL(prevAud?.objectUrl);
+
+  prevAud = currentAud;
+
+  prevBtn.title = currentAud.title;
   prevBtn.classList.remove('invisible');
 
-  // if (prevAud) {
-    URL.revokeObjectURL(prevAud?.objectUrl);
+  // const isSong = audioEl1.getAttribute('data-song') === 'true' ? true : false;
+
+  // if (!songSwitch.checked && isSong) {
+  //   return;
   // }
 
-  prevAud = {
-    "title": audioTitleEl.innerText,
-    "isSong": isSong,
-    "objectUrl": audioEl1.src
-  }
 
-  prevBtn.title = audioTitleEl.innerText;
+  // if (prevAud) {
+    // URL.revokeObjectURL(prevAud?.objectUrl);
+  // }
+
+  // prevAud = {
+  //   "title": audioTitleEl.innerText,
+  //   "isSong": isSong,
+  //   "objectUrl": audioEl1.src
+  // }
 }
 
 
 const setNextAud = (audioNext) => {
   if (!audioNext) {
-    nextAud = {}
+    nextAud = undefined;
 
     nextBtn.classList.add('invisible');
     nextBtn.removeAttribute('title');
@@ -311,16 +319,16 @@ const playRandomAudio = (objectUrl, audioData) => {
     return;
   }
 
-  currentAud = audioData;
-
   setPrevAud();
 
+  currentAud = audioData;
+  currentAud.objectUrl = objectUrl;
 
   audioTitleEl.innerText = audioData.title;
   audioTitleEl.classList.remove('cursor-wait');
 
   audioEl1.src = objectUrl;
-  audioEl1.setAttribute('data-song', audioData.category === 'song' ? true : false);
+  // audioEl1.setAttribute('data-song', audioData.category === 'song' ? true : false);
   audioEl1.play();
 
 
@@ -330,9 +338,9 @@ const playRandomAudio = (objectUrl, audioData) => {
   //   nextAud?.objectUrl?.then(ou => URL.revokeObjectURL(ou));
   // }
 
-
   setNextAud(audioData.next);
 
+  // TODO: maybe move this part to a function
   if (audioData.category === 'song') {
     song = getRandomAudio(songsData);
   } else {
@@ -354,6 +362,7 @@ const playAudio = async (audioName) => {
 
   if (prevAudPlaylist.objectUrl) {
     audioEl2.src = '';
+    // TODO: Check again if prevAudPlaylist.objectUrl is a Promise
     URL.revokeObjectURL(await prevAudPlaylist.objectUrl);
   }
 
@@ -445,11 +454,11 @@ songSwitch.onchange = () => {
   }
 
   if (prevAud) {
-    prevBtn.classList.toggle('invisible', prevAud.isSong && !isChecked);
+    prevBtn.classList.toggle('invisible', prevAud.category !== 'song' || isChecked);
   }
 
   if (nextAud) {
-    nextBtn.classList.toggle('invisible', nextAud.category === 'song' && !isChecked);
+    nextBtn.classList.toggle('invisible', nextAud.category !== 'song' || isChecked);
   }
 
   const songList = audioPlaylist.querySelectorAll('[data-category="song"]');
@@ -557,33 +566,33 @@ playBtn.onclick = () => {
   }
 
   (async () => {
-      nextAud?.objectUrl?.then(ou => URL.revokeObjectURL(ou));
+    nextAud?.objectUrl?.then(ou => URL.revokeObjectURL(ou));
 
-      let objectUrl;
+    let objectUrl;
 
-      if (songSwitch.checked && Math.random() > 0.6) {
-        objectUrl = await Promise.race([song.objectUrl, 'songPending']);
+    if (songSwitch.checked && Math.random() > 0.6) {
+      objectUrl = await Promise.race([song.objectUrl, 'songPending']);
 
-        if (objectUrl !== 'songPending') {
-          playRandomAudio(objectUrl, song);
-          return;
-        }
-        // NOTE: If `song` is not settled yet then check `aud` instead of waiting for `song`
+      if (objectUrl !== 'songPending') {
+        playRandomAudio(objectUrl, song);
+        return;
       }
+      // NOTE: If `song.objectUrl` is not settled yet then check `aud.objectUrl` instead of waiting for `song.objectUrl`
+    }
 
-      objectUrl = await Promise.race([aud.objectUrl, 'audPending']);
+    objectUrl = await Promise.race([aud.objectUrl, 'audPending']);
 
-      if (objectUrl === 'audPending') {
-        audioTitleEl.innerText = 'Loading...'
-        audioTitleEl.classList.add('cursor-wait');
+    if (objectUrl === 'audPending') {
+      audioTitleEl.innerText = 'Loading...'
+      audioTitleEl.classList.add('cursor-wait');
 
-        isWaitingAudio = true;
+      isWaitingAudio = true;
 
-        // NOTE: if `aud` is not settled yet then wait for it
-        objectUrl = await aud.objectUrl;
-      }
+      // NOTE: if `aud.objectUrl` is not settled yet then wait for it
+      objectUrl = await aud.objectUrl;
+    }
 
-      playRandomAudio(objectUrl, aud);
+    playRandomAudio(objectUrl, aud);
   })();
 }
 
@@ -606,12 +615,15 @@ replayBtn.onclick = () => {
 
 
 prevBtn.onclick = () => {
-  const temp = {
-    "title": audioTitleEl.innerText,
-    "objectUrl": audioEl1.src
-  }
+  // const temp = {
+  //   "title": audioTitleEl.innerText,
+  //   "objectUrl": audioEl1.src
+  // }
 
-  prevBtn.setAttribute('title', audioTitleEl.innerText);
+  // prevBtn.setAttribute('title', audioTitleEl.innerText);
+
+  const temp = currentAud;
+  currentAud = prevAud;
 
   audioTitleEl.innerText = prevAud.title;
 
@@ -621,19 +633,25 @@ prevBtn.onclick = () => {
   prevAud = temp;
 }
 
-nextBtn.onclick = async () => {
-  let objectUrl = await Promise.race([nextAud.objectUrl, 'pending']);
-
-  if (objectUrl === 'pending') {
-    audioTitleEl.innerText = 'Loading...'
-    audioTitleEl.classList.add('cursor-wait');
-
-    isWaitingAudio = true;
-
-    objectUrl = await nextAud.objectUrl;
+nextBtn.onclick = () => {
+  if (isWaitingAudio) {
+    return;
   }
 
-  playRandomAudio(objectUrl, nextAud);
+  (async () => {
+    let objectUrl = await Promise.race([nextAud.objectUrl, 'pending']);
+
+    if (objectUrl === 'pending') {
+      audioTitleEl.innerText = 'Loading...'
+      audioTitleEl.classList.add('cursor-wait');
+
+      isWaitingAudio = true;
+
+      objectUrl = await nextAud.objectUrl;
+    }
+
+    playRandomAudio(objectUrl, nextAud);
+  })();
 }
 
 
