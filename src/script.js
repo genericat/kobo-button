@@ -478,17 +478,9 @@ songSwitch.onchange = () => {
     randomSong = getRandomAudio(songsData);
   }
 
-  if (audioEl1.getAttribute('data-song') === 'true') {
-    replayBtn.classList.toggle('invisible', true && !isChecked);
-  }
-
-  if (prevAud) {
-    prevBtn.classList.toggle('invisible', prevAud.category === 'song' && !isChecked);
-  }
-
-  if (nextAud) {
-    nextBtn.classList.toggle('invisible', nextAud.category === 'song' && !isChecked);
-  }
+  replayBtn.classList.toggle('invisible', !currentAud || currentAud?.category === 'song' && !isChecked);
+  prevBtn.classList.toggle('invisible', !prevAud || prevAud?.category === 'song' && !isChecked);
+  nextBtn.classList.toggle('invisible', !nextAud || nextAud?.category === 'song' && !isChecked);
 
   const songList = audioPlaylist.querySelectorAll('[data-category="song"]');
 
@@ -681,7 +673,7 @@ playBtn.onclick = async () => {
 
 playBtn.addEventListener('click', () => {
   replayBtn.classList.remove('invisible');
-}, {once: true});
+});
 
 
 replayBtn.onclick = () => {
