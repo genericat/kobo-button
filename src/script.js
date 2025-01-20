@@ -52,13 +52,13 @@ let timeoutId = null;
 
 /**
  * Audio database for other than song category
- * @type ?object
+ * @type ?Array<object>
  */
 let audiosData;
 
 /**
  * Audio database for song category
- * @type ?object
+ * @type ?Array<object>
  */
 let songsData;
 
@@ -94,7 +94,7 @@ let nextAud;
 
 /**
  * Previous audio played from playlist
- * @type object
+ * @type ?object
  */
 let prevAudPlaylist;
 
@@ -191,12 +191,15 @@ const filterPlaylist = (el, list) => {
 const fetchAudioData = async () => {
   try {
     const response = await fetch('/assets/audio.json');
+    if (!response.ok) {
+      throw new Error('Fetch audio data failed');
+    }
+
     const json = await response.json();
 
     return json;
   } catch (error) {
-    console.error(error);
-    // throw error
+    throw error
   }
 }
 
@@ -204,6 +207,11 @@ const fetchAudioData = async () => {
 const fetchAudio = async (audioName, signal = null) => {
   try {
     const response = await fetch(`/assets/aud/${audioName}.mp3`, { signal });
+    if (!response.ok) {
+      console.error(`Fetch ${audioName} audio file failed`);
+      return '';
+    }
+
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
 
@@ -385,32 +393,32 @@ const playAudio = async (audioName) => {
     controller.abort();
   }
 
+  controller = new AbortController();
+
   if (prevAudPlaylist?.objectUrl) {
-    audioEl2.src = '';
     URL.revokeObjectURL(prevAudPlaylist?.objectUrl);
   }
 
-  controller = new AbortController();
+  const objectUrl = await fetchAudio(audioName, controller.signal);
 
-  try {
-    const objectUrl = await fetchAudio(audioName, controller.signal);
-
-    audioEl2.src = objectUrl;
-    audioEl2.play();
-
-    controller = null;
-
-    prevAudPlaylist = {
-      "name": audioName,
-      "objectUrl": objectUrl
-    }
-  } catch (error) {
+  if (objectUrl === '') {
     alert('Error');
+    return;
+  }
+
+  audioEl2.src = objectUrl;
+  audioEl2.play();
+
+  controller = null;
+
+  prevAudPlaylist = {
+    "name": audioName,
+    "objectUrl": objectUrl
   }
 }
 
 
-const init = async () => {
+(async function init() {
   try {
     const data = await fetchAudioData();
 
@@ -423,12 +431,10 @@ const init = async () => {
       randomSong = getRandomAudio(songsData);
     }
   } catch (error) {
-    // console.error('Initialization failed -', error);
+    console.error('Initialization failed -', error);
     alert('Error');
   }
-}
-
-init();
+})();
 
 
 
