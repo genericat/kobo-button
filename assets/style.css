@@ -866,6 +866,9 @@ input[role="switch"]:checked + div {
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
+.bg-pattern {
+  background-image: url('/assets/img/pattern.svg');
+}
 .from-dark-blue {
   --tw-gradient-from: #07377E var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(7 55 126 / 0) var(--tw-gradient-to-position);
@@ -953,10 +956,6 @@ input[role="switch"]:checked + div {
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-.text-sky-600 {
-  --tw-text-opacity: 1;
-  color: rgb(2 132 199 / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;

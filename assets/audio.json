@@ -3,13 +3,12 @@
     "name": "first_ehe",
     "title": "First Ehe!",
     "category": "sound",
-    "isSeiso": true,
-    "next": "mantra_hujan"
+    "isSeiso": true
   },
   {
     "name": "first_opening",
     "title": "First Opening",
-    "category": "word",
+    "category": "words",
     "lang": "English",
     "isSeiso": true
   },
@@ -42,7 +41,7 @@
   {
     "name": "underwater",
     "title": "I am Under the Water",
-    "category": "word",
+    "category": "words",
     "lang": "English",
     "isSeiso": true
   },
@@ -64,7 +63,7 @@
   {
     "name": "graphic_design",
     "title": "Graphic Design is My Passion",
-    "category": "word",
+    "category": "words",
     "lang": "English",
     "isSeiso": true
   },

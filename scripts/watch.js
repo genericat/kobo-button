@@ -6,7 +6,11 @@ import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 
-
+/**
+ * Language code to work with
+ *
+ * Need to match to any file name in `./src/lang/` without its extension
+ */
 const params = argv.slice(2);
 
 
@@ -46,14 +50,16 @@ chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
 async function renderEjs(lang) {
   try {
     const langString     = await fs.readFile('./src/lang/' + lang, 'utf-8');
-    const templateString = await fs.readFile('./src/index.ejs', 'ascii');
+    const templateString = await fs.readFile('./src/index.ejs', 'utf-8');
 
-    const template   = compile(templateString, { async: false })
+    const template   = compile(templateString, { async: false, filename: './src/index.ejs' })
     const htmlString = template(JSON.parse(langString));
 
-    await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString);
+    await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString, 'utf-8');
 
-    console.log('Rendering ./lang/' + lang.replace('json', 'html') + ' done');
+    const date = new Date();
+
+    console.log(`[${date.toLocaleTimeString()}] Rendering ./lang/${lang.replace('json', 'html')} done`);
   } catch (error) {
     console.error(error);
   }
@@ -65,13 +71,15 @@ async function renderCss() {
     const result = await postcss([autoprefixer, tailwindcss])
       .process(cssString, { from: './src/style.css', to: './assets/style.css' });
 
-    await fs.writeFile('./assets/style.css', result.css);
-
-    console.log('Processing ./assets/style.css done');
+    await fs.writeFile('./assets/style.css', result.css, 'utf-8');
 
     // if (result.map) {
     //     fs.writeFile('./assets/style.css.map', result.map.toString());
     // }
+
+    const date = new Date();
+
+    console.log(`[${date.toLocaleTimeString()}] Processing ./assets/style.css done`);
   } catch (error) {
     console.log(error);
   }
@@ -81,7 +89,9 @@ async function copyJs() {
   try {
     await fs.copyFile('./src/script.js', './assets/script.js');
 
-    console.log('Copying script.js from src/ to assets/ done');
+    const date = new Date();
+
+    console.log(`[${date.toLocaleTimeString()}] Copying script.js from src/ to assets/ done`);
   } catch (error) {
     console.error(error);
   }

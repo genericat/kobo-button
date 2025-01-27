@@ -1,5 +1,35 @@
 {
-  "lang": "en",
-  "dir": "ltr",
-  "text": "Hello, World!"
+  "meta" : {
+    "lang": "en",
+    "dir": "ltr",
+    "title": "Kobo Button | Fan made website",
+    "description": "Play random audio of Kobo Kanaeru",
+    "url": "https://localhost:8000/",
+    "img": "https://localhost:8000/assets/img/meta_img.png"
+  },
+  "notice": "This is unofficial and fan made website. The audio is taken and presented without any additional context. This website and its contents should not be used as a judgement to any mentioned or related party.",
+  "title": "Kobo Button",
+  "playlistTitle": "Playlist",
+  "playlistNotice": "This audio can be enabled from the menu",
+  "menuTitle": "Menu",
+  "setting": {
+    "title": "Settings",
+    "song": "Include Songs",
+    "songNotice": "Songs may be copyrighted",
+    "control": "Display Audio Control",
+    "controlDesc": "Such as pause and volume control"
+  },
+  "about1": {
+    "title": "About Kobo Kanaeru",
+    "p1": "Kobo Kanaeru is a VTuber from hololive Indonesia. She loves singing and playing games in her live stream on Youtube."
+  },
+  "about2": {
+    "title": "About Kobo Button",
+    "p1": "Kobo Button is unofficial and fan made website to play audio clip of Kobo. The types of audio available are words said by Kobo, sounds such as laughing and sneezing, and songs (if enabled via the settings above).",
+    "p2": "Thanks to the contributors involved in the development and maintenance of this website and special thanks to [Artist Name]."
+  },
+  "links": {
+    "web": "Official webpage",
+    "dev": "Developer contact"
+  }
 }
