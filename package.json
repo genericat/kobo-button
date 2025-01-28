@@ -12,7 +12,7 @@
     "build:html": "node ./scripts/build_html.js",
     "build:css": "tailwindcss -i ./src/style.css -o ./assets/style.css -m",
     "build:js": "npx uglifyjs ./src/script.js -o ./assets/script.js -c",
-    "build": "npm run build:html && npm run buld:css && npm run build:js",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
     "watch": "node ./scripts/watch.js"
   },
   "dependencies": {
