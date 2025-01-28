@@ -208,7 +208,7 @@ const fetchAudioData = async () => {
 
 const fetchAudio = async (audioName, signal = null) => {
   try {
-    const response = await fetch(`${baseUrl}/assets/aud/${audioName}.mp3`, { signal });
+    const response = await fetch(`${baseUrl}assets/aud/${audioName}.mp3`, { signal });
     if (!response.ok) {
       console.error(`Fetch ${audioName} audio file failed`);
       return '';
