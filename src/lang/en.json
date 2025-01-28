@@ -4,9 +4,7 @@
     "name": "English",
     "dir": "ltr",
     "title": "Kobo Button | Fan made website",
-    "description": "Play random audio of Kobo Kanaeru",
-    "url": "https://localhost:8000/",
-    "img": "https://localhost:8000/assets/img/meta_img.png"
+    "description": "Play random audio of Kobo Kanaeru"
   },
   "notice": "This is unofficial and fan made website. The audio is taken and presented without any additional context. This website and its contents should not be used as a judgement to any mentioned or related party.",
   "title": "Kobo Button",
