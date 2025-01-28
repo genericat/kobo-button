@@ -31,6 +31,8 @@ const replayBtn = document.getElementById('replay-btn');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 
+const baseUrl = document.getElementById('baseUrl').getAttribute('href');
+
 
 /**
  * Last focused element before opening the playlist window/panel
@@ -190,7 +192,7 @@ const filterPlaylist = (el, list) => {
 
 const fetchAudioData = async () => {
   try {
-    const response = await fetch('./assets/audio.json');
+    const response = await fetch(baseUrl + 'assets/audio.json');
     if (!response.ok) {
       throw new Error('Fetch audio data failed');
     }
@@ -206,7 +208,7 @@ const fetchAudioData = async () => {
 
 const fetchAudio = async (audioName, signal = null) => {
   try {
-    const response = await fetch(`./assets/aud/${audioName}.mp3`, { signal });
+    const response = await fetch(`${baseUrl}/assets/aud/${audioName}.mp3`, { signal });
     if (!response.ok) {
       console.error(`Fetch ${audioName} audio file failed`);
       return '';

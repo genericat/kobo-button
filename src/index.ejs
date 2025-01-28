@@ -2,6 +2,7 @@
 <html lang="<%= meta.lang %>" dir="<%= meta.dir %>" style="--dir:<%= meta.dir == 'ltr' ? '1' : '-1' %>">
 
 <head>
+  <base id="baseUrl" href="<%= baseUrl %>">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@
 
   <title><%= meta.title %></title>
 
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
   <%_ langs.forEach(lang => { _%>
@@ -38,7 +39,7 @@
 <body class="bg-gradient-to-t from-dark-blue [@media(color-gamut:p3)]:from-dark-blue-p3 to-light-blue [@media(color-gamut:p3)]:to-light-blue-p3 overflow-clip">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
+    <div class="w-full h-full bg-pattern bg-cover bg-top" style="background-image: url('<%= baseUrl %>assets/img/pattern.svg');"></div>
   </div>
 
   <header
@@ -232,8 +233,7 @@
       </div>
     </section>
   </main>
-
-  <script src="./assets/script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 
 </html>

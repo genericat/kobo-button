@@ -5,6 +5,7 @@ import { compile } from 'ejs';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
+import util from "./util.js";
 
 /**
  * Language code to work with
@@ -16,8 +17,23 @@ import tailwindcss from 'tailwindcss';
  */
 const params = argv.slice(2);
 
+const baseUrl = 'http://localhost:3000/';
 
-chokidar.watch('./src').on('all', (event, path) => {
+let playlistTemplate;
+let langs;
+
+try {
+  let lang, langObjs;
+
+  [playlistTemplate, lang] = await Promise.all([
+      util.getPlaylistTemplate(),
+      util.getLang('en', baseUrl)]);
+  [langObjs, langs] = lang;
+} catch (error) {
+  console.error(error);
+}
+
+chokidar.watch('./src', {ignoreInitial: true}).on('all', (event, path) => {
   if (event !== 'add' && event !== 'change') { return; }
 
   if (path.includes('prototype.html')) {
@@ -52,11 +68,18 @@ chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
 
 async function renderEjs(lang) {
   try {
-    const langString     = await fs.readFile('./src/lang/' + lang, 'utf8');
+    const langString     = fs.readFile('./src/lang/' + lang, 'utf8');
     const templateString = await fs.readFile('./src/index.ejs', 'utf8');
 
     const template   = compile(templateString, { async: false, filename: './src/index.ejs' })
-    const htmlString = template(JSON.parse(langString));
+
+    let langObj = JSON.parse(await langString);
+
+    langObj.playlist = playlistTemplate({playlistNotice: langObj.playlistNotice});
+    langObj.langs = langs;
+    langObj.baseUrl = baseUrl;
+
+    const htmlString = template(langObj);
 
     await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString, 'utf8');
 

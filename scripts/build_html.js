@@ -1,6 +1,6 @@
 import { argv } from 'node:process';
+import util from './util.js';
 import fs from 'node:fs/promises';
-import { compile } from 'ejs';
 
 /**
  * Language code to work with
@@ -12,60 +12,19 @@ import { compile } from 'ejs';
  */
 const params = argv.slice(2);
 
-
-const getPlaylistTemplate = async () => {
-  const audioData = fs.readFile('./assets/audio.json', 'utf8');
-  let pTemplateString = await fs.readFile('./src/ejs/playlist.ejs', 'utf8');
-
-  pTemplateString = pTemplateString.replace(/\n\s*\n/g, '\n');
-
-  const pTemplate = compile(pTemplateString);
-  const playlistString = pTemplate({audios: JSON.parse(await audioData)});
-
-  return compile(playlistString, {cache: true, filename: 'playlist'});
-}
-
-
-const getLang = async (lang = null) => {
-  let langObjs = [];
-  let langs = [];
-
-  const langFiles = await fs.readdir('./src/lang/');
-
-  for (const langFile of langFiles) {
-    const langString = await fs.readFile('./src/lang/' + langFile, 'utf8');
-    let langObj = JSON.parse(langString);
-
-    if (!lang || lang === langObj.meta.lang) {
-      langObjs.push(langObj);
-    }
-
-    langs.push({
-      "lang": langObj.meta.lang,
-      "name": langObj.meta.name,
-      "dir": langObj.meta.dir,
-      "href": "http://localhost:8000/lang/" + langFile.replace('json', 'html')
-    });
-  }
-
-  return [langObjs, langs];
-}
-
-
-const getHtmlTemplate = async () => {
-  const templateString = await fs.readFile('./src/index.ejs', 'utf8');
-
-  return compile(templateString, {cache: true, filename: './src/index.ejs'});
-}
-
+const baseUrl = 'https://genericat.github.io/kobo-button/';
 
 try {
-  const [playlistTemplate, lang, htmlTemplate] = await Promise.all([getPlaylistTemplate(), getLang(params[0]), getHtmlTemplate()]);
+  const [playlistTemplate, lang, htmlTemplate] = await Promise.all([
+    util.getPlaylistTemplate(),
+    util.getLang(params[0], baseUrl),
+    util.getHtmlTemplate()]);
   const [langObjs, langs] = lang;
 
   langObjs.forEach(async langObj => {
     langObj.playlist = playlistTemplate({playlistNotice: langObj.playlistNotice});
     langObj.langs = langs;
+    langObj.baseUrl = baseUrl;
 
     const htmlString = htmlTemplate(langObj);
 
