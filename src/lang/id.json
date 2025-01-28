@@ -3,6 +3,32 @@
     "lang": "id",
     "name": "Indonesia",
     "dir": "ltr",
-    "text": "Halo, Dunia!"
+    "title": "Tombol Kobo | Website buatan penggemar",
+    "description": "Putar audio acak dari Kobo Kanaeru"
+  },
+  "notice": "Ini adalah situs web tidak resmi dan dibuat oleh penggemar. Audio diambil dan disajikan tanpa konteks tambahan apa pun. Situs web ini dan isinya sebaiknya tidak digunakan untuk penilaian terhadap pihak tersebut atau terkait mana pun.",
+  "title": "Tombol Kobo",
+  "playlistTitle": "Daftar Putar",
+  "playlistNotice": "Audio ini dapat diaktifkan melalui menu",
+  "menuTitle": "Menu",
+  "setting": {
+    "title": "Pengaturan",
+    "song": "Sertakan Audio Lagu",
+    "songNotice": "Lagu mungkin memiliki hak cipta",
+    "control": "Tampilan Kontrol Audio",
+    "controlDesc": "Seperti tombol pause dan volume"
+  },
+  "about1": {
+    "title": "Tentang Kobo Kanaeru",
+    "p1": "Kobo Kanaeru adalah seorang VTuber dari hololive Indonesia. Kobo suka bernyanyi dan bermain game saat live stream di Youtube."
+  },
+  "about2": {
+    "title": "Tentang Tombol Kobo",
+    "p1": "Tombol Kobo adalah situs web tidak resmi dan dibuat oleh penggemar untuk memutar klip audio dari Kobo. Jenis-jenis audio yang ada adalah kata-kata dari kobo, suara seperti tertawa dan bersin, dan lagu (jika diaktifkan melalui pengaturan di atas)",
+    "p2": "Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini."
+  },
+  "links": {
+    "web": "Situs resmi",
+    "dev": "Kontak Developer"
   }
 }

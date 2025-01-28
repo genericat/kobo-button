@@ -1,16 +1,375 @@
 <!DOCTYPE html>
-<html data-t="lang dir" lang="id" dir="ltr">
+<html lang="id" dir="ltr" style="--dir:1">
 
 <head>
+  <base id="baseUrl" href="http://localhost:3000/">
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="title" content="Tombol Kobo | Website buatan penggemar">
+  <meta name="description" content="Putar audio acak dari Kobo Kanaeru">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#9CE7f8">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://genericat.github.io/kobo-button/">
+  <meta property="og:title" content="Tombol Kobo | Website buatan penggemar">
+  <meta property="og:description" content="Putar audio acak dari Kobo Kanaeru">
+  <meta property="og:image" content="https://genericat.github.io/kobo-button/assets/img/meta_img.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="628">
+  <meta name="twitter:card" content="summary">
+
+  <title>Tombol Kobo | Website buatan penggemar</title>
+
+  <link rel="stylesheet" href="assets/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+  <link rel="alternate" hreflang="en" href="http://localhost:3000/lang/en.html">
+  <link rel="alternate" hreflang="id" href="http://localhost:3000/lang/id.html">
+  <link rel="alternate" href="https://genericat.github.io/kobo-button/" hreflang="x-default">
+
+  <!-- <link rel="shortcut icon" sizes="32x32" href="favicon-32.png" type="image/png"> -->
+  <!-- <link rel="shortcut icon" sizes="196x196" href="favicon-196.png" type="image/png"> -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"> -->
 </head>
 
-<body>
-  <p data-t="text" class="text-sky-600">
-    Halo, Dunia!
-  </p>
+<body class="bg-gradient-to-t from-dark-blue [@media(color-gamut:p3)]:from-dark-blue-p3 to-light-blue [@media(color-gamut:p3)]:to-light-blue-p3 overflow-clip">
+
+  <div class="absolute w-full h-full mask-circle" aria-hidden="true">
+    <div class="w-full h-full bg-pattern bg-cover bg-top" style="background-image: url('http://localhost:3000/assets/img/pattern.svg');"></div>
+  </div>
+
+  <header
+    class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pe-12 text-white z-10"
+    aria-owns="menu-btn">
+    <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
+      <span class="material-icons-round block">info</span>
+    </button>
+
+    <div id="notice-info"
+      class="hidden absolute top-12 start-4 w-4/5 md:w-1/2 lg:w-1/3 p-4 rounded-xl bg-white/50 backdrop-blur-default text-black">
+      <p>
+        Ini adalah situs web tidak resmi dan dibuat oleh penggemar. Audio diambil dan disajikan tanpa konteks tambahan apa pun. Situs web ini dan isinya sebaiknya tidak digunakan untuk penilaian terhadap pihak tersebut atau terkait mana pun.
+      </p>
+    </div>
+
+    <button id="playlist-btn" class="w-8 h-8 opacity-0 hover:opacity-100 focus:opacity-100" aria-label="Playlist" aria-controls="playlist-window"
+      aria-expanded="false">
+      <span class="material-icons-round block">queue_music</span>
+    </button>
+
+    <div class="relative">
+      <button id="lang-btn" class="h-8" aria-haspopup="menu" aria-controls="lang-list" aria-expanded="false">
+        <span class="material-icons-round">language</span>
+        <span class="inline-block align-top [text-shadow:1px_1px_8px_theme(colors.dark-blue-p3)]">Indonesia</span>
+      </button>
+
+      <ul id="lang-list" class="hidden absolute top-8 end-0 py-2 rounded-xl bg-white/50 backdrop-blur-default text-black"
+        aria-label="Language list" role="menu">
+
+        <li class="py-1 px-4 hover:bg-white"
+          lang="en"
+          dir="ltr"
+          aria-checked="false"
+          tabindex="-1"
+          role="menuitemradio">
+          <a href="http://localhost:3000/lang/en.html">English</a>
+        </li>
+        
+        <li class="py-1 px-4 hover:bg-white"
+          lang="id"
+          dir="ltr"
+          aria-checked="true"
+          tabindex="0"
+          role="menuitemradio">
+          <a href="http://localhost:3000/lang/id.html">Indonesia</a>
+        </li>
+        
+      </ul>
+    </div>
+  </header>
+
+  <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" aria-label="Menu"
+    aria-controls="menu-window" aria-expanded="false">
+    <span id="menu-icon" class="block text-[24px]">🌂</span>
+  </button>
+
+  <main class="relative w-full h-dvh overflow-clip">
+
+    <div class="main-ui absolute top-[25%] left-1/2 -translate-x-1/2 transition-opacity ease-out duration-300">
+      <h1 id="audio-title" class="block mb-4 text-xl text-center text-white font-bold">Tombol Kobo</h1>
+
+      <audio id="audio-player-1"></audio>
+    </div>
+
+    <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
+      grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
+      text-white transition-opacity ease-out duration-300" aria-label="Control buttons">
+      <button id="prev-btn" class="self-center invisible w-12 h-12 rounded-full hover:bg-white/25 hover:border-2 hover:border-white/20">
+        <span class="material-icons-round align-middle rtl:rotate-180">skip_previous</span>
+      </button>
+
+      <button id="play-btn" class="col-start-2 col-end-3 row-start-1 row-end-2
+        w-28 h-28 border-none rounded-full bg-white text-center
+        transition-transform duration-[1.5s] ease-out active:scale-150">
+      </button>
+
+      <button id="next-btn" class="self-center invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20
+        hover:bg-white/50">
+        <span class="material-icons-round align-middle rtl:rotate-180">skip_next</span>
+      </button>
+
+      <button id="replay-btn" class="justify-self-center col-start-2 invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20
+        hover:bg-white/50">
+        <span id="replay-icon" class="material-icons-round align-middle transition-transform ease-out duration-300">replay</span>
+      </button>
+    </section>
+
+    <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
+      ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
+      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
+      <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
+        <header class="flex-none px-2 mb-6">
+          <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold">Daftar Putar</h2>
+
+          <button id="close-playlist-btn" class="absolute top-0 right-0 p-2 rounded-bl-xl hover:bg-white" aria-controls="playlist-window">
+            <span class="material-icons-round align-middle">close</span>
+          </button>
+        </header>
+
+        <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
+          aria-controls="audio-playlist">
+          <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
+            hover:border-black hover:text-black" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
+          </button>
+          <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
+            hover:border-black hover:text-black" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
+          </button>
+          <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
+            hover:border-black hover:text-black" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
+          </button>
+        </section>
+
+        <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
+          <ul>
+            
+  <li id="focused-audio"
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="0"
+    data-name="first_ehe"
+    data-category="sound">
+    <span>First Ehe!</span>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="first_opening"
+    data-category="words">
+    <span>First Opening</span>
+  
+    <p class="text-sm">English</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50"
+    aria-disabled="true"
+    tabindex="-1"
+    data-name="mantra_hujan"
+    data-category="song">
+    <span>Mantra Hujan</span>
+  
+    <p class="text-sm group-aria-disabled:hidden">Indonesia</p>
+    <p class="hidden text-sm group-aria-disabled:block">Audio ini dapat diaktifkan melalui menu</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50"
+    aria-disabled="true"
+    tabindex="-1"
+    data-name="fuwa_fuwa_time"
+    data-category="song">
+    <span>Fuwa Fuwa Time</span>
+  
+    <p class="text-sm group-aria-disabled:hidden">Japanese</p>
+    <p class="hidden text-sm group-aria-disabled:block">Audio ini dapat diaktifkan melalui menu</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="teneneneng"
+    data-category="sound">
+    <span>Teneneng Teneneng~</span>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="transformer_noise"
+    data-category="sound">
+    <span>Transformer Noise</span>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="underwater"
+    data-category="words">
+    <span>I am Under the Water</span>
+  
+    <p class="text-sm">English</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50"
+    aria-disabled="true"
+    tabindex="-1"
+    data-name="la_vaguelette"
+    data-category="song">
+    <span>La Vaguelette (cont.)</span>
+  
+    <p class="text-sm group-aria-disabled:hidden">French</p>
+    <p class="hidden text-sm group-aria-disabled:block">Audio ini dapat diaktifkan melalui menu</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 opacity-50"
+    aria-disabled="true"
+    tabindex="-1"
+    data-name="la_vaguelette2"
+    data-category="song">
+    <span>La Vaguelette</span>
+  
+    <p class="text-sm group-aria-disabled:hidden">French</p>
+    <p class="hidden text-sm group-aria-disabled:block">Audio ini dapat diaktifkan melalui menu</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="graphic_design"
+    data-category="words">
+    <span>Graphic Design is My Passion</span>
+  
+    <p class="text-sm">English</p>
+  
+  </li>
+
+  <li 
+    class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
+    aria-disabled="false"
+    tabindex="-1"
+    data-name="ara_ara"
+    data-category="sound">
+    <span>Ara-ara~</span>
+  
+  </li>
+
+          </ul>
+        </section>
+
+        <div>
+          <audio id="audio-player-2" class="mx-auto"></audio>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu-window" class="absolute end-0 w-full md:w-1/2 lg:w-1/3 h-full md:p-4
+      ltr:translate-x-full rtl:-translate-x-full transition-transform ease-out duration-300 z-10"
+      aria-labelledby="menu-header" aria-hidden="true" inert>
+      <div class="flex flex-col w-full h-full py-4 px-8 md:px-6 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
+        <h2 id="menu-header" class="flex-none block mb-6 text-xl font-bold">Menu</h2>
+
+        <div id="menu-overflow-container" class="overflow-x-auto [scrollbar-width:none]">
+          <section class="mb-4" aria-labelledby="settings-header" role="group">
+            <h3 id="settings-header" class="block font-bold">Pengaturan</h3>
+
+            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-rose-700" tabindex="0">
+              <span class="flex-auto">
+                Sertakan Audio Lagu
+                <small class="block text-sm text-black">Lagu mungkin memiliki hak cipta</small>
+              </span>
+
+              <input id="song-switch" class="flex-none invisible" type="checkbox" role="switch">
+
+              <div class="flex-none">
+                <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
+                  <span class="switch-thumb block w-[24px] h-[24px] rounded-full bg-gray-500 transition duration-300 ease-out"></span>
+                </span>
+              </div>
+            </label>
+
+            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-rose-700" tabindex="0">
+              <span class="flex-auto">
+                Tampilan Kontrol Audio
+                <small class="block text-sm text-black">Seperti tombol pause dan volume</small>
+              </span>
+
+              <input id="audio-control-switch" class="flex-none invisible" type="checkbox" role="switch">
+
+              <div class="flex-none">
+                <span class="switch-track flex items-center justify-start w-[52px] h-[32px] ms-auto p-[4px] rounded-full border border-gray-500 group-hover:bg-gray-200 transition duration-300 ease-out">
+                  <span class="switch-thumb block w-[24px] h-[24px] rounded-full bg-gray-500 transition duration-300 ease-out"></span>
+                </span>
+              </div>
+            </label>
+          </section>
+
+          <hr class="w-[95%] mx-auto mb-4 border-gray-200">
+
+          <section class="mb-4" aria-labelledby="about1-header">
+            <h3 id="about1-header" class="block font-bold">Tentang Kobo Kanaeru</h3>
+            <p class="mb-2">Kobo Kanaeru adalah seorang VTuber dari hololive Indonesia. Kobo suka bernyanyi dan bermain game saat live stream di Youtube.</p>
+            <ul class="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-x-2 gap-y-1 text-dark-blue-p3">
+              <li><a class="hover:text-rose-700" href="https://www.youtube.com/@KoboKanaeru" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+              <li><a class="hover:text-rose-700" href="https://x.com/kobokanaeru" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a class="hover:text-rose-700" href="https://www.instagram.com/kobokanaeru/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a class="hover:text-rose-700" href="https://www.facebook.com/KoboKanaeru" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+              <li><a class="hover:text-rose-700" href="https://www.tiktok.com/@kobokanaeru" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
+              <li><a class="hover:text-rose-700" href="https://hololive.hololivepro.com/en/talents/kobo-kanaeru/" target="_blank" rel="noopener noreferrer">Situs resmi</a></li>
+            </ul>
+          </section>
+
+          <section class="mb-4" aria-labelledby="about2-header">
+            <h3 id="about2-header" class="block font-bold">Tentang Tombol Kobo</h3>
+            <p class="mb-2">
+              Tombol Kobo adalah situs web tidak resmi dan dibuat oleh penggemar untuk memutar klip audio dari Kobo. Jenis-jenis audio yang ada adalah kata-kata dari kobo, suara seperti tertawa dan bersin, dan lagu (jika diaktifkan melalui pengaturan di atas)
+            </p>
+            <p class="mb-2">
+              Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini.
+            </p>
+            <ul class="mb-2 text-dark-blue-p3">
+              <!-- <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">[Artist name]</a></li> -->
+              <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Github repository</a></li>
+              <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Kontak Developer</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/script.js"></script>
 </body>
 
 </html>
