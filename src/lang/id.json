@@ -1,5 +1,8 @@
 {
-  "lang": "id",
-  "dir": "ltr",
-  "text": "Halo, Dunia!"
+  "meta" : {
+    "lang": "id",
+    "name": "Indonesia",
+    "dir": "ltr",
+    "text": "Halo, Dunia!"
+  }
 }

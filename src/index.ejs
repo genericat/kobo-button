@@ -10,12 +10,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="#093CB7">
+  <meta name="theme-color" content="#9CE7f8">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<%= meta.url %>">
   <meta property="og:title" content="<%= meta.title %>">
   <meta property="og:description" content="<%= meta.description %>">
-  <meta property="og:image" content="/assets/img/meta_img.png">
+  <meta property="og:image" content="<%= meta.url %>assets/img/meta_img.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="628">
   <meta name="twitter:card" content="summary">
@@ -24,6 +24,12 @@
 
   <link rel="stylesheet" href="/assets/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+  <%_ langs.forEach(lang => { _%>
+  <link rel="alternate" hreflang="<%= lang.lang %>" href="<%= lang.href %>">
+  <%_ }); _%>
+  <link rel="alternate" href="https://localhost:8000/" hreflang="x-default">
+
   <!-- <link rel="shortcut icon" sizes="32x32" href="favicon-32.png" type="image/png"> -->
   <!-- <link rel="shortcut icon" sizes="196x196" href="favicon-196.png" type="image/png"> -->
   <!-- <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"> -->
@@ -57,21 +63,27 @@
     <div class="relative">
       <button id="lang-btn" class="h-8" aria-haspopup="menu" aria-controls="lang-list" aria-expanded="false">
         <span class="material-icons-round">language</span>
-        <span class="inline-block align-top [text-shadow:1px_1px_8px_theme(colors.dark-blue-p3)]">English</span>
+        <span class="inline-block align-top [text-shadow:1px_1px_8px_theme(colors.dark-blue-p3)]"><%= meta.name %></span>
       </button>
 
       <ul id="lang-list" class="hidden absolute top-8 end-0 py-2 rounded-xl bg-white/50 backdrop-blur-default text-black"
         aria-label="Language list" role="menu">
-        <li class="py-1 px-4 hover:bg-white" lang="en" dir="ltr" aria-checked="false" role="menuitemradio" tabindex="0">English</li>
-        <!-- <li class="py-1 px-4 hover:bg-white" lang="ja" dir="ltr" aria-checked="false" role="menuitemradio" tabindex="-1">日本語</li> -->
-        <li class="py-1 px-4 hover:bg-white" lang="id" dir="ltr" aria-checked="false" role="menuitemradio" tabindex="-1">Indonesia</li>
+        <%_ langs.forEach(lang => { %>
+        <li class="py-1 px-4 hover:bg-white"
+          lang="<%= lang.lang %>"
+          dir="<%= lang.dir %>"
+          aria-checked="<%= lang.lang == meta.lang ? 'true' : 'false' %>"
+          tabindex="<%= lang.lang == meta.lang ? '0' : '-1' %>"
+          role="menuitemradio">
+          <a href="<%= lang.href %>"><%= lang.name %></a>
+        </li>
+        <% }); %>
       </ul>
     </div>
   </header>
 
   <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" aria-label="Menu"
     aria-controls="menu-window" aria-expanded="false">
-    <!-- <span class="material-icons-round block text-white">menu</span> -->
     <span id="menu-icon" class="block text-[24px]">🌂</span>
   </button>
 
@@ -136,7 +148,8 @@
 
         <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
           <ul>
-<%- include('ejs/playlist', {playlistNotice: playlistNotice}) %>
+            <%- playlist %>
+          </ul>
         </section>
 
         <div>
@@ -210,7 +223,7 @@
               <%= about2.p2 %>
             </p>
             <ul class="mb-2 text-dark-blue-p3">
-              <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">[Artist name]</a></li>
+              <!-- <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">[Artist name]</a></li> -->
               <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">Github repository</a></li>
               <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer"><%= links.dev %></a></li>
             </ul>

@@ -495,7 +495,7 @@ songSwitch.onchange = () => {
     el.classList.toggle('hover:bg-white', isChecked);
     el.classList.toggle('hover:-translate-x-[2px]', isChecked);
     el.classList.toggle('hover:-translate-y-[2px]', isChecked);
-    el.classList.toggle('focus:bg-white', isChecked);
+    el.classList.toggle('focus:bg-white', isChecked); // TODO: delete this later
     el.classList.toggle('cursor-pointer', isChecked);
     el.setAttribute('aria-disabled', !isChecked);
   });

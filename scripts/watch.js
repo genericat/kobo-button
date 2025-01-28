@@ -9,7 +9,10 @@ import tailwindcss from 'tailwindcss';
 /**
  * Language code to work with
  *
- * Need to match to any file name in `./src/lang/` without its extension
+ * In case we only need to watch one translation file.
+ * If omitted no translation file will be watched.
+ *
+ * Need to match any file name in `./src/lang/` without its extension
  */
 const params = argv.slice(2);
 
@@ -49,13 +52,13 @@ chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
 
 async function renderEjs(lang) {
   try {
-    const langString     = await fs.readFile('./src/lang/' + lang, 'utf-8');
-    const templateString = await fs.readFile('./src/index.ejs', 'utf-8');
+    const langString     = await fs.readFile('./src/lang/' + lang, 'utf8');
+    const templateString = await fs.readFile('./src/index.ejs', 'utf8');
 
     const template   = compile(templateString, { async: false, filename: './src/index.ejs' })
     const htmlString = template(JSON.parse(langString));
 
-    await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString, 'utf-8');
+    await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString, 'utf8');
 
     const date = new Date();
 
@@ -71,7 +74,7 @@ async function renderCss() {
     const result = await postcss([autoprefixer, tailwindcss])
       .process(cssString, { from: './src/style.css', to: './assets/style.css' });
 
-    await fs.writeFile('./assets/style.css', result.css, 'utf-8');
+    await fs.writeFile('./assets/style.css', result.css, 'utf8');
 
     // if (result.map) {
     //     fs.writeFile('./assets/style.css.map', result.map.toString());
@@ -91,7 +94,7 @@ async function copyJs() {
 
     const date = new Date();
 
-    console.log(`[${date.toLocaleTimeString()}] Copying script.js from src/ to assets/ done`);
+    console.log(`[${date.toLocaleTimeString()}] Copying script.js from ./src/ to ./assets/ done`);
   } catch (error) {
     console.error(error);
   }
