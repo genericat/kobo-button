@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="title" content="<%= meta.title %>">
   <meta name="description" content="<%= meta.description %>">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
   <meta name="theme-color" content="#9CE7f8">
@@ -39,7 +39,7 @@
 <body class="bg-gradient-to-t from-dark-blue [@media(color-gamut:p3)]:from-dark-blue-p3 to-light-blue [@media(color-gamut:p3)]:to-light-blue-p3 overflow-clip">
 
   <div class="absolute w-full h-full mask-circle" aria-hidden="true">
-    <div class="w-full h-full bg-pattern bg-cover bg-top" style="background-image: url('<%= baseUrl %>assets/img/pattern.svg');"></div>
+    <div class="w-full h-full bg-pattern bg-cover bg-top"></div>
   </div>
 
   <header
@@ -76,7 +76,7 @@
           aria-checked="<%= lang.lang == meta.lang ? 'true' : 'false' %>"
           tabindex="<%= lang.lang == meta.lang ? '0' : '-1' %>"
           role="menuitemradio">
-          <a href="<%= lang.href %>"><%= lang.name %></a>
+          <a href="lang/<%= lang.lang %>.html"><%= lang.name %></a>
         </li>
         <% }); %>
       </ul>

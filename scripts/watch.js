@@ -33,7 +33,7 @@ try {
   console.error(error);
 }
 
-chokidar.watch('./src', {ignoreInitial: true}).on('all', (event, path) => {
+chokidar.watch('./src').on('all', (event, path) => {
   if (event !== 'add' && event !== 'change') { return; }
 
   if (path.includes('prototype.html')) {
