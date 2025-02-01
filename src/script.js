@@ -458,16 +458,16 @@ playlistBtn.onclick = togglePlaylistWindow;
 menuBtn.onclick = toggleMenuWindow;
 document.getElementById('close-playlist-btn').onclick = togglePlaylistWindow;
 
-document.getElementById('menu-overflow-container').onkeydown = (e) => {
-  if (e.key === ' ' || e.key === 'Enter') {
-    // Prevent scrolling for this overflow container element
-    e.preventDefault();
-  }
-}
+// document.getElementById('menu-overflow-container').onkeydown = (e) => {
+//   if (e.key === ' ' || e.key === 'Enter') {
+//     // Prevent scrolling for this overflow container element
+//     e.preventDefault();
+//   }
+// }
 
 menuEl.querySelectorAll('.switch').forEach(el => {
   el.onkeydown = (e) => {
-    if (e.key !== ' ' && e.key !== 'Enter') {
+    if (e.key !== 'Enter') {
       return;
     }
 
@@ -529,8 +529,8 @@ audioPlaylist.onkeydown = (e) => {
     nextListFocused.focus();
   }
 
-  if (e.key === ' ' || e.key === 'Enter') {
-    e.preventDefault();
+  if (e.key === 'Enter') {
+    // e.preventDefault(); // Prevent scrolling
 
     playAudio(e.target.getAttribute('data-name'));
   }
