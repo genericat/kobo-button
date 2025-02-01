@@ -140,10 +140,26 @@ const togglePlaylistWindow = () => {
   if (!ariaExpanded) {
     lastFocusedEl = document.activeElement;
 
-    document.getElementById('focused-audio').focus();
+    const focusedAudio = document.getElementById('focused-audio');
+
+    if (!focusedAudio.checkVisibility()) {
+      wordsFilterBtn.ariaChecked = 'true';
+      soundFilterBtn.ariaChecked = 'true';
+      songFilterBtn.ariaChecked = 'true';
+
+      filterPlaylist(wordsFilterBtn, 'words-list');
+      filterPlaylist(soundFilterBtn, 'sound-list');
+      filterPlaylist(songFilterBtn, 'song-list');
+    }
+
+    focusedAudio.focus();
+
   } else {
     lastFocusedEl.focus();
     lastFocusedEl = null;
+
+    const lastPlayedAudio = audioPlaylist.getElementsByClassName('played-audio')[0];
+    lastPlayedAudio?.classList.remove('played-audio');
   }
 }
 
@@ -383,7 +399,9 @@ const playRandomAudio = (audioData) => {
 }
 
 
-const playAudio = async (audioName) => {
+const playAudio = async (el) => {
+  const audioName = el.getAttribute('data-name');
+
   if (audioName === prevAudPlaylist?.name) {
     audioEl2.play();
     return;
@@ -401,7 +419,20 @@ const playAudio = async (audioName) => {
     URL.revokeObjectURL(prevAudPlaylist?.objectUrl);
   }
 
-  const objectUrl = await fetchAudio(audioName, controller.signal);
+  const fetchOu = fetchAudio(audioName, controller.signal);
+
+  el.classList.add('cursor-wait');
+
+  if (!el.classList.contains('played-audio')) {
+    const prevPlayedAud = audioPlaylist.getElementsByClassName('played-audio')[0];
+    prevPlayedAud?.classList.remove('played-audio');
+
+    el.classList.add('played-audio');
+  }
+
+  const objectUrl = await fetchOu;
+
+  el.classList.remove('cursor-wait');
 
   if (objectUrl === '') {
     alert('Error');
@@ -497,7 +528,6 @@ songSwitch.onchange = () => {
     el.classList.toggle('hover:bg-white', isChecked);
     el.classList.toggle('hover:-translate-x-[2px]', isChecked);
     el.classList.toggle('hover:-translate-y-[2px]', isChecked);
-    el.classList.toggle('focus:bg-white', isChecked); // TODO: delete this later
     el.classList.toggle('cursor-pointer', isChecked);
     el.setAttribute('aria-disabled', !isChecked);
   });
@@ -532,7 +562,7 @@ audioPlaylist.onkeydown = (e) => {
   if (e.key === 'Enter') {
     // e.preventDefault(); // Prevent scrolling
 
-    playAudio(e.target.getAttribute('data-name'));
+    playAudio(e.target);
   }
 }
 
@@ -564,7 +594,14 @@ audioPlaylist.onclick = (e) => {
     listSelected.setAttribute('tabindex', '0');
   }
 
-  playAudio(listSelected.getAttribute('data-name'));
+  if (!listSelected.classList.contains('played-audio')) {
+    const prevPlayedAud = document.getElementsByClassName('played-audio')[0];
+    prevPlayedAud?.classList.remove('played-audio');
+
+    listSelected.classList.add('played-audio');
+  }
+
+  playAudio(listSelected);
 }
 
 wordsFilterBtn.onclick = () => {
