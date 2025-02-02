@@ -1,10 +1,11 @@
-import { argv } from 'node:process';
+import { argv, env } from 'node:process';
 import chokidar from 'chokidar';
 import fs from 'node:fs/promises';
 import { compile } from 'ejs';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
+import 'dotenv/config'
 import util from "./util.js";
 
 /**
@@ -17,7 +18,7 @@ import util from "./util.js";
  */
 const params = argv.slice(2);
 
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = env.APP_URL ?? 'http://localhost:3000/';
 
 let playlistTemplate;
 let langs;
@@ -71,7 +72,7 @@ async function renderEjs(lang) {
     const langString     = fs.readFile('./src/lang/' + lang, 'utf8');
     const templateString = await fs.readFile('./src/index.ejs', 'utf8');
 
-    const template   = compile(templateString, { async: false, filename: './src/index.ejs' })
+    const template  = compile(templateString, { async: false, filename: './src/index.ejs' })
 
     let langObj = JSON.parse(await langString);
 
