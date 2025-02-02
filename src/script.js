@@ -622,7 +622,15 @@ playBtn.onmousedown = (e) => {
   timeoutId = setTimeout(openPlaylistWindow, 1000, e);
 }
 
+playBtn.ontouchstart = (e) => {
+  timeoutId = setTimeout(openPlaylistWindow, 1000, e);
+}
+
 playBtn.onmouseup = () => {
+  clearTimeout(timeoutId);
+}
+
+playBtn.ontouchend = () => {
   clearTimeout(timeoutId);
 }
 
@@ -722,6 +730,7 @@ playBtn.addEventListener('click', () => {
 
 
 replayBtn.onclick = () => {
+  audioEl1.load();
   audioEl1.play();
 
   replayBtn.children[0].animate([
