@@ -13,6 +13,7 @@ import util from "./util.js";
  *
  * In case we only need to watch one translation file.
  * If omitted no translation file will be watched.
+ * Default to `en` language code.
  *
  * Need to match any file name in `./src/lang/` without its extension
  */
