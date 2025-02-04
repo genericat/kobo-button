@@ -45,7 +45,7 @@
   <header
     class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pe-12 text-white z-10"
     aria-owns="menu-btn">
-    <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
+    <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false" title="<%= ttl.info %>">
       <span class="material-icons-round block">info</span>
     </button>
 
@@ -57,7 +57,7 @@
     </div>
 
     <button id="playlist-btn" class="w-8 h-8 opacity-0 hover:opacity-100 focus:opacity-100" aria-label="Playlist" aria-controls="playlist-window"
-      aria-expanded="false">
+      aria-expanded="false" title="<%= ttl.playlist %>">
       <span class="material-icons-round block">queue_music</span>
     </button>
 
@@ -135,15 +135,15 @@
         <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
           aria-controls="audio-playlist">
           <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="<%= ttl.filterWords %>" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
           </button>
           <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="<%= ttl.filterSound %>" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
           </button>
           <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="<%= ttl.filterSong %>" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
           </button>
         </section>

@@ -6,6 +6,13 @@
     "title": "Kobo Button | Fan made website",
     "description": "Play random audio of Kobo Kanaeru"
   },
+  "ttl" : {
+    "info": "Information",
+    "playlist": "Playlist",
+    "filterWords": "Filter words audio",
+    "filterSound": "Filter sound audio",
+    "filterSong": "Filter song audio"
+  },
   "notice": "This is unofficial and fan made website. The audio is taken and presented without any additional context. This website and its contents should not be used as a judgement to any mentioned or related party.",
   "title": "Kobo Button",
   "imgAlt": "Kobo art by Ryuna on X",
