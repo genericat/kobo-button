@@ -44,7 +44,7 @@
   <header
     class="absolute top-0 grid grid-cols-[1fr_repeat(3,auto)] grid-flow-col gap-x-3 w-full p-4 pe-12 text-white z-10"
     aria-owns="menu-btn">
-    <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false">
+    <button id="info-btn" class="w-6 h-6 opacity-80" aria-controls="notice-info" aria-expanded="false" title="Informasi">
       <span class="material-icons-round block">info</span>
     </button>
 
@@ -56,7 +56,7 @@
     </div>
 
     <button id="playlist-btn" class="w-8 h-8 opacity-0 hover:opacity-100 focus:opacity-100" aria-label="Playlist" aria-controls="playlist-window"
-      aria-expanded="false">
+      aria-expanded="false" title="Daftar putar">
       <span class="material-icons-round block">queue_music</span>
     </button>
 
@@ -111,9 +111,9 @@
 
       <button id="play-btn" class="col-start-2 col-end-3 row-start-1 row-end-2
         w-28 h-28 border-none rounded-full bg-white text-center
-        transition-transform duration-[1.5s] ease-out active:scale-150">
-        <!-- Kobo art By Ryuna on X https://x.com/Ryunana19/status/1861565683756343368 -->
-        <img class="w-3/4 mx-auto animate-[spin_5s_linear_infinite]" src="assets/img/kobo_art.webp" alt="Kobo art by Ryuna on X">
+        transition-transform duration-[1.5s] ease-out active:scale-50">
+        <!-- https://x.com/Ryunana19/status/1861565683756343368 -->
+        <img class="w-3/4 mx-auto animate-[spin_5s_linear_infinite]" src="assets/img/kobo_art.webp" alt="Gambar Kobo oleh Ryuna dari X">
       </button>
 
       <button id="next-btn" class="self-center invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20
@@ -142,15 +142,15 @@
         <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
           aria-controls="audio-playlist">
           <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="Filter audio kata-kata" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
           </button>
           <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="Filter audio suara" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
           </button>
           <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black" title="Filter audio lagu" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
           </button>
         </section>
@@ -357,10 +357,10 @@
               Tombol Kobo adalah situs web tidak resmi dan dibuat oleh penggemar untuk memutar klip audio dari Kobo. Jenis-jenis audio yang ada adalah kata-kata dari kobo, suara seperti tertawa dan bersin, dan lagu (jika diaktifkan melalui pengaturan di atas)
             </p>
             <p class="mb-2">
-              Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini.
+              Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini dan terima kasih khusus kepada Ryuna untuk gambar Kobo.
             </p>
             <ul class="mb-2 text-dark-blue-p3">
-              <!-- <li class="mb-2"><a class="hover:text-rose-700" href="#" target="_blank" rel="noopener noreferrer">[Artist name]</a></li> -->
+              <li class="mb-2"><a class="hover:text-rose-700" href="https://x.com/Ryunana19" target="_blank" rel="noopener noreferrer">Ryuna</a></li>
               <li class="mb-2"><a class="hover:text-rose-700" href="https://github.com/genericat/kobo-button" target="_blank" rel="noopener noreferrer">Github repository</a></li>
               <li class="mb-2"><a class="hover:text-rose-700" href="https://x.com/genericat_x" target="_blank" rel="noopener noreferrer">Kontak Developer</a></li>
             </ul>
