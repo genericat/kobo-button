@@ -8,6 +8,7 @@
   },
   "notice": "Ini adalah situs web tidak resmi dan dibuat oleh penggemar. Audio diambil dan disajikan tanpa konteks tambahan apa pun. Situs web ini dan isinya sebaiknya tidak digunakan untuk penilaian terhadap pihak tersebut atau terkait mana pun.",
   "title": "Tombol Kobo",
+  "imgAlt": "Gambar Kobo oleh Ryuna dari X",
   "playlistTitle": "Daftar Putar",
   "playlistNotice": "Audio ini dapat diaktifkan melalui menu",
   "menuTitle": "Menu",
@@ -25,7 +26,7 @@
   "about2": {
     "title": "Tentang Tombol Kobo",
     "p1": "Tombol Kobo adalah situs web tidak resmi dan dibuat oleh penggemar untuk memutar klip audio dari Kobo. Jenis-jenis audio yang ada adalah kata-kata dari kobo, suara seperti tertawa dan bersin, dan lagu (jika diaktifkan melalui pengaturan di atas)",
-    "p2": "Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini."
+    "p2": "Terima kasih kepada kontributor yang terlibat dalam pengembangan dan pemeliharaan situs web ini dan terima kasih khusus kepada Ryuna untuk gambar Kobo."
   },
   "links": {
     "web": "Situs resmi",
