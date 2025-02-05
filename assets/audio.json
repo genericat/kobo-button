@@ -40,7 +40,7 @@
   },
   {
     "name": "underwater",
-    "title": "I am Under the Water",
+    "title": "I am under the water",
     "category": "words",
     "lang": "English",
     "isSeiso": true
@@ -61,7 +61,7 @@
     "name": "sneeze_asmr",
     "title": "Sneeze (ASMR) ⚠️🔊",
     "category": "sound",
-    "isSeiso": true
+    "isSeiso": false
   },
   {
     "name": "la_vaguelette",
@@ -141,7 +141,7 @@
   },
   {
     "name": "graphic_design",
-    "title": "Graphic Design is My Passion",
+    "title": "Graphic design is my passion",
     "category": "words",
     "lang": "English",
     "isSeiso": true
@@ -185,6 +185,82 @@
     "title": "Oui",
     "category": "words",
     "lang": "Français",
+    "isSeiso": true
+  },
+  {
+    "name": "googoogaga",
+    "title": "Goo goo ga ga",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "supa_ty",
+    "title": "Superchat thank you! Donation thank you!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "despacito",
+    "title": "Despacito",
+    "category": "song",
+    "lang": "Español",
+    "isSeiso": true,
+    "next": "despacito2"
+  },
+
+  {
+    "name": "despacito2",
+    "title": "Despacito",
+    "category": "song",
+    "lang": "Español",
+    "isSeiso": true
+  },
+  {
+    "name": "meow_kaela",
+    "title": "Meow meow, Kaela. Di mana?",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "uwoogh",
+    "title": "UWWOOOGH",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "your_presence",
+    "title": "Your presence here is already a gift",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "kono_hentai",
+    "title": "Nii-chan damare!",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": false
+  },
+  {
+    "name": "biantai",
+    "title": "Bì zuǐ!",
+    "category": "words",
+    "lang": "官话",
+    "isSeiso": false
+  },
+  {
+    "name": "meow",
+    "title": "Meow",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "mad",
+    "title": "Kau jangan tipu aku!",
+    "category": "words",
+    "lang": "Melayu",
     "isSeiso": true
   },
   {
