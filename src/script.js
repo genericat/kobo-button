@@ -371,7 +371,7 @@ const setNextAud = (audioNext) => {
 
   if (nextAudioData.length == 0 && songSwitch.checked) {
     nextAudioData = songsData.filter(ad => {return ad.name === audioNext});
-  } else {
+  } else if (nextAudioData.length == 0 && !songSwitch.checked) {
     return;
   }
 
@@ -727,6 +727,11 @@ playBtn.onclick = async () => {
 playBtn.addEventListener('click', () => {
   replayBtn.classList.remove('invisible');
 });
+
+playBtn.children[0].onclick = (e) => {
+  // Prevent default behavior when tap hold on mobile device
+  e.preventDefault();
+}
 
 
 replayBtn.onclick = () => {
