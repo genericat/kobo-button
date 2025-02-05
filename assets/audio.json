@@ -20,10 +20,10 @@
     "isSeiso": true
   },
   {
-    "name": "fuwa_fuwa_time",
-    "title": "Fuwa Fuwa Time",
+    "name": "renai_circulation",
+    "title": "恋愛サーキュレーション",
     "category": "song",
-    "lang": "Japanese",
+    "lang": "日本語",
     "isSeiso": true
   },
   {
@@ -46,10 +46,28 @@
     "isSeiso": true
   },
   {
+    "name": "oioioi",
+    "title": "OI! OI! OI!",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "sneeze",
+    "title": "Sneeze",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "sneeze_asmr",
+    "title": "Sneeze (ASMR) ⚠️🔊",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
     "name": "la_vaguelette",
     "title": "La Vaguelette (cont.)",
     "category": "song",
-    "lang": "French",
+    "lang": "Français",
     "isSeiso": true,
     "next": "la_vaguelette2"
   },
@@ -57,7 +75,68 @@
     "name": "la_vaguelette2",
     "title": "La Vaguelette",
     "category": "song",
-    "lang": "French",
+    "lang": "Français",
+    "isSeiso": true
+  },
+  {
+    "name": "my_what",
+    "title": "My what?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true,
+    "next": "robe"
+  },
+  {
+    "name": "robe",
+    "title": "Robe?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true,
+    "next": "rope"
+  },
+  {
+    "name": "rope",
+    "title": "Rope?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true,
+    "next": "rub"
+  },
+  {
+    "name": "rub",
+    "title": "Rub?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true,
+    "next": "europe"
+  },
+  {
+    "name": "europe",
+    "title": "Europe!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "ciki_koyo",
+    "title": "Beli ciki, beli koyo",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true,
+    "next": "koiiro"
+  },
+  {
+    "name": "koiiro",
+    "title": "恋色",
+    "category": "song",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "merci_beaucoup",
+    "title": "Merci Beaucoup",
+    "category": "words",
+    "lang": "Français",
     "isSeiso": true
   },
   {
@@ -65,6 +144,47 @@
     "title": "Graphic Design is My Passion",
     "category": "words",
     "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "who_asked",
+    "title": "Siapa yang ngomong?",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "petting_permission",
+    "title": "Kann ich deine Katze streicheln?",
+    "category": "words",
+    "lang": "Deutsch",
+    "isSeiso": true
+  },
+  {
+    "name": "gah",
+    "title": "Gah!",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "bing_qi_lin",
+    "title": "冰淇淋",
+    "category": "words",
+    "lang": "官话",
+    "isSeiso": true
+  },
+  {
+    "name": "karbit",
+    "title": "'Bit karbit",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "oui",
+    "title": "Oui",
+    "category": "words",
+    "lang": "Français",
     "isSeiso": true
   },
   {
