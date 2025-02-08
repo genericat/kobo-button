@@ -38,9 +38,9 @@ try {
 chokidar.watch('./src').on('all', (event, path) => {
   if (event !== 'add' && event !== 'change') { return; }
 
-  if (path.includes('prototype.html')) {
-    renderCss();
-  }
+  // if (path.includes('prototype.html')) {
+  //   renderCss();
+  // }
 
   if (path.includes('index.ejs')) {
     renderEjs(params[0] ? params[0] + '.json' : 'en.json');
