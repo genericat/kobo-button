@@ -617,7 +617,6 @@ songFilterBtn.onclick = () => {
 }
 
 
-// TODO: also take care of keydown and touchstart event
 playBtn.onmousedown = (e) => {
   timeoutId = setTimeout(openPlaylistWindow, 1000, e);
 }
@@ -665,11 +664,6 @@ playBtn.onclick = async () => {
 playBtn.addEventListener('click', () => {
   replayBtn.classList.remove('invisible');
 });
-
-playBtn.children[0].ontouchstart = (e) => {
-  // Prevent default behavior when tap hold on mobile device
-  e.preventDefault();
-}
 
 
 replayBtn.onclick = () => {
