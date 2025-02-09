@@ -660,75 +660,13 @@ playBtn.onclick = async () => {
   } else {
     randomAud = getRandomAudio(audiosData);
   }
-
-  // (async () => {
-  //   let objectUrl;
-  //   // let promises = [randomAud.objectUrl, 'pending'];
-
-  //   // if (songSwitch.checked && Math.random() > 0.6) {
-  //   //   promises = [randomSong.objectUrl, randomAud.objectUrl, 'pending'];
-  //   // }
-
-  //   // objectUrl = await Promise.race(promises);
-
-  //   // if (objectUrl === 'pending') {
-  //   //   audioTitleEl.innerText = 'Loading...'
-  //   //   audioTitleEl.classList.add('cursor-wait');
-
-  //   //   isWaitingAudio = true;
-
-  //   //   objectUrl = await randomAud.objectUrl;
-  //   // }
-
-  //   // if (objectUrl === '') {
-  //   //   alert('error');
-  //   //   return;
-  //   // }
-
-  //   // if (prevAud?.name !== nextAud?.name) {
-  //   //   nextAud?.then(ou => URL.revokeObjectURL(ou.objectUrl));
-  //   // }
-
-  //   clearNextAudio(nextAud);
-
-  //   // playRandomAudio(objectUrl);
-
-
-  //   if (songSwitch.checked && Math.random() > 0.6) {
-  //     objectUrl = await Promise.race([randomSong.objectUrl, 'songPending']);
-
-  //     if (objectUrl !== 'songPending') {
-  //       playRandomAudio(objectUrl, randomSong);
-
-  //       randomSong = getRandomAudio(songsData);
-  //       return;
-  //     }
-  //     // NOTE: If `song.objectUrl` is not settled yet then check `aud.objectUrl` instead of waiting for `song.objectUrl`
-  //   }
-
-  //   objectUrl = await Promise.race([randomAud.objectUrl, 'audPending']);
-
-  //   if (objectUrl === 'audPending') {
-  //     audioTitleEl.innerText = 'Loading...'
-  //     audioTitleEl.classList.add('cursor-wait');
-
-  //     isWaitingAudio = true;
-
-  //     // NOTE: if `aud.objectUrl` is not settled yet then wait for it
-  //     objectUrl = await randomAud.objectUrl;
-  //   }
-
-  //   playRandomAudio(objectUrl, randomAud);
-
-  //   randomAud = getRandomAudio(audiosData);
-  // })();
 }
 
 playBtn.addEventListener('click', () => {
   replayBtn.classList.remove('invisible');
 });
 
-playBtn.children[0].onclick = (e) => {
+playBtn.children[0].ontouchstart = (e) => {
   // Prevent default behavior when tap hold on mobile device
   e.preventDefault();
 }
