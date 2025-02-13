@@ -208,7 +208,6 @@
     "isSeiso": true,
     "next": "despacito2"
   },
-
   {
     "name": "despacito2",
     "title": "Despacito",
@@ -261,6 +260,97 @@
     "title": "Kau jangan tipu aku!",
     "category": "words",
     "lang": "Melayu",
+    "isSeiso": true
+  },
+  {
+    "name": "damn",
+    "title": "Damn~",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "jerry_adventure",
+    "title": "Berpetualang bersama Si Jerry",
+    "category": "song",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "jp_intro",
+    "title": "自己紹介",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "from_what",
+    "title": "From what to what?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "bacot",
+    "title": "B-a ba c-o cot",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "sana_song",
+    "title": "Song for Sana 🪐",
+    "category": "song",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "kiara_song",
+    "title": "Song for Kiara 🐔",
+    "category": "song",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "kaela_song",
+    "title": "Song for Kaela 🔨",
+    "category": "song",
+    "lang": "English, Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "baelz_song",
+    "title": "Song for Bae 🎲",
+    "category": "song",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "fauna_song",
+    "title": "Song for Fauna 🌿",
+    "category": "song",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "suka_suka",
+    "title": "Ih~ suka-suka",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "suka_suka2",
+    "title": "Ih~ iya-iya suka-suka",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "suka_suka3",
+    "title": "Ih~ lucu-lucu suka-suka",
+    "category": "words",
+    "lang": "Indonesia",
     "isSeiso": true
   },
   {
