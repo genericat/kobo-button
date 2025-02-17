@@ -43,13 +43,15 @@ Please follow the [derivative works guideline](https://hololivepro.com/en/terms/
 
 In addition there are some notes for audio source that need to be clipped.
 
-- Please don't clip from voice pack audio. Also, as in the derivative works guideline please don't clip from membership content, concert performance, or any paid content.
-- Recommendation for maximum duration is 59 seconds and can exceed a few seconds just to complete the content
+- Please don't clip from voice pack audio and cover or original song unless its from karaoke.
+Also, as in the derivative works guideline please don't clip from membership content, concert performance, or any paid content.
+- For singing clip it is recommended to clip only a song that has a reference to something such as meme, pop culture, etc. to prevent the song clips being too abundant. Also recommended to clip a song to show off Kobo singing skill.
 - Use standard or low preset to minimize the file size. You may use `first_ehe.mp3` for reference.
+- Please be mindful about the clip duration to prevent bigger file size.
 
 Steps for add audio clip.
 
-1. Clip the audio and you may need to process it with any audio editor.
+1. Clip the audio and you may need to process it with any audio editor
 1. Export it to mp3 file and put it in `assets/aud/`
 1. Add the audio data to `assets/audio.json`. Object properties description below
 1. Run/rerun `npm run watch`
@@ -62,7 +64,7 @@ Object properties for audio data
 | Property | Required | Description
 |---|---|---|
 | `name` | ✅ | The file name of the audio. File name in snake_case. |
-| `title` | ✅ | Title of the audio that will be displayed in main UI. Recommended to write it in their native language, use english if the audio don't have `lang` property. |
+| `title` | ✅ | Title of the audio that will be displayed in main UI. Recommended to write it in their native language, use english if the audio data doesn't have `lang` property. |
 | `category` | ✅ | Valid values are `words`, `sound`, and `song`. |
 | `lang` | ⏹️ | Recommended to write it in their native language. Only required in `words` and `song` category. |
 | `isSeiso` | ✅ | A flag to prevent the audio randomly played from Kobo button but still can be played from playlist. Not necessarily about seiso content. |

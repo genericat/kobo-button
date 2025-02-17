@@ -337,20 +337,189 @@
     "title": "Ih~ suka-suka",
     "category": "words",
     "lang": "Indonesia",
-    "isSeiso": true
+    "isSeiso": true,
+    "next": "suka_suka2"
   },
   {
     "name": "suka_suka2",
     "title": "Ih~ iya-iya suka-suka",
     "category": "words",
     "lang": "Indonesia",
-    "isSeiso": true
+    "isSeiso": true,
+    "next": "suka_suka3"
   },
   {
     "name": "suka_suka3",
     "title": "Ih~ lucu-lucu suka-suka",
     "category": "words",
     "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "adopted",
+    "title": "I am adopted?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "cebok",
+    "title": "Berak tak cebok",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "good_child",
+    "title": "Vtuber baik",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "winner",
+    "title": "Aku menang!",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "money",
+    "title": "Uang uang uang",
+    "category": "song",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "see_tinh",
+    "title": "See Tình",
+    "category": "song",
+    "lang": "Tiếng Việt",
+    "isSeiso": true
+  },
+  {
+    "name": "okay",
+    "title": "Okay",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "gimmie_gimmie",
+    "title": "Gimmie Gimmie",
+    "category": "song",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "ijimeko_bully",
+    "title": "いじめっ子Bully",
+    "category": "song",
+    "lang": "English, 日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "health_ad",
+    "title": "Iklan layanan masyarakat (spontan)",
+    "category": "song",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "zeta_chant",
+    "title": "Zeta 📜 Chant",
+    "category": "song",
+    "lang": "Mix",
+    "isSeiso": true
+  },
+  {
+    "name": "no_touch",
+    "title": "Jangan sentuh aku!",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "edamame",
+    "title": "Edamame",
+    "category": "song",
+    "lang": "English",
+    "isSeiso": false
+  },
+  {
+    "name": "qiqi_impression",
+    "title": "Qiqi impression",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "xingqiu_impression",
+    "title": "Xingqiu impression",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "anying",
+    "title": "Anying",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "uwu",
+    "title": "UwU (forced)",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "good_boy",
+    "title": "Who is the good boy?",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "embarassed",
+    "title": "Aku malu",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "scared",
+    "title": "Takut dilihat",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": false
+  },
+  {
+    "name": "scared2",
+    "title": "Serem",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "happy",
+    "title": "Seneng",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": false
+  },
+  {
+    "name": "cringe",
+    "title": "That was cringe",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "pest",
+    "title": "Merely a pest",
+    "category": "words",
+    "lang": "English",
     "isSeiso": true
   },
   {
