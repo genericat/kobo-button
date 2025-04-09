@@ -523,6 +523,32 @@
     "isSeiso": true
   },
   {
+    "name": "laugh",
+    "title": "Laugh",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "siu",
+    "title": "SIIUUU",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "rimuru_impression",
+    "title": "Rimuru impression",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "asal_lo_tau",
+    "title": "Asal lo tau ya, dek!",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
     "name": "ara_ara",
     "title": "Ara-ara~",
     "category": "sound",
