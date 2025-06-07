@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" style="--dir:1">
 
 <head>
-  <base id="baseUrl" href="https://genericat.github.io/kobo-button/">
+  <base id="baseUrl" href="http://localhost:3000/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +26,8 @@
   <link rel="stylesheet" href="assets/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-  <link rel="alternate" hreflang="en" href="https://genericat.github.io/kobo-button/lang/en.html">
-  <link rel="alternate" hreflang="id" href="https://genericat.github.io/kobo-button/lang/id.html">
+  <link rel="alternate" hreflang="en" href="http://localhost:3000/lang/en.html">
+  <link rel="alternate" hreflang="id" href="http://localhost:3000/lang/id.html">
   <link rel="alternate" href="https://genericat.github.io/kobo-button/" hreflang="x-default">
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
@@ -1195,6 +1195,19 @@
     </section>
   </main>
   <script src="assets/script.js"></script>
+  
+  <script>
+    const wsPort = '3030';
+    const wsc = new WebSocket(`ws://localhost:${wsPort}`);
+    wsc.onmessage = (e) => {
+      if (e.data == 'RELOAD') {
+        wsc.close()
+
+        location.reload();
+      }
+    };
+  </script>
+  
 </body>
 
 </html>

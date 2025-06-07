@@ -9,6 +9,8 @@ import fs from 'node:fs/promises';
  * Can be omitted to build all the language.
  *
  * Need to match any file name in `./src/lang/` without its extension
+ *
+ * @type Array<string>
  */
 const params = argv.slice(2);
 

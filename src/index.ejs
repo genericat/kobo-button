@@ -236,6 +236,19 @@
     </section>
   </main>
   <script src="assets/script.js"></script>
+  <% if(wsPort) { %>
+  <script>
+    const wsPort = '<%= wsPort %>';
+    const wsc = new WebSocket(`ws://localhost:${wsPort}`);
+    wsc.onmessage = (e) => {
+      if (e.data == 'RELOAD') {
+        wsc.close()
+
+        location.reload();
+      }
+    };
+  </script>
+  <% } %>
 </body>
 
 </html>

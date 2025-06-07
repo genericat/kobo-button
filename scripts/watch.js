@@ -1,4 +1,3 @@
-import { argv, env } from 'node:process';
 import chokidar from 'chokidar';
 import fs from 'node:fs/promises';
 import { compile } from 'ejs';
@@ -7,6 +6,8 @@ import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 import 'dotenv/config'
 import util from "./util.js";
+import { createAppServer, createWsServer } from "./server.js";
+
 
 /**
  * Language code to work with
@@ -16,10 +17,14 @@ import util from "./util.js";
  * Default to `en` language code.
  *
  * Need to match any file name in `./src/lang/` without its extension
+ *
+ * @type Array<string>
  */
-const params = argv.slice(2);
+const params = process.argv.slice(2);
 
-const baseUrl = env.APP_URL ?? 'http://localhost:3000/';
+const HTTP_PORT = process.env.HTTP_PORT;
+const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT;
+const baseUrl = `${process.env.APP_URL}:${HTTP_PORT}/`;
 
 let playlistTemplate;
 let langs;
@@ -28,13 +33,24 @@ try {
   let lang, langObjs;
 
   [playlistTemplate, lang] = await Promise.all([
-      util.getPlaylistTemplate(),
-      util.getLang('en', baseUrl)]);
+    util.getPlaylistTemplate(),
+    util.getLang('en', baseUrl)]);
   [langObjs, langs] = lang;
 } catch (error) {
   console.error(error);
 }
 
+
+//--------------
+// Setup servers
+//--------------
+const wsServer = createWsServer(WEBSOCKET_PORT);
+createAppServer(HTTP_PORT, `${baseUrl}lang/${params[0] ? params[0] : 'en'}.html`);
+
+
+//---------------
+// Setup watchers
+//---------------
 chokidar.watch('./src').on('all', (event, path) => {
   if (event !== 'add' && event !== 'change') { return; }
 
@@ -42,16 +58,16 @@ chokidar.watch('./src').on('all', (event, path) => {
   //   renderCss();
   // }
 
-  if (path.includes('index.ejs')) {
+  if (path.endsWith('index.ejs')) {
     renderEjs(params[0] ? params[0] + '.json' : 'en.json');
     renderCss();
   }
 
-  if (path.includes('style.css')) {
+  if (path.endsWith('style.css')) {
     renderCss();
   }
 
-  if (path.includes('script.js')) {
+  if (path.endsWith('script.js')) {
     copyJs();
     renderCss();
   }
@@ -67,19 +83,26 @@ chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
   renderCss();
 });
 
+chokidar.watch(['./index.html', './lang', './assets/script.js', './assets/style.css']).on('change', () => {
+  wsServer.reloadClient();
+});
+
+
+//---------
 
 async function renderEjs(lang) {
   try {
-    const langString     = fs.readFile('./src/lang/' + lang, 'utf8');
+    const langString = fs.readFile('./src/lang/' + lang, 'utf8');
     const templateString = await fs.readFile('./src/index.ejs', 'utf8');
 
-    const template  = compile(templateString, { async: false, filename: './src/index.ejs' })
+    const template = compile(templateString, { async: false, filename: './src/index.ejs' })
 
     let langObj = JSON.parse(await langString);
 
-    langObj.playlist = playlistTemplate({playlistNotice: langObj.playlistNotice});
+    langObj.playlist = playlistTemplate({ playlistNotice: langObj.playlistNotice });
     langObj.langs = langs;
     langObj.baseUrl = baseUrl;
+    langObj.wsPort = WEBSOCKET_PORT;
 
     const htmlString = template(langObj);
 
