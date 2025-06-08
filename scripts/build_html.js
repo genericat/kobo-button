@@ -1,6 +1,6 @@
 import { argv } from 'node:process';
 import util from './util.js';
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 
 /**
  * Language code to work with
@@ -17,27 +17,29 @@ const params = argv.slice(2);
 const baseUrl = 'https://genericat.github.io/kobo-button/';
 
 try {
-  const [playlistTemplate, lang, htmlTemplate] = await Promise.all([
+  const [playlistTemplate, langsMetaData, langObjs, htmlTemplate] = await Promise.all([
     util.getPlaylistTemplate(),
-    util.getLang(params[0], baseUrl),
-    util.getHtmlTemplate()]);
-  const [langObjs, langs] = lang;
+    util.getLangMeta(baseUrl),
+    util.getLangObj(params[0]),
+    util.getHtmlTemplate()
+  ]);
 
-  langObjs.forEach(async langObj => {
-    langObj.playlist = playlistTemplate({playlistNotice: langObj.playlistNotice});
-    langObj.langs = langs;
+  langObjs.forEach(langObj => {
+    langObj.playlist = playlistTemplate({ playlistNotice: langObj.playlistNotice });
+    langObj.langs = langsMetaData;
     langObj.baseUrl = baseUrl;
+    langObj.wsPort = null;
 
     const htmlString = htmlTemplate(langObj);
 
-    await fs.writeFile(`./lang/${langObj.meta.lang}.html`, htmlString, 'utf8');
+    fs.writeFileSync(`./lang/${langObj.meta.lang}.html`, htmlString, 'utf8');
 
 
     const date = new Date();
-    console.log(`[${date.toLocaleTimeString()}] Rendering ${langObj.meta.lang}.json done`);
+    console.log(`[${date.toLocaleTimeString()}] Rendering ${langObj.meta.lang}.html done`);
 
     if (langObj.meta.lang === 'en') {
-      await fs.copyFile('./lang/en.html', './index.html');
+      fs.copyFileSync('./lang/en.html', './index.html');
 
       const date = new Date();
       console.log(`[${date.toLocaleTimeString()}] Copying ./lang/en.html to ./index.html done`);
@@ -45,5 +47,5 @@ try {
   });
 
 } catch (error) {
-  console.error(error)
+  console.error(error);
 }

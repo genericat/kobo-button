@@ -1,6 +1,5 @@
 import chokidar from 'chokidar';
 import fs from 'node:fs/promises';
-import { compile } from 'ejs';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
@@ -12,7 +11,6 @@ import { createAppServer, createWsServer } from "./server.js";
 /**
  * Language code to work with
  *
- * In case we only need to watch one translation file.
  * If omitted no translation file will be watched.
  * Default to `en` language code.
  *
@@ -26,26 +24,16 @@ const HTTP_PORT = process.env.HTTP_PORT;
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT;
 const baseUrl = `${process.env.APP_URL}:${HTTP_PORT}/`;
 
-let playlistTemplate;
-let langs;
-
-try {
-  let lang, langObjs;
-
-  [playlistTemplate, lang] = await Promise.all([
-    util.getPlaylistTemplate(),
-    util.getLang('en', baseUrl)]);
-  [langObjs, langs] = lang;
-} catch (error) {
-  console.error(error);
-}
-
+const playlistTemplate = util.getPlaylistTemplate();
+const langsMetaData = util.getLangMeta(baseUrl);
+const langObj = util.getLangObj(params[0] ?? 'en');
+const htmlTemplate = util.getHtmlTemplate();
 
 //--------------
 // Setup servers
 //--------------
 const wsServer = createWsServer(WEBSOCKET_PORT);
-createAppServer(HTTP_PORT, `${baseUrl}lang/${params[0] ? params[0] : 'en'}.html`);
+createAppServer(HTTP_PORT, `${baseUrl}lang/${params[0] ?? 'en'}.html`);
 
 
 //---------------
@@ -59,7 +47,7 @@ chokidar.watch('./src').on('all', (event, path) => {
   // }
 
   if (path.endsWith('index.ejs')) {
-    renderEjs(params[0] ? params[0] + '.json' : 'en.json');
+    renderEjs();
     renderCss();
   }
 
@@ -73,7 +61,7 @@ chokidar.watch('./src').on('all', (event, path) => {
   }
 
   if (path.includes('lang') && path.substring(9) === params[0] + '.json') {
-    renderEjs(path.substring(9));
+    renderEjs();
   }
 });
 
@@ -87,30 +75,33 @@ chokidar.watch(['./index.html', './lang', './assets/script.js', './assets/style.
   wsServer.reloadClient();
 });
 
+//---------
+
+console.log(params[0] ? `Working on ${params[0]} translation\n` : '\n');
 
 //---------
 
-async function renderEjs(lang) {
+async function renderEjs() {
   try {
-    const langString = fs.readFile('./src/lang/' + lang, 'utf8');
-    const templateString = await fs.readFile('./src/index.ejs', 'utf8');
+    const [pt, lm, lo, ht] = await Promise.all([
+      playlistTemplate,
+      langsMetaData,
+      langObj,
+      htmlTemplate,
+    ]);
 
-    const template = compile(templateString, { async: false, filename: './src/index.ejs' })
+    lo[0].playlist = pt({ playlistNotice: lo.playlistNotice });
+    lo[0].langs = lm;
+    lo[0].baseUrl = baseUrl;
+    lo[0].wsPort = WEBSOCKET_PORT;
 
-    let langObj = JSON.parse(await langString);
+    const htmlString = ht(lo[0]);
 
-    langObj.playlist = playlistTemplate({ playlistNotice: langObj.playlistNotice });
-    langObj.langs = langs;
-    langObj.baseUrl = baseUrl;
-    langObj.wsPort = WEBSOCKET_PORT;
-
-    const htmlString = template(langObj);
-
-    await fs.writeFile('./lang/' + lang.replace('json', 'html'), htmlString, 'utf8');
+    await fs.writeFile(`./lang/${lo[0].meta.lang}.html`, htmlString, 'utf8');
 
     const date = new Date();
 
-    console.log(`[${date.toLocaleTimeString()}] Rendering ./lang/${lang.replace('json', 'html')} done`);
+    console.log(`[${date.toLocaleTimeString()}] Rendering ./lang/${lo[0].meta.lang}.html done`);
   } catch (error) {
     console.error(error);
   }

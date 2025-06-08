@@ -19,7 +19,7 @@ npm i
 
 You can do local development by modify `src/index.ejs`, `src/style.css`, or `src/script.js`.
 
-Run the start command to start the server and file watcher
+Run the start command to start the server and file watcher.
 ```bash
 npm run start
 ```
@@ -31,7 +31,7 @@ If you want to do a contribution, you have to **fork this repo**  first and then
 
 ## Add or Edit Translation
 
-You can add or improve a translation file to make this website more accessible.
+You can add or improve a translation file to make this web app more accessible.
 
 1. If you want to add a translation, first, you need to copy any translation file in `lang/` and rename the file.
 The file name need to be a valid **language code** for `lang` HTML attribute.
@@ -77,8 +77,8 @@ Object properties for audio data
 | Property | Required | Description
 |---|---|---|
 | `name` | ✅ | The file name of the audio. File name in snake_case. |
-| `title` | ✅ | Title of the audio that will be displayed in main UI. Recommended to write it in their native language, use english if the audio data doesn't have `lang` property. |
+| `title` | ✅ | Title of the audio that will be displayed in UI. Recommended to write it in their native language, use english if the audio data doesn't have `lang` property. |
 | `category` | ✅ | Valid values are `words`, `sound`, and `song`. |
-| `lang` | ⏹️ | Recommended to write it in their native language. Only required in `words` and `song` category. |
+| `lang` | ⏹️ | Language of the audio clip. Recommended to write it in their native language. Only required in `words` and `song` category. |
 | `isSeiso` | ✅ | A boolean flag to prevent the audio randomly played from Kobo button but can be played from playlist. Not necessarily about seiso content. |
 | `next` | ❌ | File name without its extension of the next chained audio that can be played by pressing the next button. |
