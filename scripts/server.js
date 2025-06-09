@@ -30,7 +30,7 @@ const createAppServer = (port, appUrl) => {
   });
 
   server.listen(port, () => {
-    console.log(`Server started (${appUrl})\n`);
+    console.log(`Server started ${appUrl}\n`);
   });
 }
 
