@@ -29,7 +29,7 @@
   <%_ langs.forEach(lang => { _%>
   <link rel="alternate" hreflang="<%= lang.lang %>" href="<%= lang.href %>">
   <%_ }); _%>
-  <link rel="alternate" href="https://genericat.github.io/kobo-button/" hreflang="x-default">
+  <link rel="alternate" href="<%= baseUrl %>" hreflang="x-default">
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
   <link rel="shortcut icon" sizes="196x196" href="assets/img/favicon-196.png" type="image/png">
