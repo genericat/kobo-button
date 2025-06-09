@@ -1,4 +1,3 @@
-import { argv } from 'node:process';
 import util from './util.js';
 import fs from 'node:fs';
 
@@ -12,9 +11,9 @@ import fs from 'node:fs';
  *
  * @type Array<string>
  */
-const params = argv.slice(2);
+const params = process.argv.slice(2);
 
-const baseUrl = 'https://genericat.github.io/kobo-button/';
+const baseUrl = process.env.APP_URL;
 
 try {
   const [playlistTemplate, langsMetaData, langObjs, htmlTemplate] = await Promise.all([
