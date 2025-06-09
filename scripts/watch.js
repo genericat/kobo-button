@@ -37,6 +37,7 @@ renderEjs();
 renderCss();
 copyJs();
 
+
 //---------------
 // Set up servers
 //---------------
@@ -86,11 +87,13 @@ chokidar.watch([
   wsServer.reloadClient();
 });
 
+
 //---------
 
 console.log(params[0] ? `Working on ${params[0]} translation\n` : '\n');
 
 //---------
+
 
 async function renderEjs() {
   try {

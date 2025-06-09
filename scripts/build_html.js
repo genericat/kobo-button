@@ -26,9 +26,9 @@ try {
 
   langObjs.forEach(langObj => {
     langObj.playlist = playlistTemplate({ playlistNotice: langObj.playlistNotice });
-    langObj.langs = langsMetaData;
-    langObj.baseUrl = baseUrl;
-    langObj.wsPort = null;
+    langObj.langs    = langsMetaData;
+    langObj.baseUrl  = baseUrl;
+    langObj.wsPort   = null;
 
     const htmlString = htmlTemplate(langObj);
 
