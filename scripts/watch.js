@@ -20,26 +20,34 @@ import { createAppServer, createWsServer } from "./server.js";
  */
 const params = process.argv.slice(2);
 
-const HTTP_PORT = process.env.HTTP_PORT;
+const HTTP_PORT      = process.env.HTTP_PORT;
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT;
-const baseUrl = `${process.env.APP_URL}:${HTTP_PORT}/`;
+const baseUrl        = `${process.env.APP_URL}:${HTTP_PORT}/`;
 
 const playlistTemplate = util.getPlaylistTemplate();
-const langsMetaData = util.getLangMeta(baseUrl);
-const langObj = util.getLangObj(params[0] ?? 'en');
-const htmlTemplate = util.getHtmlTemplate();
+const langsMetaData    = util.getLangMeta(baseUrl);
+const langObj          = util.getLangObj(params[0] ?? 'en');
+const htmlTemplate     = util.getHtmlTemplate();
 
-//--------------
-// Setup servers
-//--------------
+
+//---------------
+// Initialization
+//---------------
+renderEjs();
+renderCss();
+copyJs();
+
+//---------------
+// Set up servers
+//---------------
 const wsServer = createWsServer(WEBSOCKET_PORT);
 createAppServer(HTTP_PORT, `${baseUrl}lang/${params[0] ?? 'en'}.html`);
 
 
-//---------------
-// Setup watchers
-//---------------
-chokidar.watch('./src').on('all', (event, path) => {
+//----------------
+// Set up watchers
+//----------------
+chokidar.watch('./src', { ignoreInitial: true }).on('all', (event, path) => {
   if (event !== 'add' && event !== 'change') { return; }
 
   // if (path.includes('prototype.html')) {
@@ -65,13 +73,16 @@ chokidar.watch('./src').on('all', (event, path) => {
   }
 });
 
-chokidar.watch('./tailwind.config.js').on('all', (event, path) => {
-  if (event !== 'add' && event !== 'change') { return; }
-
+chokidar.watch('./tailwind.config.js', { ignoreInitial: true }).on('change', () => {
   renderCss();
 });
 
-chokidar.watch(['./index.html', './lang', './assets/script.js', './assets/style.css']).on('change', () => {
+chokidar.watch([
+  './index.html',
+  './lang',
+  './assets/script.js',
+  './assets/style.css'
+], { ignoreInitial: true }).on('change', () => {
   wsServer.reloadClient();
 });
 
@@ -91,9 +102,9 @@ async function renderEjs() {
     ]);
 
     lo[0].playlist = pt({ playlistNotice: lo.playlistNotice });
-    lo[0].langs = lm;
-    lo[0].baseUrl = baseUrl;
-    lo[0].wsPort = WEBSOCKET_PORT;
+    lo[0].langs    = lm;
+    lo[0].baseUrl  = baseUrl;
+    lo[0].wsPort   = WEBSOCKET_PORT;
 
     const htmlString = ht(lo[0]);
 
@@ -110,7 +121,7 @@ async function renderEjs() {
 async function renderCss() {
   try {
     const cssString = await fs.readFile('./src/style.css');
-    const result = await postcss([autoprefixer, tailwindcss])
+    const result    = await postcss([tailwindcss, autoprefixer])
       .process(cssString, { from: './src/style.css', to: './assets/style.css' });
 
     await fs.writeFile('./assets/style.css', result.css, 'utf8');
