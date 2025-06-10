@@ -6,9 +6,10 @@ import { compile } from 'ejs';
  * Get playlist template function
  * to render playlist html string with word of notice from a language
  *
+ * @param {boolean} cache Pass cache option to ejs compiler
  * @returns Promise<TemplateFunction>
  */
-const getPlaylistTemplate = async () => {
+const getPlaylistTemplate = async (cache = false) => {
   const audioData = fs.readFile('./assets/audio.json', 'utf8');
   let pTemplateString = await fs.readFile('./src/ejs/playlist.ejs', 'utf8');
 
@@ -17,7 +18,7 @@ const getPlaylistTemplate = async () => {
   const pTemplate = compile(pTemplateString);
   const playlistString = pTemplate({ audios: JSON.parse(await audioData) });
 
-  return compile(playlistString, { cache: true, filename: 'playlist' });
+  return compile(playlistString, { cache: cache, filename: 'playlist' });
 }
 
 /**
@@ -74,12 +75,13 @@ const getLangObj = async (lang = null) => {
 /**
  * Get the layout/main page template function
  *
+ * @param {boolean} cache Pass cache option to ejs compiler
  * @returns Promise<TemplateFunction>
  */
-const getHtmlTemplate = async () => {
+const getHtmlTemplate = async (cache = false) => {
   const templateString = await fs.readFile('./src/index.ejs', 'utf8');
 
-  return compile(templateString, { cache: true, filename: './src/index.ejs' });
+  return compile(templateString, { cache: cache, filename: './src/index.ejs' });
 }
 
 export default { getPlaylistTemplate, getLangMeta, getLangObj, getHtmlTemplate };

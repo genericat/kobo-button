@@ -24,11 +24,6 @@ const HTTP_PORT      = process.env.HTTP_PORT;
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT;
 const baseUrl        = `${process.env.APP_URL}:${HTTP_PORT}/`;
 
-const playlistTemplate = util.getPlaylistTemplate();
-const langsMetaData    = util.getLangMeta(baseUrl);
-const langObj          = util.getLangObj(params[0] ?? 'en');
-const htmlTemplate     = util.getHtmlTemplate();
-
 
 //---------------
 // Initialization
@@ -98,10 +93,10 @@ console.log(params[0] ? `Working on ${params[0]} translation\n` : '\n');
 async function renderEjs() {
   try {
     const [pt, lm, lo, ht] = await Promise.all([
-      playlistTemplate,
-      langsMetaData,
-      langObj,
-      htmlTemplate,
+      util.getPlaylistTemplate(),
+      util.getLangMeta(baseUrl),
+      util.getLangObj(params[0] ?? 'en'),
+      util.getHtmlTemplate()
     ]);
 
     lo[0].playlist = pt({ playlistNotice: lo.playlistNotice });

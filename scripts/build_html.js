@@ -17,10 +17,10 @@ const baseUrl = process.env.APP_URL;
 
 try {
   const [playlistTemplate, langsMetaData, langObjs, htmlTemplate] = await Promise.all([
-    util.getPlaylistTemplate(),
+    util.getPlaylistTemplate(true),
     util.getLangMeta(baseUrl),
     util.getLangObj(params[0]),
-    util.getHtmlTemplate()
+    util.getHtmlTemplate(true)
   ]);
 
   langObjs.forEach(langObj => {
