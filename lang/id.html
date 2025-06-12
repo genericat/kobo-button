@@ -2,7 +2,7 @@
 <html lang="id" dir="ltr" style="--dir:1">
 
 <head>
-  <base id="baseUrl" href="https://genericat.github.io/kobo-button/">
+  <base id="baseUrl" href="http://localhost:3000/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,9 +26,9 @@
   <link rel="stylesheet" href="assets/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-  <link rel="alternate" hreflang="en" href="https://genericat.github.io/kobo-button/lang/en.html">
-  <link rel="alternate" hreflang="id" href="https://genericat.github.io/kobo-button/lang/id.html">
-  <link rel="alternate" href="https://genericat.github.io/kobo-button/" hreflang="x-default">
+  <link rel="alternate" hreflang="en" href="http://localhost:3000/lang/en.html">
+  <link rel="alternate" hreflang="id" href="http://localhost:3000/lang/id.html">
+  <link rel="alternate" href="http://localhost:3000/" hreflang="x-default">
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
   <link rel="shortcut icon" sizes="196x196" href="assets/img/favicon-196.png" type="image/png">
@@ -55,7 +55,7 @@
       </p>
     </div>
 
-    <button id="playlist-btn" class="w-8 h-8 opacity-0 hover:opacity-100 focus:opacity-100" aria-label="Playlist" aria-controls="playlist-window"
+    <button id="playlist-btn" class="w-8 h-8 opacity-0 hover:opacity-100 focus:opacity-100" aria-controls="playlist-window"
       aria-expanded="false" title="Daftar putar">
       <span class="material-icons-round block">queue_music</span>
     </button>
@@ -112,7 +112,7 @@
       <button id="play-btn" class="relative col-start-2 col-end-3 row-start-1 row-end-2
         w-28 h-28 border-none rounded-full bg-white text-center
         transition-transform duration-[1.5s] ease-out active:scale-150">
-        <!-- https://x.com/Ryunana19/status/1861565683756343368 -->
+        <!-- Kobo art credit https://x.com/Ryunana19/status/1861565683756343368 -->
         <img class="w-3/4 mx-auto animate-[spin_5s_linear_infinite]" src="assets/img/kobo_art.webp" alt="Gambar Kobo oleh Ryuna dari X">
         <div class="absolute top-0 left-0 w-full h-full"></div>
       </button>
@@ -130,7 +130,7 @@
 
     <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
       ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
-      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
+      transition-[transform,width] ease-out duration-300" aria-label="Playlist window" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold">Daftar Putar</h2>
@@ -140,24 +140,26 @@
           </button>
         </header>
 
-        <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
-          aria-controls="audio-playlist">
+        <section id="audio-filter-container" class="group flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter" role="radiogroup">
           <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="Filter audio kata-kata" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="Filter audio kata-kata" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
           </button>
           <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="Filter audio suara" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="Filter audio suara" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
           </button>
           <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="Filter audio lagu" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="Filter audio lagu" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
           </button>
         </section>
 
-        <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
-          <ul>
+        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-labelledby="playlist-header">
+          <ul id="audio-playlist" class="words-list sound-list song-list">
             
   <li id="focused-audio"
     class="group grid grid-rows-[repeat(2,auto)] py-2 px-4 mb-2 rounded-lg bg-white/50 transition-transform cursor-pointer hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-white"
@@ -1194,7 +1196,24 @@
       </div>
     </section>
   </main>
+
+  <footer class="absolute bottom-0 w-full text-xs text-center text-white/50">
+    <span>Tidak resmi | &copy; 2016 COVER Corp. </span>
+  </footer>
+
   <script src="assets/script.js"></script>
+  
+  <script>
+    const wsPort = '3030';
+    const wsc = new WebSocket(`ws://localhost:${wsPort}`);
+    wsc.onmessage = (e) => {
+      if (e.data == 'RELOAD') {
+        wsc.close()
+
+        location.reload();
+      }
+    };
+  </script>
   
 </body>
 
