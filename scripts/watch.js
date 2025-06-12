@@ -99,7 +99,7 @@ async function renderEjs() {
       util.getHtmlTemplate()
     ]);
 
-    lo[0].playlist = pt({ playlistNotice: lo.playlistNotice });
+    lo[0].playlist = pt({ playlistNotice: lo[0].playlistNotice });
     lo[0].langs    = lm;
     lo[0].baseUrl  = baseUrl;
     lo[0].wsPort   = WEBSOCKET_PORT;
