@@ -105,7 +105,7 @@
       <button id="play-btn" class="relative col-start-2 col-end-3 row-start-1 row-end-2
         w-28 h-28 border-none rounded-full bg-white text-center
         transition-transform duration-[1.5s] ease-out active:scale-150">
-        <!-- https://x.com/Ryunana19/status/1861565683756343368 -->
+        <!-- Kobo art credit https://x.com/Ryunana19/status/1861565683756343368 -->
         <img class="w-3/4 mx-auto animate-[spin_5s_linear_infinite]" src="assets/img/kobo_art.webp" alt="<%= imgAlt %>">
         <div class="absolute top-0 left-0 w-full h-full"></div>
       </button>
@@ -123,7 +123,7 @@
 
     <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
       ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
-      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
+      transition-[transform,width] ease-out duration-300" aria-label="Playlist window" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold"><%= playlistTitle %></h2>
@@ -133,24 +133,26 @@
           </button>
         </header>
 
-        <section class="flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter"
-          aria-controls="audio-playlist">
+        <section id="audio-filter-container" class="group flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter" role="radiogroup">
           <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="<%= ttl.filterWords %>" aria-label="Word filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="<%= ttl.filterWords %>" aria-label="<%= ttl.filterWords %>" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">abc</span>
           </button>
           <button id="sound-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="<%= ttl.filterSound %>" aria-label="Sound filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="<%= ttl.filterSound %>" aria-label="<%= ttl.filterSound %>" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">graphic_eq</span>
           </button>
           <button id="song-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
-            hover:border-black hover:text-black" title="<%= ttl.filterSong %>" aria-label="Song filter" aria-controls="audio-playlist" role="switch" aria-checked="false">
+            hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
+            title="<%= ttl.filterSong %>" aria-label="<%= ttl.filterSong %>" aria-controls="audio-playlist" role="radio" aria-checked="false">
             <span class="material-icons-round align-middle" aria-hidden="true">music_note</span>
           </button>
         </section>
 
-        <section id="audio-playlist" class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-label="Audio playlist">
-          <ul>
+        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-labelledby="playlist-header">
+          <ul id="audio-playlist" class="words-list sound-list song-list">
             <%- playlist %>
           </ul>
         </section>

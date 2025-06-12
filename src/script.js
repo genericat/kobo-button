@@ -101,6 +101,12 @@ let nextAud;
 let prevAudPlaylist;
 
 /**
+ * Last filter used for the playlist
+ * @type string
+ */
+let filterUsed = '';
+
+/**
  * Controller to abort fetch promise
  * @type {?AbortController}
  */
@@ -142,15 +148,15 @@ const togglePlaylistWindow = () => {
 
     const focusedAudio = document.getElementById('focused-audio');
 
-    if (!focusedAudio.checkVisibility()) {
-      wordsFilterBtn.ariaChecked = 'true';
-      soundFilterBtn.ariaChecked = 'true';
-      songFilterBtn.ariaChecked = 'true';
+    // if (!focusedAudio.checkVisibility()) {
+    //   wordsFilterBtn.ariaChecked = 'false';
+    //   soundFilterBtn.ariaChecked = 'false';
+    //   songFilterBtn.ariaChecked = 'false';
 
-      filterPlaylist(wordsFilterBtn, 'words-list');
-      filterPlaylist(soundFilterBtn, 'sound-list');
-      filterPlaylist(songFilterBtn, 'song-list');
-    }
+    //   filterPlaylist(wordsFilterBtn, 'words-list');
+    //   filterPlaylist(soundFilterBtn, 'sound-list');
+    //   filterPlaylist(songFilterBtn, 'song-list');
+    // }
 
     focusedAudio.focus();
 
@@ -199,10 +205,28 @@ const openPlaylistWindow = (e) => {
 const filterPlaylist = (el, list) => {
   const isChecked = el.ariaChecked === 'true' ? true : false;
 
-  audioPlaylist.classList.toggle(list, !isChecked);
-  el.classList.toggle('border-gray-500', isChecked);
-  el.classList.toggle('bg-white', !isChecked);
-  el.setAttribute('aria-checked', !isChecked);
+  audioPlaylist.classList.toggle('words-list', isChecked || list === 'words');
+  audioPlaylist.classList.toggle('sound-list', isChecked || list === 'sound');
+  audioPlaylist.classList.toggle('song-list', isChecked || list === 'song');
+
+  wordsFilterBtn.setAttribute('aria-checked', wordsFilterBtn === el && !isChecked);
+  soundFilterBtn.setAttribute('aria-checked', soundFilterBtn === el && !isChecked);
+  songFilterBtn.setAttribute('aria-checked', songFilterBtn === el && !isChecked);
+
+  filterUsed = isChecked ? '' : list;
+
+
+  const focusedAudio = document.getElementById('focused-audio');
+
+  if (focusedAudio.dataset.category !== list) {
+    const newFocusedAudio = audioPlaylist.querySelector(`[data-category="${list}"]`);
+
+    focusedAudio.removeAttribute('id');
+    focusedAudio.setAttribute('tabindex', '-1');
+
+    newFocusedAudio.setAttribute('id', 'focused-audio');
+    newFocusedAudio.setAttribute('tabindex', '0');
+  }
 }
 
 
@@ -543,7 +567,7 @@ audioPlaylist.onkeydown = (e) => {
     const listFocused = e.target;
     let nextListFocused = e.key === 'ArrowDown' ? listFocused.nextElementSibling : listFocused.previousElementSibling;
 
-    while (nextListFocused?.ariaDisabled === 'true') {
+    while (filterUsed !== '' && nextListFocused && nextListFocused.dataset.category !== filterUsed) {
       nextListFocused = e.key === 'ArrowDown' ? nextListFocused.nextElementSibling : nextListFocused.previousElementSibling;
     }
 
@@ -560,7 +584,7 @@ audioPlaylist.onkeydown = (e) => {
   }
 
   if (e.key === 'Enter') {
-    // e.preventDefault(); // Prevent scrolling
+    // e.preventDefault(); // Prevent scrolling when pressing space key
 
     playAudio(e.target);
   }
@@ -605,15 +629,15 @@ audioPlaylist.onclick = (e) => {
 }
 
 wordsFilterBtn.onclick = () => {
-  filterPlaylist(wordsFilterBtn, 'words-list');
+  filterPlaylist(wordsFilterBtn, 'words');
 };
 
 soundFilterBtn.onclick = () => {
-  filterPlaylist(soundFilterBtn, 'sound-list');
+  filterPlaylist(soundFilterBtn, 'sound');
 }
 
 songFilterBtn.onclick = () => {
-  filterPlaylist(songFilterBtn, 'song-list');
+  filterPlaylist(songFilterBtn, 'song');
 }
 
 
