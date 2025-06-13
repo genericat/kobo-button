@@ -68,7 +68,7 @@
       </button>
 
       <ul id="lang-list" class="hidden absolute top-8 end-0 py-2 rounded-xl bg-white/50 backdrop-blur-default text-black"
-        aria-label="Language list" role="menu">
+        aria-label="<%= lbl.languageList %>" role="menu">
         <%_ langs.forEach(lang => { %>
         <li class="py-1 px-4 hover:bg-white"
           lang="<%= lang.lang %>"
@@ -82,7 +82,7 @@
     </div>
   </header>
 
-  <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" aria-label="Menu"
+  <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" title="<%= ttl.menu %>"
     aria-controls="menu-window" aria-expanded="false">
     <span id="menu-icon" class="block text-[24px]">🌂</span>
   </button>
@@ -97,7 +97,7 @@
 
     <section class="main-ui absolute bottom-[18%] left-1/2 -translate-x-1/2
       grid grid-cols-[repeat(3,auto)] grid-rows-[repeat(2,auto)] gap-6
-      text-white transition-opacity ease-out duration-300" aria-label="Control buttons">
+      text-white transition-opacity ease-out duration-300" aria-label="<%= lbl.mainBtn %>">
       <button id="prev-btn" class="self-center invisible w-12 h-12 rounded-full hover:bg-white/25 hover:border-2 hover:border-white/20">
         <span class="material-icons-round align-middle rtl:rotate-180">skip_previous</span>
       </button>
@@ -123,7 +123,7 @@
 
     <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
       ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
-      transition-[transform,width] ease-out duration-300" aria-label="Playlist window" aria-hidden="true" inert>
+      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold"><%= playlistTitle %></h2>
@@ -133,7 +133,7 @@
           </button>
         </header>
 
-        <section id="audio-filter-container" class="group flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="Playlist filter" role="radiogroup">
+        <section id="audio-filter-container" class="group flex-none px-2 flex gap-x-2 justify-end mb-6" aria-label="<%= lbl.playlistFilter %>" role="radiogroup">
           <button id="words-filter-btn" class="w-8 h-8 rounded-full border border-gray-500 text-gray-500 transition-colors
             hover:border-black hover:text-black aria-checked:border-gray-500 aria-checked:bg-white"
             title="<%= ttl.filterWords %>" aria-controls="audio-playlist" role="radio" aria-checked="false">
@@ -151,7 +151,7 @@
           </button>
         </section>
 
-        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-labelledby="playlist-header">
+        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]">
           <ul id="audio-playlist" class="words-list sound-list song-list">
             <%- playlist %>
           </ul>
@@ -239,7 +239,7 @@
   </main>
 
   <footer class="absolute bottom-0 w-full text-xs text-center text-white/50">
-    <span><%= footer %> | &copy; 2016 COVER Corp. </span>
+    <span><%= footer %> | &copy; 2016 COVER Corp.</span>
   </footer>
 
   <script src="assets/script.js"></script>

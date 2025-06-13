@@ -8,10 +8,16 @@
   },
   "ttl" : {
     "info": "Informasi",
+    "menu": "Menu",
     "playlist": "Daftar putar",
     "filterWords": "Filter audio kata-kata",
     "filterSound": "Filter audio suara",
     "filterSong": "Filter audio lagu"
+  },
+  "lbl": {
+    "languageList": "Daftar bahasa",
+    "mainBtn": "Tombol kontrol",
+    "playlistFilter": "Filter daftar putar"
   },
   "notice": "Ini adalah situs web tidak resmi dan dibuat oleh penggemar. Audio diambil dan disajikan tanpa konteks tambahan apa pun. Situs web ini dan isinya sebaiknya tidak digunakan untuk penilaian terhadap pihak tersebut atau terkait mana pun.",
   "title": "Tombol Kobo",
