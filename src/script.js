@@ -107,10 +107,11 @@ let prevAudPlaylist;
 let filterUsed = '';
 
 /**
- * Controller to abort fetch promise
+ * Controller to abort a fetch Promise.
+ * Used to cancel fetch of audio from playlist
  * @type {?AbortController}
  */
-let controller;
+let abortController;
 
 
 /**
@@ -147,16 +148,6 @@ const togglePlaylistWindow = () => {
     lastFocusedEl = document.activeElement;
 
     const focusedAudio = document.getElementById('focused-audio');
-
-    // if (!focusedAudio.checkVisibility()) {
-    //   wordsFilterBtn.ariaChecked = 'false';
-    //   soundFilterBtn.ariaChecked = 'false';
-    //   songFilterBtn.ariaChecked = 'false';
-
-    //   filterPlaylist(wordsFilterBtn, 'words-list');
-    //   filterPlaylist(soundFilterBtn, 'sound-list');
-    //   filterPlaylist(songFilterBtn, 'song-list');
-    // }
 
     focusedAudio.focus();
 
@@ -230,9 +221,19 @@ const filterPlaylist = (el, list) => {
 }
 
 
+/**
+ * Fetch all of the audio data
+ *
+ * @returns {Promise<object[]>} audio.json
+ */
 const fetchAudioData = async () => {
   try {
     const response = await fetch(baseUrl + 'assets/audio.json');
+
+    if (response.status == 429) {
+      throw new Error('Rate limited. 429 HTTP status code');
+    }
+
     if (!response.ok) {
       throw new Error('Fetch audio data failed');
     }
@@ -246,12 +247,23 @@ const fetchAudioData = async () => {
 }
 
 
+/**
+ * Fetch an mp3 audio file and return it as object url
+ *
+ * @param {string} audioName Valid name of audio file
+ * @param {AbortController} signal AbortController object
+ * @returns {Promise<string>} object url
+ */
 const fetchAudio = async (audioName, signal = null) => {
   try {
     const response = await fetch(`${baseUrl}assets/aud/${audioName}.mp3`, { signal });
+
+    if (response.status == 429) {
+      throw new Error('Rate limited. 429 HTTP status code');
+    }
+
     if (!response.ok) {
-      console.error(`Fetch ${audioName} audio file failed`);
-      return '';
+      throw new Error(`Fetch ${audioName}.mp3 audio file failed`);
     }
 
     const blob = await response.blob();
@@ -259,22 +271,16 @@ const fetchAudio = async (audioName, signal = null) => {
 
     return objectUrl;
   } catch (error) {
-    if (error.name === 'AbortError') {
-      console.log(`Fetching ${audioName} file aborted`);
-    }
-    else {
-      console.error(error);
-    }
-
-    return '';
+    throw error;
   }
 }
 
 
 /**
  * Get random audio that will be fetched
+ *
  * @param {Array<object>} audiosData either `audiosData` or `songsData`
- * @returns random audio data
+ * @returns {object} random audio data
  */
 const getRandomAudio = (audiosData) => {
   let randomAudio = audiosData[Math.floor(Math.random() * audiosData.length)];
@@ -296,40 +302,47 @@ const getRandomAudio = (audiosData) => {
 
 /**
  * Get audio data that has been fetched
- * @returns `randomAud` or `randomSong`
+ *
+ * @returns {Promise<object>} `randomAud` or `randomSong`
  */
 const getAudioData = async () => {
-  let objectUrl;
+  try {
+    let objectUrl;
 
-  if (songSwitch.checked && Math.random() > 0.6) {
-    objectUrl = await Promise.race([randomSong.objectUrl, 'songPending']);
+    if (songSwitch.checked && Math.random() > 0.6) {
+      objectUrl = await Promise.race([randomSong.objectUrl, 'songPending']);
 
-    if (objectUrl !== 'songPending') {
-      randomSong.objectUrl = objectUrl;
-      return randomSong;
+      if (objectUrl !== 'songPending') {
+        randomSong.objectUrl = objectUrl;
+        return randomSong;
+      }
+      // NOTE: If `song.objectUrl` is not settled yet then check `aud.objectUrl` instead of waiting for `song.objectUrl`
     }
-    // NOTE: If `song.objectUrl` is not settled yet then check `aud.objectUrl` instead of waiting for `song.objectUrl`
+
+    objectUrl = await Promise.race([randomAud.objectUrl, 'audPending']);
+
+    if (objectUrl === 'audPending') {
+      audioTitleEl.innerText = 'Loading...'
+      audioTitleEl.classList.add('cursor-wait');
+
+      isWaitingAudio = true;
+
+      // NOTE: if `aud.objectUrl` is not settled yet then wait for it
+      objectUrl = await randomAud.objectUrl;
+    }
+
+    randomAud.objectUrl = objectUrl;
+    return randomAud;
+
+  } catch (error) {
+    throw error;
   }
-
-  objectUrl = await Promise.race([randomAud.objectUrl, 'audPending']);
-
-  if (objectUrl === 'audPending') {
-    audioTitleEl.innerText = 'Loading...'
-    audioTitleEl.classList.add('cursor-wait');
-
-    isWaitingAudio = true;
-
-    // NOTE: if `aud.objectUrl` is not settled yet then wait for it
-    objectUrl = await randomAud.objectUrl;
-  }
-
-  randomAud.objectUrl = objectUrl;
-  return randomAud;
 }
 
 
 /**
  * Revoke object urls and set `objectUrl` properties to `null`
+ *
  * @param {audioData} audioData audioData that will be cleared, expected `prevAud`
  */
 const clearAudioData = (audioData) => {
@@ -431,46 +444,52 @@ const playAudio = async (el) => {
     return;
   }
 
-  // If the `controller` not null (audio is not done fetched)
+  // If the `abortController` not null (audio is not done fetched)
   // then abort the current fetch promise, preparing for new fetch promise
-  if (controller) {
-    controller.abort();
+  if (abortController) {
+    abortController.abort();
   }
 
-  controller = new AbortController();
+  abortController = new AbortController();
 
-  if (prevAudPlaylist?.objectUrl) {
-    URL.revokeObjectURL(prevAudPlaylist?.objectUrl);
-  }
 
-  const fetchOu = fetchAudio(audioName, controller.signal);
+  try {
+    const fetchOu = fetchAudio(audioName, abortController.signal);
 
-  el.classList.add('cursor-wait');
+    el.classList.add('cursor-wait');
 
-  if (!el.classList.contains('played-audio')) {
-    const prevPlayedAud = audioPlaylist.getElementsByClassName('played-audio')[0];
-    prevPlayedAud?.classList.remove('played-audio');
+    if (!el.classList.contains('played-audio')) {
+      const prevPlayedAud = audioPlaylist.getElementsByClassName('played-audio')[0];
+      prevPlayedAud?.classList.remove('played-audio');
 
-    el.classList.add('played-audio');
-  }
+      el.classList.add('played-audio');
+    }
 
-  const objectUrl = await fetchOu;
+    const objectUrl = await fetchOu;
 
-  el.classList.remove('cursor-wait');
+    audioEl2.src = objectUrl;
+    audioEl2.play();
 
-  if (objectUrl === '') {
-    alert('Error');
-    return;
-  }
+    if (prevAudPlaylist?.objectUrl) {
+      URL.revokeObjectURL(prevAudPlaylist?.objectUrl);
+    }
 
-  audioEl2.src = objectUrl;
-  audioEl2.play();
+    prevAudPlaylist = {
+      "name": audioName,
+      "objectUrl": objectUrl
+    }
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Fetching ${audioName} file aborted`);
+    }
+    else {
+      console.error(error);
+      alert('Error');
+    }
+  } finally {
+    el.classList.remove('cursor-wait');
 
-  controller = null;
-
-  prevAudPlaylist = {
-    "name": audioName,
-    "objectUrl": objectUrl
+    abortController = null;
   }
 }
 
@@ -663,25 +682,31 @@ playBtn.onclick = async () => {
     return;
   }
 
-  const audioData = await getAudioData();
+  try {
+    const audioData = await getAudioData();
 
-  if (audioData.objectUrl === '') {
-    alert('Error');
-    return;
-  }
+    clearAudioData(prevAud);
 
-  clearAudioData(prevAud);
+    setPrevAud();
 
-  setPrevAud();
+    playRandomAudio(audioData);
 
-  playRandomAudio(audioData);
+    setNextAud(audioData.next);
 
-  setNextAud(audioData.next);
+    if (audioData.category === 'song') {
+      randomSong = getRandomAudio(songsData);
+    } else {
+      randomAud = getRandomAudio(audiosData);
+    }
 
-  if (audioData.category === 'song') {
-    randomSong = getRandomAudio(songsData);
-  } else {
-    randomAud = getRandomAudio(audiosData);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log(`Fetching ${audioName} file aborted`);
+    }
+    else {
+      console.error(error);
+      alert('Error');
+    }
   }
 }
 
