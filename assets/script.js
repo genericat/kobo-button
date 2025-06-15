@@ -283,14 +283,16 @@ const fetchAudio = async (audioName, signal = null) => {
  * @returns {object} random audio data
  */
 const getRandomAudio = (audiosData) => {
-  let randomAudio = audiosData[Math.floor(Math.random() * audiosData.length)];
+  let randomAudio;
 
-  while (!randomAudio.isSeiso ||
-          randomAudio.name === currentAud?.name ||
-          randomAudio.name === prevAud?.name ||
-          randomAudio.name === nextAud?.name) {
+  do {
     randomAudio = audiosData[Math.floor(Math.random() * audiosData.length)];
-  }
+  } while (
+    !randomAudio.isSeiso ||
+    randomAudio.name === currentAud?.name ||
+    randomAudio.name === prevAud?.name ||
+    randomAudio.name === nextAud?.name
+  );
 
   if (!randomAudio.objectUrl) {
     randomAudio.objectUrl = fetchAudio(randomAudio.name);
