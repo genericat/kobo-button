@@ -459,6 +459,7 @@ const playAudio = async (el) => {
     const fetchOu = fetchAudio(audioName, abortController.signal);
 
     el.classList.add('cursor-wait');
+    el.classList.add('animate-loading');
 
     if (!el.classList.contains('played-audio')) {
       const prevPlayedAud = audioPlaylist.getElementsByClassName('played-audio')[0];
@@ -480,7 +481,8 @@ const playAudio = async (el) => {
       "name": audioName,
       "objectUrl": objectUrl
     }
-  } catch (error) {
+  }
+  catch (error) {
     if (error.name === 'AbortError') {
       console.log(`Fetching ${audioName} file aborted`);
     }
@@ -488,8 +490,10 @@ const playAudio = async (el) => {
       console.error(error);
       alert('Error');
     }
-  } finally {
+  }
+  finally {
     el.classList.remove('cursor-wait');
+    el.classList.remove('animate-loading');
 
     abortController = null;
   }

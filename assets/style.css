@@ -568,7 +568,7 @@ input[role="switch"]:checked + div {
 .song-list [data-category="song"] {
     display: grid;
   }
-#audio-playlist .played-audio {
+li.played-audio {
   --tw-bg-opacity: 1;
   background-color: rgb(156 231 248 / var(--tw-bg-opacity));
 }
@@ -754,6 +754,21 @@ input[role="switch"]:checked + div {
 }
 .animate-\[spin_5s_linear_infinite\] {
   animation: spin 5s linear infinite;
+}
+@keyframes loading {
+
+  0%, 100% {
+    transform: translate(-2px, -3px);
+    animation-time-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translate(-2px, 0);
+    animation-time-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+.animate-loading {
+  animation: loading 1s infinite;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -1071,9 +1086,19 @@ input[role="switch"]:checked + div {
   background-color: rgb(255 255 255 / 0.5);
 }
 
+.hover\:text-accent:hover {
+  --tw-text-opacity: 1;
+  color: rgb(234 219 168 / var(--tw-text-opacity));
+}
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.hover\:text-dark-blue:hover {
+  --tw-text-opacity: 1;
+  color: rgb(7 55 126 / var(--tw-text-opacity));
 }
 
 .hover\:text-rose-700:hover {
@@ -1084,6 +1109,10 @@ input[role="switch"]:checked + div {
 .hover\:opacity-100:hover {
   opacity: 1;
 }
+
+.hover\:text-shadow:hover {
+    text-shadow: 0px 0px 24px rgb(9 60 183 / 75%);
+  }
 
 .focus\:opacity-100:focus {
   opacity: 1;
