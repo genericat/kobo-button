@@ -22,7 +22,9 @@ const createAppServer = (port, appUrl) => {
       res.writeHead(200);
       res.end(fileContent);
     } catch (error) {
+      console.log('\n');
       console.error(error);
+      console.log('\n');
 
       res.writeHead(500);
       res.end(JSON.stringify(error));
