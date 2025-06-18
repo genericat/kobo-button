@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" style="--dir:1">
 
 <head>
-  <base id="baseUrl" href="">
+  <base id="baseUrl" href="http://localhost:3000/">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,9 +26,9 @@
   <link rel="stylesheet" href="assets/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-  <link rel="alternate" hreflang="en" href="undefinedlang/en.html">
-  <link rel="alternate" hreflang="id" href="undefinedlang/id.html">
-  <link rel="alternate" href="" hreflang="x-default">
+  <link rel="alternate" hreflang="en" href="http://localhost:3000/lang/en.html">
+  <link rel="alternate" hreflang="id" href="http://localhost:3000/lang/id.html">
+  <link rel="alternate" href="http://localhost:3000/" hreflang="x-default">
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
   <link rel="shortcut icon" sizes="196x196" href="assets/img/favicon-196.png" type="image/png">
@@ -870,7 +870,7 @@
     tabindex="-1"
     data-name="ijimeko_bully"
     data-category="song">
-    <span>いじめっ子Bully</span>
+    <span>いじめっ子Bully (Lofi version)</span>
   
     <p class="text-sm group-aria-disabled:hidden">English, 日本語</p>
     <p class="hidden text-sm group-aria-disabled:block">This audio can be enabled from the menu</p>
@@ -1201,6 +1201,18 @@
   </footer>
 
   <script src="assets/script.js"></script>
+  
+  <script>
+    const wsPort = '3030';
+    const wsc = new WebSocket(`ws://localhost:${wsPort}`);
+    wsc.onmessage = (e) => {
+      if (e.data == 'RELOAD') {
+        wsc.close()
+
+        location.reload();
+      }
+    };
+  </script>
   
 </body>
 
