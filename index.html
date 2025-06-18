@@ -89,7 +89,7 @@
     </div>
   </header>
 
-  <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" aria-label="Menu"
+  <button id="menu-btn" class="absolute end-0 m-1 p-2 z-20" title="Menu"
     aria-controls="menu-window" aria-expanded="false">
     <span id="menu-icon" class="block text-[24px]">🌂</span>
   </button>
@@ -114,7 +114,6 @@
         transition-transform duration-[1.5s] ease-out active:scale-150">
         <!-- Kobo art credit https://x.com/Ryunana19/status/1861565683756343368 -->
         <img class="w-3/4 mx-auto animate-[spin_5s_linear_infinite]" src="assets/img/kobo_art.webp" alt="Kobo art by Ryuna on X">
-        <div class="absolute top-0 left-0 w-full h-full"></div>
       </button>
 
       <button id="next-btn" class="self-center invisible w-12 h-12 rounded-full bg-white/25 border-2 border-white/20
@@ -130,7 +129,7 @@
 
     <section id="playlist-window" class="absolute w-full md:w-3/4 lg:w-[45%] h-full p-0 md:p-4
       ltr:md:-translate-x-full rtl:md:translate-x-full translate-y-full md:translate-y-0 z-30 md:z-10
-      transition-[transform,width] ease-out duration-300" aria-label="Playlist window" aria-hidden="true" inert>
+      transition-[transform,width] ease-out duration-300" aria-labelledby="playlist-header" aria-hidden="true" inert>
       <div class="flex flex-col w-full h-full py-4 px-4 rounded-none md:rounded-xl bg-white/50 backdrop-blur-default overflow-hidden">
         <header class="flex-none px-2 mb-6">
           <h2 id="playlist-header" class="block rtl:ps-6 text-xl font-bold">Playlist</h2>
@@ -158,7 +157,7 @@
           </button>
         </section>
 
-        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]" aria-labelledby="playlist-header">
+        <section class="p-2 mb-6 overflow-x-auto [scrollbar-width:none]">
           <ul id="audio-playlist" class="words-list sound-list song-list">
             
   <li id="focused-audio"
@@ -1132,7 +1131,7 @@
           <section class="mb-4" aria-labelledby="settings-header" role="group">
             <h3 id="settings-header" class="block font-bold">Settings</h3>
 
-            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-rose-700" tabindex="0">
+            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-dark-blue" tabindex="0">
               <span class="flex-auto">
                 Include Song Audio
                 <small class="block text-sm text-black">Song may be copyrighted</small>
@@ -1147,7 +1146,7 @@
               </div>
             </label>
 
-            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-rose-700" tabindex="0">
+            <label class="switch group flex items-center mb-3 cursor-pointer hover:text-dark-blue" tabindex="0">
               <span class="flex-auto">
                 Display Audio Control
                 <small class="block text-sm text-black">Such as pause and volume control</small>
@@ -1169,12 +1168,12 @@
             <h3 id="about1-header" class="block font-bold">About Kobo Kanaeru</h3>
             <p class="mb-2">Kobo Kanaeru is a VTuber from hololive Indonesia. She loves singing and playing games in her live stream on Youtube.</p>
             <ul class="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-x-2 gap-y-1 text-dark-blue-p3">
-              <li><a class="hover:text-rose-700" href="https://www.youtube.com/@KoboKanaeru" target="_blank" rel="noopener noreferrer">Youtube</a></li>
-              <li><a class="hover:text-rose-700" href="https://x.com/kobokanaeru" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
-              <li><a class="hover:text-rose-700" href="https://www.instagram.com/kobokanaeru/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a class="hover:text-rose-700" href="https://www.facebook.com/KoboKanaeru" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-              <li><a class="hover:text-rose-700" href="https://www.tiktok.com/@kobokanaeru" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
-              <li><a class="hover:text-rose-700" href="https://hololive.hololivepro.com/en/talents/kobo-kanaeru/" target="_blank" rel="noopener noreferrer">Official webpage</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://www.youtube.com/@KoboKanaeru" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://x.com/kobokanaeru" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://www.instagram.com/kobokanaeru/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://www.facebook.com/KoboKanaeru" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://www.tiktok.com/@kobokanaeru" target="_blank" rel="noopener noreferrer">Tiktok</a></li>
+              <li><a class="hover:text-accent hover:text-shadow" href="https://hololive.hololivepro.com/en/talents/kobo-kanaeru/" target="_blank" rel="noopener noreferrer">Official webpage</a></li>
             </ul>
           </section>
 
@@ -1187,9 +1186,9 @@
               Thanks to the contributors involved in the development and maintenance of this website and special thanks to Ryuna for the Kobo art.
             </p>
             <ul class="mb-2 text-dark-blue-p3">
-              <li class="mb-2"><a class="hover:text-rose-700" href="https://x.com/Ryunana19" target="_blank" rel="noopener noreferrer">Ryuna</a></li>
-              <li class="mb-2"><a class="hover:text-rose-700" href="https://github.com/genericat/kobo-button" target="_blank" rel="noopener noreferrer">Github repository</a></li>
-              <li class="mb-2"><a class="hover:text-rose-700" href="https://x.com/genericat_x" target="_blank" rel="noopener noreferrer">Developer contact</a></li>
+              <li class="mb-2"><a class="hover:text-accent hover:text-shadow" href="https://x.com/Ryunana19" target="_blank" rel="noopener noreferrer">Ryuna</a></li>
+              <li class="mb-2"><a class="hover:text-accent hover:text-shadow" href="https://github.com/genericat/kobo-button" target="_blank" rel="noopener noreferrer">Github repository</a></li>
+              <li class="mb-2"><a class="hover:text-accent hover:text-shadow" href="https://x.com/genericat_x" target="_blank" rel="noopener noreferrer">Developer contact</a></li>
             </ul>
           </section>
         </div>
@@ -1198,7 +1197,7 @@
   </main>
 
   <footer class="absolute bottom-0 w-full text-xs text-center text-white/50">
-    <span>Unofficial | &copy; 2016 COVER Corp. </span>
+    <span>Unofficial | &copy; 2016 COVER Corp.</span>
   </footer>
 
   <script src="assets/script.js"></script>

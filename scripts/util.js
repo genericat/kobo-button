@@ -65,6 +65,12 @@ const getLangObj = async (lang = null) => {
     let langObj = JSON.parse(langString);
 
     if (!lang || lang === langObj.meta.lang) {
+
+      if (langFile === 'en.json') {
+        langObjs.unshift(langObj);
+        continue;
+      }
+
       langObjs.push(langObj);
     }
   }

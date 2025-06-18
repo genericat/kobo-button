@@ -13,6 +13,15 @@ import fs from 'node:fs';
  */
 const params = process.argv.slice(2);
 
+/**
+ * Language object used as a fallback when another language object lacks a property.
+ *
+ * Fallback to English language object.
+ *
+ * @type object
+ */
+let fallbackLangObj = {};
+
 const baseUrl = process.env.APP_URL;
 
 try {
@@ -23,21 +32,26 @@ try {
     util.getHtmlTemplate(true)
   ]);
 
+  fallbackLangObj = langObjs[0];
+
   langObjs.forEach(langObj => {
-    langObj.playlist = playlistTemplate({ playlistNotice: langObj.playlistNotice });
-    langObj.langs    = langsMetaData;
-    langObj.baseUrl  = baseUrl;
-    langObj.wsPort   = null;
 
-    const htmlString = htmlTemplate(langObj);
+    const uniformedLangObj = {...fallbackLangObj, ...langObj}
 
-    fs.writeFileSync(`./lang/${langObj.meta.lang}.html`, htmlString, 'utf8');
+    uniformedLangObj.playlist = playlistTemplate({ playlistNotice: uniformedLangObj.playlistNotice });
+    uniformedLangObj.langs    = langsMetaData;
+    uniformedLangObj.baseUrl  = baseUrl;
+    uniformedLangObj.wsPort   = null;
+
+    const htmlString = htmlTemplate(uniformedLangObj);
+
+    fs.writeFileSync(`./lang/${uniformedLangObj.meta.lang}.html`, htmlString, 'utf8');
 
 
     const date = new Date();
-    console.log(`[${date.toLocaleTimeString()}] Rendering ${langObj.meta.lang}.html done`);
+    console.log(`[${date.toLocaleTimeString()}] Rendering ${uniformedLangObj.meta.lang}.html done`);
 
-    if (langObj.meta.lang === 'en') {
+    if (uniformedLangObj.meta.lang === 'en') {
       fs.copyFileSync('./lang/en.html', './index.html');
 
       const date = new Date();
