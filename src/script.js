@@ -720,6 +720,8 @@ playBtn.addEventListener('click', () => {
   replayBtn.classList.remove('invisible');
 });
 
+playBtn.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+
 
 replayBtn.onclick = () => {
   audioEl1.load();
