@@ -17,16 +17,16 @@ npm i
 
 ## Making change and Contributing
 
-You can do local development by modify `src/index.ejs`, `src/style.css`, or `src/script.js`.
-
 Run the start command to start the server and file watcher.
 ```bash
 npm run start
 ```
 The file watcher by default render the ejs file to `lang/en.html` only. So, go to `[APP_URL]:[HTTP_PORT]/lang/en.html` to test the local development.
 
+You can do local development by modify `src/index.ejs`, `src/style.css`, or `src/script.js`. Refer to a section below if you want to do translation or add new audio clip.
+
 ℹ️
-If you want to do a contribution, you have to **fork this repo**  first and then do the setting up above. Before you commit and make a pull request please don't forget to run `npm run build`.
+If you want to do a contribution, you have to **fork this repo**  and then make a pull request.
 
 
 ## Add or Edit Translation
@@ -34,9 +34,22 @@ If you want to do a contribution, you have to **fork this repo**  first and then
 You can add or improve a translation file to make this web app more accessible.
 
 1. If you want to add a translation, first, you need to copy any translation file in `lang/` and rename the file.
-The file name need to be a valid **language code** for `lang` HTML attribute.
+The file name and the `meta.lang` property need to be the same value and a valid **language code** for `lang` HTML attribute.
 ([ref. 1](https://www.arclab.com/en/kb/htmlcss/lang-attribute-2-letter-language-country-codes.html), [ref. 2](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry))
-1. Run the start command and pass the **language code** as the argument before editing the translation file.
+
+```json
+// id.json
+
+{
+  "meta": {
+    "lang": "id",
+    ...
+  },
+  ...
+}
+```
+
+2. Run the start command and pass the **language code** as the argument before editing the translation file.
 ```bash
 npm run start -- {language code}
 
@@ -44,9 +57,9 @@ npm run start -- {language code}
 npm run start -- id
 ```
 
-2. Translate the object values in the file you have copied before.
+3. Translate the object values in the file you have copied before. In case you need to add a new object property, at least add that new property to `src/lang/en.json` so it can be used as a fallback for another language that you are not translating to.
 1. Open a browser and go to `[APP_URL]:[HTTP_PORT]/lang/[language code].html`.
-1. Run `npm run build` after you finished.
+1. Run `npm run build` after you finished. (Optional)
 
 
 ## Add Audio Clip
@@ -64,13 +77,13 @@ Also, as in the derivative works guideline, please **don't** clip audio from mem
 
 Steps for add audio clip.
 
-1. Clip the audio and you may need to process it with any audio editor
-1. Export it to mp3 file and put it in `assets/aud/`
-1. Add the audio data to `assets/audio.json`. Object properties description below
-1. Run/rerun `npm run start`
-1. Open a browser and go to `[APP_URL]:[HTTP_PORT]/lang/en.html`
-1. Open playlist window by press and hold the Kobo button to test it out
-1. Run `npm run build` after you finished
+1. Clip the audio and you may need to process it with any audio editor.
+1. Export it to mp3 file and put it in `assets/aud/`.
+1. Add the audio data to `assets/audio.json`. Object properties description below.
+1. Run/rerun `npm run start` or `npm run build:html`.
+1. Open a browser and go to `[APP_URL]:[HTTP_PORT]/lang/en.html`.
+1. Open the playlist window by long click the Kobo button to test it out.
+1. Run `npm run build` after you finished. (Optional)
 
 Object properties for audio data
 
@@ -81,4 +94,4 @@ Object properties for audio data
 | `category` | ✅ | Valid values are `words`, `sound`, and `song`. |
 | `lang` | ⏹️ | Language of the audio clip. Recommended to write it in their native language. Only required in `words` and `song` category. |
 | `isSeiso` | ✅ | A boolean flag to prevent the audio randomly played from Kobo button but can be played from playlist. Not necessarily about seiso content. |
-| `next` | ❌ | File name without its extension of the next chained audio that can be played by pressing the next button. |
+| `next` | ❌ | File name (without its extension) of the next chained audio that can be played by pressing the next button. |
