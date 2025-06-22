@@ -419,6 +419,13 @@
     "isSeiso": true
   },
   {
+    "name": "bad_word_tl",
+    "title": "(Put tank in a-)",
+    "category": "words",
+    "lang": "Tagalog",
+    "isSeiso": false
+  },
+  {
     "name": "health_ad",
     "title": "Iklan layanan masyarakat (spontan)",
     "category": "song",
@@ -429,7 +436,7 @@
     "name": "zeta_chant",
     "title": "Zeta 📜 Chant",
     "category": "song",
-    "lang": "Mix",
+    "lang": "Mixed language",
     "isSeiso": true
   },
   {
@@ -546,6 +553,102 @@
     "title": "Asal lo tau ya, dek!",
     "category": "words",
     "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "super_idol",
+    "title": "熱愛105度的你",
+    "category": "song",
+    "lang": "官话",
+    "isSeiso": true
+  },
+  {
+    "name": "yippee",
+    "title": "Yippee!",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "wake_up_id",
+    "title": "Udah pagi bangun!",
+    "category": "words",
+    "lang": "Indonesia",
+    "isSeiso": true
+  },
+  {
+    "name": "wake_up_ja",
+    "title": "起きて、起きて、起きて！",
+    "category": "words",
+    "lang": "日本語",
+    "isSeiso": true
+  },
+  {
+    "name": "hello",
+    "title": "Hello!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "hello_mf",
+    "title": "Hello, madafaqah!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "stardenburdenhardenbart",
+    "title": "Stardenburdenhardenbart!",
+    "category": "sound",
+    "isSeiso": true
+  },
+  {
+    "name": "bobo",
+    "title": "Bobo!",
+    "category": "words",
+    "lang": "Tagalog",
+    "isSeiso": false
+  },
+  {
+    "name": "buyback",
+    "title": "I am gonna buyback",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "push_push",
+    "title": "Push! Push! Everybody, push!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "danger",
+    "title": "Danger! Danger!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "retreat",
+    "title": "I say retreat! Retreat!",
+    "category": "words",
+    "lang": "English",
+    "isSeiso": true
+  },
+  {
+    "name": "chipi_chapa",
+    "title": "Dubidubidu",
+    "category": "song",
+    "lang": "Español",
+    "isSeiso": true
+  },
+  {
+    "name": "shikanokonokonokokoshitantan",
+    "title": "しかのこのこのここしたんたん",
+    "category": "song",
+    "lang": "日本語",
     "isSeiso": true
   },
   {
